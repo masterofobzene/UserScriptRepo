@@ -6,7 +6,7 @@
 // @author       masterofobzene
 // @icon         https://store.steampowered.com/favicon.ico
 // @match        https://store.steampowered.com/search*
-// @license      MIT
+// @license      GNU GPLv3
 // @grant        none
 // @downloadURL https://update.greasyfork.org/scripts/528071/%3A%3ASteam%20Search%3A%20Hide%20Games%20Under%20Minimum%20Price%3A%3A.user.js
 // @updateURL https://update.greasyfork.org/scripts/528071/%3A%3ASteam%20Search%3A%20Hide%20Games%20Under%20Minimum%20Price%3A%3A.meta.js
