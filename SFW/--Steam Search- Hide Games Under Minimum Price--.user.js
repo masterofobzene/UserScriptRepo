@@ -8,8 +8,8 @@
 // @match        https://store.steampowered.com/search*
 // @license      GNU GPLv3
 // @grant        none
-// @downloadURL https://update.greasyfork.org/scripts/528071/%3A%3ASteam%20Search%3A%20Hide%20Games%20Under%20Minimum%20Price%3A%3A.user.js
-// @updateURL https://update.greasyfork.org/scripts/528071/%3A%3ASteam%20Search%3A%20Hide%20Games%20Under%20Minimum%20Price%3A%3A.meta.js
+// @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--Steam%20Search-%20Hide%20Games%20Under%20Minimum%20Price--.user.js
+// @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--Steam%20Search-%20Hide%20Games%20Under%20Minimum%20Price--.user.js
 // ==/UserScript==
 
 (function () {
