@@ -27,8 +27,19 @@ You must have violentmonkey, tampermonkey or another script manager for these to
 
 
 
+### NSFW 
+-----------
 
-[]()
+[NSFW.XXX Downloader](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/NSFW.XXX%20Downloader.user.js) Download full-resolution images/videos from NSFW.XXX posts
+
+[Realbooru Downloader](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/Realbooru%20Downloader.user.js) Download full-resolution images and videos from Realbooru posts with a small button
+
+[Reddtastic Downloader](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/Reddtastic%20Downloader.user.js) Shows a download button for each thumbnail to download the full res file.
+
+[ZZup Infinite Scroll](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ZZup%20Infinite%20Scroll.user.js) Repaginates zzup so you get "infinite scroll"
+
+
+
 
 
 
