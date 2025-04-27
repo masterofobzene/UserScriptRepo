@@ -1,16 +1,17 @@
 // ==UserScript==
 // @name         ::YouTube Gameplay Skipper::
-// @namespace    masterofobzene - gameplay skipper
+// @namespace    masterofobzene-gameplay skipper
 // @version      3.2
 // @description  Force skip 2 minutes for videos containing the words "gameplay", "longplay" or "no commentary" in the title.
 // @author       masterofobzene
+// @homepage     https://github.com/masterofobzene/UserScriptRepo
 // @match        https://www.youtube.com/*
 // @icon         https://www.youtube.com/favicon.ico
 // @grant        GM_addStyle
 // @license      GNU GPLv3
 // @run-at       document-start
-// @downloadURL https://update.greasyfork.org/scripts/528070/%3A%3AYouTube%20Gameplay%20Skipper%3A%3A.user.js
-// @updateURL https://update.greasyfork.org/scripts/528070/%3A%3AYouTube%20Gameplay%20Skipper%3A%3A.meta.js
+// @downloadURL  hhttps://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--YouTube%20Gameplay%20Skipper--.user.js
+// @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--YouTube%20Gameplay%20Skipper--.user.js
 // ==/UserScript==
 
 (function() {
