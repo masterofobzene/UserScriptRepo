@@ -14,8 +14,8 @@
 // @connect      nsfw.xxx
 // @connect      cdn2.nsfw.xxx
 // @connect      *
-// @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/
-// @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/
+// @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/NSFW.XXX%20Downloader.user.js
+// @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/NSFW.XXX%20Downloader.user.js
 // ==/UserScript==
 
 (function() {
