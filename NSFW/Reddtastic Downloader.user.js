@@ -1,14 +1,18 @@
 // ==UserScript==
 // @name         Reddtastic Downloader
-// @namespace    https://reddtastic.com/
+// @namespace    Reddtastic-Downloader
+// @homepage     https://github.com/masterofobzene/UserScriptRepo
+// @author       masterofobzene
 // @version      1.4.8
-// @description  Muestra un boton "download" para imagenes y videos.
+// @description  Shows a download button for each thumbnail to download the full res file.
 // @match        https://reddtastic.com/*
 // @icon         https://reddtastic.com/favicon.ico
 // @grant        GM_download
 // @grant        GM_xmlhttpRequest
 // @grant        GM_registerMenuCommand
 // @connect      *
+// @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/Reddtastic%20Downloader.user.js
+// @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/Reddtastic%20Downloader.user.js
 // ==/UserScript==
 
 (function () {
