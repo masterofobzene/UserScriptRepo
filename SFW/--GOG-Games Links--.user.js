@@ -4,7 +4,7 @@
 // @version      3.1
 // @description  Adds a YouTube button per game card to search for no-commentary gameplay videos. It was made with deepseek AI.
 // @author       masterofobzene
-// @license      MIT
+// @license      GNU GPLv3
 // @match        *://gog-games.to/*
 // @grant        none
 // @icon         https://files.mastodon.social/accounts/avatars/114/061/563/113/485/047/original/f9c6c7664af152f1.png
