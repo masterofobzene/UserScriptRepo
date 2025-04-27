@@ -4,11 +4,14 @@
 // @version      1.8
 // @description  Esconde "job cards" de la búsqueda basado en palabras clave.
 // @author       masterofobzene
+// @homepage     https://github.com/masterofobzene/UserScriptRepo
 // @match        https://www.bumeran.com.ar/*
 // @license      GNU GPLv3
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @grant        GM_registerMenuCommand
+// @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/Bumeran%20Job%20Filter.user.js
+// @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/Bumeran%20Job%20Filter.user.js
 // ==/UserScript==
 
 (function() {
