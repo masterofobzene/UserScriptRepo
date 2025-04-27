@@ -1,12 +1,15 @@
 // ==UserScript==
 // @name         SearXNG Filter Assistant
-// @namespace    SearXNG Filter Assistant
+// @namespace    SearXNGFilterAssistant
 // @version      1.2
-// @description  Add predefined filters to SearXNG searches
+// @description  Add predefined filters to SearXNG searches. Still beta.
 // @author       masterofobzene
+// @homepage     https://github.com/masterofobzene/UserScriptRepo
 // @match        *://*/*
 // @grant        GM_addStyle
 // @license      GNU GPLv3
+// @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/SearXNG%20Filter%20Assistant.user.js
+// @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/SearXNG%20Filter%20Assistant.user.js
 // ==/UserScript==
 
 (function() {
