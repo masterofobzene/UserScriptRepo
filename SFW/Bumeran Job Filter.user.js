@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Bumeran Job Filter
-// @namespace    Violentmonkey Scripts
+// @namespace    Bumeran-Job-Filter
 // @version      1.8
 // @description  Esconde "job cards" de la búsqueda basado en palabras clave.
 // @author       masterofobzene
