@@ -6,7 +6,7 @@
 // @description  Adds links for GOG store to gameplay videos without youtubers comments and direct search on Gog-games for free clean download.
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
 // @match        *://www.gog.com/*/game/*
-// @homepage
+// @homepage     https://github.com/masterofobzene/UserScriptRepo
 // @icon         https://www.gog.com/favicon.ico
 // @run-at       document-end
 // @grant        none
