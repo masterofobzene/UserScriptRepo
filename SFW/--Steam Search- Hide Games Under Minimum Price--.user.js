@@ -4,6 +4,7 @@
 // @version      1.5
 // @description  Hides games priced below $5.00 on Steam's search page by default. (Can be personalized)
 // @author       masterofobzene
+// @homepage     https://github.com/masterofobzene/UserScriptRepo
 // @icon         https://store.steampowered.com/favicon.ico
 // @match        https://store.steampowered.com/search*
 // @license      GNU GPLv3
