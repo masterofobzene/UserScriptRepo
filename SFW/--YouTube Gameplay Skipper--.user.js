@@ -7,7 +7,7 @@
 // @match        https://www.youtube.com/*
 // @icon         https://www.youtube.com/favicon.ico
 // @grant        GM_addStyle
-// @license      MIT
+// @license      GNU GPLv3
 // @run-at       document-start
 // @downloadURL https://update.greasyfork.org/scripts/528070/%3A%3AYouTube%20Gameplay%20Skipper%3A%3A.user.js
 // @updateURL https://update.greasyfork.org/scripts/528070/%3A%3AYouTube%20Gameplay%20Skipper%3A%3A.meta.js
