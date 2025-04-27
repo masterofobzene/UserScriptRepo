@@ -8,7 +8,7 @@
 // @match        http://store.steampowered.com/app/*
 // @match        https://store.steampowered.com/app/*
 // @grant        none
-// @license MIT
+// @license      GNU GPLv3
 // @downloadURL https://update.greasyfork.org/scripts/460862/%3A%3ASteam%20Links%3A%3A.user.js
 // @updateURL https://update.greasyfork.org/scripts/460862/%3A%3ASteam%20Links%3A%3A.meta.js
 // ==/UserScript==
