@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         ZZup Infinite Scroll
-// @namespace    http://zzup.com/
+// @namespace    ZZup-Infinite-Scroll
 // @version      1.1
 // @description  Repaginates zzup so you get "infinite scroll"
 // @author       masterofobzene
@@ -11,8 +11,8 @@
 // @grant        GM_addStyle
 // @connect      zzup.com
 // @run-at       document-end
-// @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/
-// @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/
+// @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ZZup%20Infinite%20Scroll.user.js
+// @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ZZup%20Infinite%20Scroll.user.js
 // ==/UserScript==
 
 (function() {
