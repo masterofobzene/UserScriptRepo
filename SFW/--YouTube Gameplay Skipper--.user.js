@@ -10,7 +10,7 @@
 // @grant        GM_addStyle
 // @license      GNU GPLv3
 // @run-at       document-start
-// @downloadURL  hhttps://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--YouTube%20Gameplay%20Skipper--.user.js
+// @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--YouTube%20Gameplay%20Skipper--.user.js
 // @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--YouTube%20Gameplay%20Skipper--.user.js
 // ==/UserScript==
 
