@@ -5,12 +5,13 @@
 // @icon         https://cdn.freebiesupply.com/images/large/2x/steam-logo-black-transparent.png
 // @description  Lets you easily search the games on clean DL sites, watch gameplays without youtuber's comments and see if the game is woke-oriented.
 // @author       masterofobzene
+// @homepage     https://github.com/masterofobzene/UserScriptRepo
 // @match        http://store.steampowered.com/app/*
 // @match        https://store.steampowered.com/app/*
 // @grant        none
 // @license      GNU GPLv3
-// @downloadURL https://update.greasyfork.org/scripts/460862/%3A%3ASteam%20Links%3A%3A.user.js
-// @updateURL https://update.greasyfork.org/scripts/460862/%3A%3ASteam%20Links%3A%3A.meta.js
+// @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--Steam%20Links--.user.js
+// @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--Steam%20Links--.user.js
 // ==/UserScript==
 
 
