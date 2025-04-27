@@ -11,8 +11,8 @@
 // @run-at       document-end
 // @grant        none
 // @license      GNU GPLv3
-// @downloadURL https://update.greasyfork.org/scripts/489970/%3A%3AGOG%20Links%3A%3A.user.js
-// @updateURL https://update.greasyfork.org/scripts/489970/%3A%3AGOG%20Links%3A%3A.meta.js
+// @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--GOG%20Links--.user.js
+// @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--GOG%20Links--.user.js
 // ==/UserScript==
 
 var pirateLinks = [
