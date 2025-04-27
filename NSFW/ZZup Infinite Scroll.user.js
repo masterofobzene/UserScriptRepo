@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ZZup Infinite Scroll
 // @namespace    ZZup-Infinite-Scroll
-// @version      1.1.2
+// @version      1.1
 // @description  Repaginates zzup so you get "infinite scroll"
 // @author       masterofobzene
 // @homepage     https://github.com/masterofobzene/UserScriptRepo
