@@ -4,13 +4,14 @@
 // @version      2.4
 // @description  Hide/remove games matching your keywords on GOG.com and collapse the grid slots they occupied
 // @author       masterofobzene
+// @homepage     https://github.com/masterofobzene/UserScriptRepo
 // @icon         https://www.gog.com/favicon.ico
 // @match        https://www.gog.com/*/games*
 // @grant        none
 // @run-at       document-end
 // @license      GNU GPLv3
-// @downloadURL https://update.greasyfork.org/scripts/533737/GOGcom%20-%20Promo%20Filter.user.js
-// @updateURL https://update.greasyfork.org/scripts/533737/GOGcom%20-%20Promo%20Filter.meta.js
+// @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/GOG.com%20-%20Promo%20Filter.user.js
+// @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/GOG.com%20-%20Promo%20Filter.user.js
 // ==/UserScript==
 
 (function() {
