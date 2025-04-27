@@ -2,7 +2,7 @@
 // @name         ::Steam Search: Hide Games Under Minimum Price::
 // @namespace    masterofobzene-Hide Games Under Minimum Price
 // @version      1.5
-// @description  Hides games priced below $5.00 on Steam's search page by default. (Can be personalized)
+// @description  Hides games by minimum price set by the user, also can hide no-reviews or mixed/negative reviewed games on Steam search.
 // @author       masterofobzene
 // @homepage     https://github.com/masterofobzene/UserScriptRepo
 // @icon         https://store.steampowered.com/favicon.ico
