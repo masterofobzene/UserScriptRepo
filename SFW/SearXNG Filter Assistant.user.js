@@ -6,6 +6,7 @@
 // @author       masterofobzene
 // @match        *://*/*
 // @grant        GM_addStyle
+// @license      GNU GPLv3
 // ==/UserScript==
 
 (function() {
