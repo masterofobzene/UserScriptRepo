@@ -10,7 +10,7 @@
 // @icon         https://www.gog.com/favicon.ico
 // @run-at       document-end
 // @grant        none
-// @license      MIT
+// @license      GNU GPLv3
 // @downloadURL https://update.greasyfork.org/scripts/489970/%3A%3AGOG%20Links%3A%3A.user.js
 // @updateURL https://update.greasyfork.org/scripts/489970/%3A%3AGOG%20Links%3A%3A.meta.js
 // ==/UserScript==
