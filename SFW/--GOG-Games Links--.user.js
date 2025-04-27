@@ -2,7 +2,7 @@
 // @name         ::GOG-Games Links::
 // @namespace    masterofobzene-GOG-Games
 // @version      3.1
-// @description  Adds a YouTube button per game card to search for no-commentary gameplay videos. It was made with deepseek AI.
+// @description  Adds a YouTube button per game card to search for no-commentary gameplay videos.
 // @author       masterofobzene
 // @homepage     https://github.com/masterofobzene/UserScriptRepo
 // @license      GNU GPLv3
