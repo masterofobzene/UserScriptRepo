@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         ::Steam Links::
-// @namespace    masterofobzene
+// @namespace    Steam-Links
 // @version      2.2
 // @icon         https://cdn.freebiesupply.com/images/large/2x/steam-logo-black-transparent.png
 // @description  Lets you easily search the games on clean DL sites, watch gameplays without youtuber's comments and see if the game is woke-oriented.
