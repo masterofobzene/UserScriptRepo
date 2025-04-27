@@ -2,7 +2,7 @@
 // @name         SearXNG Filter Assistant
 // @namespace    SearXNGFilterAssistant
 // @version      1.2
-// @description  Add predefined filters to SearXNG searches. Still beta.
+// @description  [BETA] - Add predefined filters to SearXNG searches.
 // @author       masterofobzene
 // @homepage     https://github.com/masterofobzene/UserScriptRepo
 // @match        *://*/*
