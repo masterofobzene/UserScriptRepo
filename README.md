@@ -4,7 +4,7 @@ A place to put the userscripts I make. Take a look, see if something is useful.
 
 ## INSTALL INDEX
 You must have violentmonkey, tampermonkey or another script manager for these to work.
-Click on the script name to install it.
+Click on the script name to install it. All scripts here were made for Firefox/Librewolf.
 
 ### SFW 
 -----------
