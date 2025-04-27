@@ -23,7 +23,7 @@ Click on the script name to install it.
 
 [GOG.com - Promo Filter](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/GOG.com%20-%20Promo%20Filter.user.js) Hide/remove games matching your keywords on GOG.com and collapse the grid slots they occupied
 
-[SearXNG Filter Assistant](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/SearXNG%20Filter%20Assistant.user.js) BETA] - Add predefined filters to SearXNG searches.
+[SearXNG Filter Assistant](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/SearXNG%20Filter%20Assistant.user.js) [BETA] - Add predefined filters to SearXNG searches.
 
 
 
