@@ -1,6 +1,12 @@
 # UserScriptRepo
 A place to put the userscripts I make. Take a look, see if something is useful.
 
+Supports:
+
+<img src="https://github.com/user-attachments/assets/f19d0af1-3b20-4d0e-9911-7a601b8cf6f0" width="48">
+<img src="https://github.com/user-attachments/assets/7462fb24-d8c9-4ca0-a328-5fbb1293e458" width="48">
+<img src="https://github.com/user-attachments/assets/b09a26c7-f707-402b-9be6-e643b95ed04a" width="48">
+
 
 ## INSTALL INDEX
 You must have violentmonkey, tampermonkey or another script manager for these to work.
