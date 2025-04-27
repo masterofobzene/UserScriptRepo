@@ -11,8 +11,8 @@
 // @grant        GM_xmlhttpRequest
 // @connect      realbooru.com
 // @run-at       document-end
-// @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/
-// @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/
+// @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/Realbooru%20Downloader.user.js
+// @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/Realbooru%20Downloader.user.js
 // ==/UserScript==
 
 (function () {
