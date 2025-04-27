@@ -3,7 +3,7 @@
 // @namespace    masterofobzene
 // @version      2.2
 // @icon         https://cdn.freebiesupply.com/images/large/2x/steam-logo-black-transparent.png
-// @description  Let's you easily search the games on clean DL sites, watch gameplays without youtuber's comments and see if the game is woke-oriented.
+// @description  Lets you easily search the games on clean DL sites, watch gameplays without youtuber's comments and see if the game is woke-oriented.
 // @author       masterofobzene
 // @match        http://store.steampowered.com/app/*
 // @match        https://store.steampowered.com/app/*
