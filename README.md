@@ -19,11 +19,15 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 
 <img src="https://github.com/user-attachments/assets/2d74e639-dcc7-426b-8eb7-f6be3b99f908" width="400">
 
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/GOG%20Links.md)
+
 -----------
 
 [::GOG-Games Links::](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--GOG-Games%20Links--.user.js) Adds a YouTube button per game card to search for no-commentary gameplay videos.
 
 <img src="https://github.com/user-attachments/assets/681f7c9a-4d4e-4d86-a918-bb8b3746138a" width="400">
+
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/GOG-Games%20Links.md)
 
 -----------
 
@@ -31,11 +35,15 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 
 <img src="https://github.com/user-attachments/assets/3ea35791-0753-4503-a458-aba84db86af8" width="400">
 
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Steam%20Links.md)
+
 -----------
 
 [::Steam Search: Hide Games Under Minimum Price::](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--Steam%20Search-%20Hide%20Games%20Under%20Minimum%20Price--.user.js) Hides games by minimum price set by the user, also can hide no-reviews or mixed/negative reviewed games on Steam search.
 
 <img src="https://github.com/user-attachments/assets/6b653c69-677c-4f27-aa48-2c76d02acf5b" width="400">
+
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Steam%20Search%3A%20Hide%20Games%20Under%20Minimum%20Price.md)
 
 -----------
 
@@ -43,11 +51,15 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 
 <img src="https://github.com/user-attachments/assets/e2eff2bd-50f6-4653-bec4-869f896eedad" width="400">
 
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/YouTube%20Gameplay%20Skipper.md)
+
 -----------
 
 [Bumeran Job Filter](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/Bumeran%20Job%20Filter.user.js) Esconde "job cards" de la búsqueda basado en palabras clave.
 
 <img src="https://github.com/user-attachments/assets/375a4ad8-c43d-447a-adca-82310e4e4519" width="400">
+
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Bumeran%20Job%20Filter.md)
 
 -----------
 
@@ -55,12 +67,15 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 
 <img src="https://github.com/user-attachments/assets/6b0b4cb4-248a-422e-a737-a617f71e557d" width="400">
 
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/GOG.com%20-%20Promo%20Filter.md)
+
 -----------
 
 [SearXNG Filter Assistant](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/SearXNG%20Filter%20Assistant.user.js) [BETA] - Add predefined filters to SearXNG searches.
 
 <img src="https://github.com/user-attachments/assets/04f2ab4a-2175-4368-858f-eba597153beb" width="400">
 
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/SearXNG%20Filter%20Assistant.md)
 
 -----------
 
@@ -70,12 +85,19 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 
 [NSFW.XXX Downloader](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/NSFW.XXX%20Downloader.user.js) Download full-resolution images/videos from NSFW.XXX posts
 
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/NSFW%20Button%20Downloaders.md)
+
 [Realbooru Downloader](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/Realbooru%20Downloader.user.js) Download full-resolution images and videos from Realbooru posts with a small button
+
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/NSFW%20Button%20Downloaders.md)
 
 [Reddtastic Downloader](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/Reddtastic%20Downloader.user.js) Shows a download button for each thumbnail to download the full res file.
 
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/NSFW%20Button%20Downloaders.md)
+
 [ZZup Infinite Scroll](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ZZup%20Infinite%20Scroll.user.js) Repaginates zzup so you get "infinite scroll"
 
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/ZZup%20Infinite%20Scroll.md)
 
 
 
