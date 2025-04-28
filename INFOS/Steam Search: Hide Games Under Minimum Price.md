@@ -1,0 +1,22 @@
+### USE CASE:
+--------------
+Filtering the search page to get a clean catalog. TL;DR: Now you have unlimited
+tag filtering + minimum price filtering on Steam.
+
+### USAGE:
+---------------
+On the right of your usual Steam search menu, you will find a new box to set a MINIMUM PRICE 
+to show games; by rising this bar you will filter cheaper (mostly trash) games. It also has
+one option to filter out games with "mixed/mostly negative" reviews and one to filter games
+without reviews (⚠ warning as this last option will filter new games until they start getting 
+reviewed).
+
+### WHY?:
+---------------
+Steam is full of trash games. It is a sewer. "Troll games" everywhere, priced $0.80 and such. 
+It was impossible to browse the catalog like that, so I did what Steam ACIVELY REFUSED to do:
+I created the long-waited MINIMUM PRICE filter that we all have been waiting. To extend its 
+functionalities, I added further filters by using the reviews system. 
+If you are thinking "why don't you simply use steamdb?" I answer you: steamdb has a hard-limit
+on tags you can filter, meaning it is also useless. 
+Enjoy browsing a clean, completely filtrable Steam catalog now!
