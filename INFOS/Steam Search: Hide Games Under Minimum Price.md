@@ -1,5 +1,8 @@
 ### USE CASE:
 --------------
+⚠ If prices are not in US dollars this extension requires you to either install [Force Steam US Dollars](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/Force%20Steam%20US%20Dollars.user.js)
+or manually modify it to set the correct prices in your local currency.
+
 Filtering the search page to get a clean catalog. TL;DR: Now you have unlimited
 tag filtering + minimum price filtering on Steam.
 
