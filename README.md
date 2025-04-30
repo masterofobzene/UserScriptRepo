@@ -79,7 +79,14 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 
 -----------
 
+[Force Steam US Dollars](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/Force%20Steam%20US%20Dollars.user.js) Makes Steam search show prices in US dollars without caring about your IP location. Useful to be able to use the price filter userscript from above if you see prices in other currency.
 
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Force%20Steam%20US%20Dollars.md)
+
+
+
+
+-----------
 ### NSFW 
 -----------
 
