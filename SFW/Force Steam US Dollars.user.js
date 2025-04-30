@@ -6,6 +6,7 @@
 // @author       masterofobzene
 // @match        https://store.steampowered.com/*
 // @grant        none
+// @license      GNU GPLv3
 // @run-at       document-start
 // ==/UserScript==
 
