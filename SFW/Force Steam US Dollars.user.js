@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Force Steam US Dollars
 // @namespace    Force-Steam-US-Dollars
-// @version      1.1
+// @version      1.2
 // @description  Always use dollars as currency in Steam Search results.
 // @author       masterofobzene
 // @match        https://store.steampowered.com/*
