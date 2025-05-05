@@ -23,6 +23,8 @@ mostly outdated for a lot of games.
 
 4- There may not be any changelogs or may be completely abandoned.
 
+5- We rely on the devs maintaining the changelogs, so check the version before assuming anything.
+
 
 ### WHY?:
 ---------------
