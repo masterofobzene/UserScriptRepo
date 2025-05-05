@@ -23,11 +23,12 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 
 -----------
 
-[::GOG-Games Links::](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--GOG-Games%20Links--.user.js) Adds a YouTube button per game card to search for no-commentary gameplay videos.
+[::GOG-Games Links::](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--GOG-Games%20Links--.user.js) Adds "Gameplay Video" and "Changelog" buttons per game card to search for no-commentary gameplay videos and if lucky, a changelog.
 
-<img src="https://github.com/user-attachments/assets/681f7c9a-4d4e-4d86-a918-bb8b3746138a" width="400">
+<img src="https://github.com/user-attachments/assets/d297d4a1-42c9-4cfb-82dc-677dd8c2ff91" width="400">
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/GOG-Games%20Links.md)
+
 
 -----------
 
