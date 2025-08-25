@@ -106,9 +106,11 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/NSFW%20Button%20Downloaders.md)
 
 -----------
-[ZZup Infinite Scroll](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ZZup%20Infinite%20Scroll.user.js) Repaginates zzup so you get "infinite scroll"
+The page is down forever.
 
-[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/ZZup%20Infinite%20Scroll.md)
+~~[ZZup Infinite Scroll](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ZZup%20Infinite%20Scroll.user.js) Repaginates zzup so you get "infinite scroll"~~
+
+~~[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/ZZup%20Infinite%20Scroll.md)~~
 
 -----------
 
