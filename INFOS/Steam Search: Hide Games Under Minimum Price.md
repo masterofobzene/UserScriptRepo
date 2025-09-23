@@ -17,7 +17,7 @@ reviewed).
 ### WHY?:
 ---------------
 Steam is full of trash games. It is a sewer. "Troll games" everywhere, priced $0.80 and such. 
-It was impossible to browse the catalog like that, so I did what Steam ACIVELY REFUSED to do:
+It was impossible to browse the catalog like that, so I did what Steam ACTIVELY REFUSED to do:
 I created the long-waited MINIMUM PRICE filter that we all have been waiting. To extend its 
 functionalities, I added further filters by using the reviews system. 
 If you are thinking "why don't you simply use steamdb?" I answer you: steamdb has a hard-limit
