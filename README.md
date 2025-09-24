@@ -108,7 +108,7 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 -----------
 Successor of zzup
 
-[up2img Infinite Scroll](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ZZup%20Infinite%20Scroll.user.js) Repaginates zzup so you get "infinite scroll"
+[up2img Infinite Scroll](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ZZup%20Infinite%20Scroll.user.js) Repaginates up2img.com so you get "infinite scroll"
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/ZZup%20Infinite%20Scroll.md)
 
