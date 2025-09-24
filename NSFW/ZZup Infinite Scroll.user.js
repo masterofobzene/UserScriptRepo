@@ -1,15 +1,15 @@
 // ==UserScript==
-// @name         ZZup Infinite Scroll
-// @namespace    ZZup-InfiniteScroll
-// @version      1.1
-// @description  Repaginates zzup so you get "infinite scroll"
+// @name         up2img Infinite Scroll
+// @namespace    up2img-InfiniteScroll
+// @version      1.2
+// @description  Repaginates up2img.com so you get "infinite scroll"
 // @author       masterofobzene
 // @homepage     https://github.com/masterofobzene/UserScriptRepo
-// @icon         https://zzup.com/favicon.ico
-// @match        https://zzup.com/pages/page-*.html
+// @icon         https://up2img.com/favicon.ico
+// @match        https://up2img.com/pages/page-*.html
 // @grant        GM.xmlHttpRequest
 // @grant        GM_addStyle
-// @connect      zzup.com
+// @connect      up2img.com
 // @run-at       document-end
 // @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ZZup%20Infinite%20Scroll.user.js
 // @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ZZup%20Infinite%20Scroll.user.js
@@ -85,7 +85,7 @@
         return new Promise((resolve, reject) => {
             GM.xmlHttpRequest({
                 method: 'GET',
-                url: `https://zzup.com/pages/page-${pageNumber}.html`,
+                url: `https://up2img.com/pages/page-${pageNumber}.html`,
                 timeout: 10000,
                 onload: function(response) {
                     response.status === 200 ? resolve(response.responseText) : reject(`HTTP ${response.status}`);
