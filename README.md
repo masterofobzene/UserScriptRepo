@@ -113,6 +113,11 @@ Successor of zzup
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/ZZup%20Infinite%20Scroll.md)
 
 -----------
+[Pornpaw Gallery Filter](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ZZup%20Infinite%20Scroll.user.js) Lets you filter galleries by using words that can be found in any the title or the tags of the galleries
+
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/ZZup%20Infinite%20Scroll.md)
+
+-----------
 
 
 
