@@ -18,7 +18,7 @@
 
     function createFilterUI() {
         const filterDiv = document.createElement('div');
-        filterDiv.style.cssText = 'position:fixed;top:10px;right:10px;background:#fff;border:1px solid #ccc;padding:10px;z-index:1000;';
+        filterDiv.style.cssText = 'position:fixed;top:10px;left:10px;background:#fff;border:1px solid #ccc;padding:10px;z-index:1000;';
         const input = document.createElement('input');
         input.type = 'text';
         input.placeholder = 'Enter words to filter (comma-separated)';
@@ -66,4 +66,5 @@
         createFilterUI();
         filterGalleries();
     }
+
 })();
