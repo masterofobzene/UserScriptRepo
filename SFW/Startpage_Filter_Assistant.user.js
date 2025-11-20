@@ -1,8 +1,16 @@
 // ==UserScript==
 // @name         Startpage Filter Assistant v1.6
+// @namespace    SearXNGFilterAssistant
 // @version      1.6
 // @match        *://www.startpage.com/*
 // @grant        none
+// @description  Add predefined filters to Startpage searches.
+// @author       masterofobzene
+// @homepage     https://github.com/masterofobzene/UserScriptRepo
+// @match        *://*/*
+// @license      GNU GPLv3
+// @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/Startpage_Filter_Assistant.user.js
+// @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/Startpage_Filter_Assistant.user.js
 // ==/UserScript==
 
 (function () {
