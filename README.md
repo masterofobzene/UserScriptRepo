@@ -80,6 +80,14 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 
 -----------
 
+[StartPage Filter Assistant](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/Startpage_Filter_Assistant.user.js)  Add predefined filters to Startpage searches.
+
+<img src="https://github.com/user-attachments/assets/04f2ab4a-2175-4368-858f-eba597153beb" width="400">
+
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Startpage%20Filter%20Assistant.md)
+
+-----------
+
 [Force Steam US Dollars](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/Force%20Steam%20US%20Dollars.user.js) Makes Steam search show prices in US dollars without caring about your IP location. Useful to be able to use the price filter userscript from above if you see prices in other currency.
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Force%20Steam%20US%20Dollars.md)
