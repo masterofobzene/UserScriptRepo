@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Startpage Filter Assistant v1.6
+// @name         Startpage Filter Assistant
 // @namespace    SearXNGFilterAssistant
 // @version      1.6
 // @match        *://www.startpage.com/*
