@@ -127,9 +127,9 @@ Successor of zzup
 
 -----------
 
-[Realbooru Pointer](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/realbooru_pointer.user.js) This extension acts like a book pointer, but for realbooru. 
+[Realbooru Bookmark](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/realbooru_bookmark.user.js) This extension acts like a book pointer, but for realbooru. 
 
-[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Realbooru%20Pointer.md)
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/realbooru_bookmark.md)
 
 -----------
 
