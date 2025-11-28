@@ -1,13 +1,12 @@
 // ==UserScript==
 // @name         Realbooru Page bookmark
-// @namespace    RealbooruPointer
-// @version      1.2
+// @namespace    Realbooru_bookmark
+// @version      1.3
 // @description  Save/Load current page on realbooru.com
 // @author       masterofobzene
 // @match        https://realbooru.com/*
 // @icon         https://realbooru.com/favicon.ico
 // @grant        GM_setValue
-// @grant        GM_getValue
 // @run-at       document-end
 // @license      GNU GPLv3
 // @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/realbooru_bookmark.user.js
@@ -22,7 +21,7 @@
 
     function update() {
         const saved = GM_getValue(KEY);
-        btn.textContent = saved ? 'Load last page' : 'Save current page';
+        btn.textContent = saved ? 'Load last page\n(Right click to reset)' : 'Save current page';
         btn.style.background = saved ? '#43a047' : '#1e88e5';
     }
 
@@ -40,12 +39,16 @@
             border: 'none',
             borderRadius: '6px',
             cursor: 'pointer',
-            fontSize: '14px',
+            fontSize: '9px',
             fontWeight: 'bold',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.4)'
+            boxShadow: '0 4px 12px rgba(0,0,0,0.4)',
+            whiteSpace: 'pre-line',
+            textAlign: 'center'
         });
 
-        btn.onclick = () => {
+        // Left click: save or load
+        btn.onclick = (e) => {
+            e.preventDefault();
             const saved = GM_getValue(KEY);
             if (saved) {
                 if (confirm('Load last page?\n' + saved)) {
@@ -59,15 +62,25 @@
             }
         };
 
+        // Right click: delete saved URL
+        btn.oncontextmenu = (e) => {
+            e.preventDefault();
+            const saved = GM_getValue(KEY);
+            if (saved && confirm('Delete saved page?\n' + saved)) {
+                GM_setValue(KEY, null);
+                update();
+                alert('Saved page deleted');
+            }
+        };
+
         document.body.appendChild(btn);
         update();
     }
 
-    // Ensure button appears even if body loads late
     if (document.body) init();
     else document.addEventListener('DOMContentLoaded', init);
 
-    // Re-check on SPA navigation
+    // Handle SPA navigation
     let lastUrl = location.href;
     new MutationObserver(() => {
         if (location.href !== lastUrl) {
