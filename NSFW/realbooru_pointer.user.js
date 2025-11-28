@@ -5,6 +5,7 @@
 // @description  Save/Load current page on realbooru.com
 // @author       masterofobzene
 // @match        https://realbooru.com/*
+// @icon         https://realbooru.com/favicon.ico
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @run-at       document-end
