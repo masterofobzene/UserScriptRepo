@@ -129,7 +129,7 @@ Successor of zzup
 
 [Realbooru Pointer](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/realbooru_pointer.user.js) This extension acts like a book pointer, but for realbooru. 
 
-[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Pornpaw%20Gallery%20Filter)
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Realbooru%20Pointer.md)
 
 -----------
 
