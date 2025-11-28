@@ -127,7 +127,7 @@ Successor of zzup
 
 -----------
 
-[Realbooru Pointer](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/realbooru_pointer.user.js) Realbooru has the page numbers randomized in the URL, so for example you are browsing page 2 and in the URL it will show something like "...pid=504" in the end where the page number should be. This creates the problem of not being able to come back to keep browsing from that page unless you take the time to make a bookmark. This extension is way shorter than all this explanation and comes to fix that by letting you save the current url and load it later even after closing the browser. Neat.
+[Realbooru Pointer](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/realbooru_pointer.user.js) This extension acts like a book pointer, but for realbooru. 
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Pornpaw%20Gallery%20Filter)
 
