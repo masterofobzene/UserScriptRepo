@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Realbooru Page Pointer
+// @name         Realbooru Page bookmark
 // @namespace    RealbooruPointer
 // @version      1.2
 // @description  Save/Load current page on realbooru.com
@@ -10,8 +10,8 @@
 // @grant        GM_getValue
 // @run-at       document-end
 // @license      GNU GPLv3
-// @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/realbooru_pointer.user.js
-// @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/realbooru_pointer.user.js
+// @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/realbooru_bookmark.user.js
+// @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/realbooru_bookmark.user.js
 // ==/UserScript==
 
 (function () {
