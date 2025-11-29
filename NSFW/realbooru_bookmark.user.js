@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Realbooru Page bookmark
 // @namespace    Realboorubookmark
-// @version      1.5
+// @version      1.6
 // @description  Save/Load current page on realbooru.com
 // @author       masterofobzene
 // @match        https://realbooru.com/*
