@@ -6,6 +6,7 @@
 // @author       masterofobzene
 // @match        https://realbooru.com/*
 // @icon         https://realbooru.com/favicon.ico
+// @grant        GM_getValue
 // @grant        GM_setValue
 // @run-at       document-end
 // @license      GNU GPLv3
