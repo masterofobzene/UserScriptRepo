@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Realbooru Page bookmark
 // @namespace    Realbooru_bookmark
-// @version      1.3
+// @version      1.4
 // @description  Save/Load current page on realbooru.com
 // @author       masterofobzene
 // @match        https://realbooru.com/*
@@ -20,8 +20,9 @@
     let btn = null;
 
     function update() {
+        {
         const saved = GM_getValue(KEY);
-        btn.textContent = saved ? 'Load last page\n(Right click to reset)' : 'Save current page';
+        btn.textContent = saved ? 'Load last page\nRight-click to reset' : 'Save current page';
         btn.style.background = saved ? '#43a047' : '#1e88e5';
     }
 
@@ -29,40 +30,44 @@
         if (btn) return;
 
         btn = document.createElement('button');
+        btn.type = 'button';
         Object.assign(btn.style, {
             position: 'fixed',
             top: '10px',
             right: '10px',
             zIndex: '999999',
-            padding: '10px 15px',
+            padding: '12px 16px',
             color: 'white',
+            background: '#1e88e5',
             border: 'none',
-            borderRadius: '6px',
+            borderRadius: '8px',
             cursor: 'pointer',
-            fontSize: '9px',
+            fontSize: '14px',
             fontWeight: 'bold',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.4)',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
             whiteSpace: 'pre-line',
-            textAlign: 'center'
+            textAlign: 'center',
+            minWidth: '140px',
+            lineHeight: '1.4'
         });
 
-        // Left click: save or load
         btn.onclick = (e) => {
-            e.preventDefault();
-            const saved = GM_getValue(KEY);
-            if (saved) {
-                if (confirm('Load last page?\n' + saved)) {
-                    GM_setValue(KEY, null);
-                    location.href = saved;
+            if (e.button === 0) {  // left click
+                e.preventDefault();
+                const saved = GM_getValue(KEY);
+                if (saved) {
+                    if (confirm('Load last page?\n' + saved)) {
+                        GM_setValue(KEY, null);
+                        location.href = saved;
+                    }
+                } else {
+                    GM_setValue(KEY, location.href);
+                    update();
+                    alert('Page saved');
                 }
-            } else {
-                GM_setValue(KEY, location.href);
-                update();
-                alert('Page saved');
             }
         };
 
-        // Right click: delete saved URL
         btn.oncontextmenu = (e) => {
             e.preventDefault();
             const saved = GM_getValue(KEY);
@@ -80,12 +85,11 @@
     if (document.body) init();
     else document.addEventListener('DOMContentLoaded', init);
 
-    // Handle SPA navigation
     let lastUrl = location.href;
     new MutationObserver(() => {
         if (location.href !== lastUrl) {
             lastUrl = location.href;
-            if (btn) update();
+            update();
         }
     }).observe(document, { subtree: true, childList: true });
 })();
