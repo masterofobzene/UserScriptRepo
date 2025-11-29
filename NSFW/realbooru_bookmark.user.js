@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Realbooru Page bookmark
-// @namespace    RealbooruPointer
+// @namespace    Realboorubookmark
 // @version      1.5
 // @description  Save/Load current page on realbooru.com
 // @author       masterofobzene
@@ -10,12 +10,7 @@
 // @grant        GM_getValue
 // @run-at       document-end
 // @license      GNU GPLv3
-// @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/realbooru_bookmark.user.js
-// @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/realbooru_bookmark.user.js
 // ==/UserScript==
-
-
-
 
 (function () {
     'use strict';
