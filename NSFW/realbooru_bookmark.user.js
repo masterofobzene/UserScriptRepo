@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Realbooru Page bookmark
 // @namespace    Realbooru_bookmark
-// @version      1.4
+// @version      1.5
 // @description  Save/Load current page on realbooru.com
 // @author       masterofobzene
 // @match        https://realbooru.com/*
@@ -20,7 +20,6 @@
     let btn = null;
 
     function update() {
-        {
         const saved = GM_getValue(KEY);
         btn.textContent = saved ? 'Load last page\nRight-click to reset' : 'Save current page';
         btn.style.background = saved ? '#43a047' : '#1e88e5';
@@ -31,11 +30,12 @@
 
         btn = document.createElement('button');
         btn.type = 'button';
+
         Object.assign(btn.style, {
             position: 'fixed',
             top: '10px',
             right: '10px',
-            zIndex: '999999',
+            zIndex: 999999,
             padding: '12px 16px',
             color: 'white',
             background: '#1e88e5',
@@ -51,24 +51,22 @@
             lineHeight: '1.4'
         });
 
-        btn.onclick = (e) => {
-            if (e.button === 0) {  // left click
-                e.preventDefault();
-                const saved = GM_getValue(KEY);
-                if (saved) {
-                    if (confirm('Load last page?\n' + saved)) {
-                        GM_setValue(KEY, null);
-                        location.href = saved;
-                    }
-                } else {
-                    GM_setValue(KEY, location.href);
-                    update();
-                    alert('Page saved');
+        btn.addEventListener('click', e => {
+            if (e.button !== 0) return;
+            const saved = GM_getValue(KEY);
+            if (saved) {
+                if (confirm('Load last page?\n' + saved)) {
+                    GM_setValue(KEY, null);
+                    location.href = saved;
                 }
+            } else {
+                GM_setValue(KEY, location.href);
+                update();
+                alert('Page saved');
             }
-        };
+        });
 
-        btn.oncontextmenu = (e) => {
+        btn.addEventListener('contextmenu', e => {
             e.preventDefault();
             const saved = GM_getValue(KEY);
             if (saved && confirm('Delete saved page?\n' + saved)) {
@@ -76,7 +74,7 @@
                 update();
                 alert('Saved page deleted');
             }
-        };
+        });
 
         document.body.appendChild(btn);
         update();
