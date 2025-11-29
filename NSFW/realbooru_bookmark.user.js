@@ -43,7 +43,7 @@
             border: 'none',
             borderRadius: '8px',
             cursor: 'pointer',
-            fontSize: '14px',
+            fontSize: '10px',
             fontWeight: 'bold',
             boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
             whiteSpace: 'pre-line',
