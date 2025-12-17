@@ -133,8 +133,11 @@ Successor of zzup
 
 -----------
 
+# Browser Extensions
 
+[Search This](https://addons.mozilla.org/en-US/firefox/addon/search-this/)
 
+Description: Select text -> right click -> "search this" -> searches those words in Startpage or a custom engine. No submenus.
 
 
 
