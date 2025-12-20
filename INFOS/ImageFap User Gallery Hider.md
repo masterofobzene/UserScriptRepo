@@ -7,7 +7,8 @@ remove them (keep the format and commas). It is persistent so you don't have to 
  
 ### USAGE:
 ---------------
-Just click the red X button on the avatar of the offender.
+Just click the red X button on the avatar of the offender. After applying to a user or many in the page, reload
+so it applies to ALL instances of the same user.
 
 
 ### WHY?:
