@@ -114,11 +114,11 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/NSFW%20Button%20Downloaders.md)
 
 -----------
-Successor of zzup
+~~Successor of zzup~~
 
-[up2img Infinite Scroll](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ZZup%20Infinite%20Scroll.user.js) Repaginates up2img.com so you get "infinite scroll"
+~~[up2img Infinite Scroll](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ZZup%20Infinite%20Scroll.user.js)~~ ~~Repaginates up2img.com so you get "infinite scroll"~~
 
-[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/ZZup%20Infinite%20Scroll.md)
+~~[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/ZZup%20Infinite%20Scroll.md)~~
 
 -----------
 [Pornpaw Gallery Filter](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ZZup%20Infinite%20Scroll.user.js) Lets you filter galleries by using words that can be found in any the title or the tags of the galleries
@@ -127,9 +127,15 @@ Successor of zzup
 
 -----------
 
-[Realbooru Bookmark](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/realbooru_bookmark.user.js?cachebust=1) This extension acts like a book bookmark, but for realbooru and saves you from having to save a new bookmark everytime. 
+[Realbooru Bookmark](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/realbooru_bookmark.user.js) This extension acts like a book bookmark, but for realbooru and saves you from having to save a new bookmark everytime. 
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Realbooru_bookmark.md)
+
+-----------
+
+[ImageFap User Gallery Hider](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ImageFap_User_Gallery_Hider.user.js) Tired of trannsexuals, gays, furries and such weirdos trying to impose their filth and having no way to filter them? this userscript removes their galleries site-wide with one click on their avatar.
+
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/ImageFap%20User%20Gallery%20Hider.md)
 
 -----------
 
