@@ -82,7 +82,7 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 
 [StartPage Filter Assistant](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/Startpage_Filter_Assistant.user.js)  Add predefined filters to Startpage searches.
 
-<img src="https://github.com/user-attachments/assets/04f2ab4a-2175-4368-858f-eba597153beb" width="400">
+<img src="https://github.com/user-attachments/assets/33d7379a-1f4f-46d1-94df-95aefe2a4127" width="400">
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Startpage%20Filter%20Assistant.md)
 
