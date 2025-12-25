@@ -9,8 +9,8 @@
 // @grant        GM_getValue
 // @grant        GM_setValue
 // @inject-into  content
-// @downloadURL  https://github.com/masterofobzene/UserScriptRepo/edit/main/NSFW/ImageFap_User_Gallery_Hider.user.js
-// @updateURL    https://github.com/masterofobzene/UserScriptRepo/edit/main/NSFW/ImageFap_User_Gallery_Hider.user.js
+// @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ImageFap_User_Gallery_Hider.user.js
+// @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ImageFap_User_Gallery_Hider.user.js
 // ==/UserScript==
 
 (function() {
