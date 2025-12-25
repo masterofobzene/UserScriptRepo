@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ImageFap User Gallery Hider
 // @namespace    ImageFap_User_Gallery_Hider
-// @version      1.3
+// @version      1.4
 // @description  Hide ImageFap user galleries (click ✖) and auto-hide galleries with <4 pictures.
 // @author       masterofobzene
 // @match        https://www.imagefap.com/gallery.php*
@@ -12,6 +12,7 @@
 // @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ImageFap_User_Gallery_Hider.user.js
 // @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ImageFap_User_Gallery_Hider.user.js
 // ==/UserScript==
+
 
 (function() {
     'use strict';
@@ -36,14 +37,13 @@
         const detailRow = titleRow.nextElementSibling;
         if (!detailRow || detailRow.getAttribute('valign') !== 'top') return;
 
-        // Auto-hide galleries with <4 pictures
+        // Auto-hide <4 pics
         const picCountTd = titleRow.querySelector('td > center');
         if (picCountTd) {
-            const picCountText = picCountTd.textContent.trim();
-            const picCount = parseInt(picCountText, 10);
+            const picCount = parseInt(picCountTd.textContent.trim(), 10);
             if (!isNaN(picCount) && picCount < 4) {
                 hideRows(titleRow, detailRow);
-                return; // Skip adding hide button for auto-hidden galleries
+                return;
             }
         }
 
@@ -55,35 +55,22 @@
 
         const username = usernameLink.textContent.trim().toLowerCase();
 
-        // Floating hide button
         const btn = document.createElement('span');
         btn.textContent = '✖';
-        btn.title = `Hide all galleries from ${usernameLink.textContent.trim()}`;
+        btn.title = `Hide all from ${usernameLink.textContent.trim()}`;
         btn.style.cssText = `
-            position: absolute;
-            top: 4px;
-            right: 4px;
-            width: 24px;
-            height: 24px;
-            background: rgba(255,0,0,0.8);
-            color: white;
-            font-weight: bold;
-            text-align: center;
-            line-height: 24px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 16px;
-            z-index: 999;
-            box-shadow: 0 0 4px black;
+            position: absolute; top: 4px; right: 4px;
+            width: 24px; height: 24px; background: rgba(255,0,0,0.8);
+            color: white; font-weight: bold; text-align: center;
+            line-height: 24px; border-radius: 50%; cursor: pointer;
+            font-size: 16px; z-index: 999; box-shadow: 0 0 4px black;
         `;
 
         avatarDiv.style.position = 'relative';
         avatarDiv.appendChild(btn);
 
         btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            e.preventDefault();
-
+            e.stopPropagation(); e.preventDefault();
             if (hiddenUsers.has(username)) {
                 hiddenUsers.delete(username);
                 btn.style.background = 'rgba(255,0,0,0.8)';
@@ -93,11 +80,9 @@
                 btn.style.background = 'rgba(0,150,0,0.9)';
                 hideRows(titleRow, detailRow);
             }
-
             GM_setValue(hiddenUsersKey, Array.from(hiddenUsers));
         });
 
-        // Apply saved user hide state
         if (hiddenUsers.has(username)) {
             hideRows(titleRow, detailRow);
             btn.style.background = 'rgba(0,150,0,0.9)';
@@ -105,15 +90,29 @@
     }
 
     function applyAll() {
-        document.querySelectorAll('tr[id^="1"]').forEach(processGallery);
+        document.querySelectorAll('a[href*="gallery.php?gid="]').forEach(link => {
+            let current = link;
+            while (current && current.tagName !== 'TR') {
+                current = current.parentElement;
+            }
+            if (current && !current.getAttribute('data-processed')) {
+                processGallery(current);
+            }
+        });
     }
 
+    // Initial run
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', applyAll);
     } else {
         applyAll();
     }
 
-    const observer = new MutationObserver(applyAll);
+    // Observer with debounce
+    let timeout;
+    const observer = new MutationObserver(() => {
+        clearTimeout(timeout);
+        timeout = setTimeout(applyAll, 300);
+    });
     observer.observe(document.body, { childList: true, subtree: true });
 })();
