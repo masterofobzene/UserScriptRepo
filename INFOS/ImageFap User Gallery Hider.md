@@ -4,6 +4,7 @@ You can now filter stuff you don't want to see from specified users. This usersc
 in the main gallery search results. A red "X" button will appear on the users avatars so you can obliterate them
 from you view forever. If you want to restore users open the code view of the userscript, then go to "values" and 
 remove them (keep the format and commas). It is persistent so you don't have to do this each time you visit the site.
+UPDATE: It will also hide galleries with less than 4 pictures in them automatically.
  
 ### USAGE:
 ---------------
