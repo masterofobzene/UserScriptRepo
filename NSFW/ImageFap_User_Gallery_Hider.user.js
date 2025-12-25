@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         ImageFap User Gallery Hider
 // @namespace    ImageFap_User_Gallery_Hider
-// @version      1.2
-// @description  Hide ImageFap user galleries (click ✖ button on avatar) with persistence.
+// @version      1.3
+// @description  Hide ImageFap user galleries (click ✖) and auto-hide galleries with <4 pictures.
 // @author       masterofobzene
 // @match        https://www.imagefap.com/gallery.php*
 // @icon         https://www.imagefap.com/favicon.ico
@@ -35,6 +35,17 @@
 
         const detailRow = titleRow.nextElementSibling;
         if (!detailRow || detailRow.getAttribute('valign') !== 'top') return;
+
+        // Auto-hide galleries with <4 pictures
+        const picCountTd = titleRow.querySelector('td > center');
+        if (picCountTd) {
+            const picCountText = picCountTd.textContent.trim();
+            const picCount = parseInt(picCountText, 10);
+            if (!isNaN(picCount) && picCount < 4) {
+                hideRows(titleRow, detailRow);
+                return; // Skip adding hide button for auto-hidden galleries
+            }
+        }
 
         const avatarDiv = detailRow.querySelector('div.avatar');
         if (!avatarDiv) return;
@@ -86,7 +97,7 @@
             GM_setValue(hiddenUsersKey, Array.from(hiddenUsers));
         });
 
-        // Apply saved state
+        // Apply saved user hide state
         if (hiddenUsers.has(username)) {
             hideRows(titleRow, detailRow);
             btn.style.background = 'rgba(0,150,0,0.9)';
@@ -97,14 +108,12 @@
         document.querySelectorAll('tr[id^="1"]').forEach(processGallery);
     }
 
-    // Run on load
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', applyAll);
     } else {
         applyAll();
     }
 
-    // Observe changes (pagination)
     const observer = new MutationObserver(applyAll);
     observer.observe(document.body, { childList: true, subtree: true });
 })();
