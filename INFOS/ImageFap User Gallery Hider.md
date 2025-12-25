@@ -4,6 +4,9 @@ You can now filter stuff you don't want to see from specified users. This usersc
 in the main gallery search results. A red "X" button will appear on the users avatars so you can obliterate them
 from you view forever. If you want to restore users open the code view of the userscript, then go to "values" and 
 remove them (keep the format and commas). It is persistent so you don't have to do this each time you visit the site.
+To put it clear, the sense in doing this is because you are effectively removing users from your sight site-wide so even 
+if they uploaded more stuff on the site before you will not see them again and all in one click!
+
 UPDATE: It will also hide galleries with less than 4 pictures in them automatically.
  
 ### USAGE:
@@ -14,7 +17,7 @@ so it applies to ALL instances of the same user.
 
 ### WHY?:
 ---------------
-That site is a dump filled with weidos trying to somehow convince people to become gay. The site doesn't offer 
+That site is a dump filled with weirdos trying to somehow convince people to become gay. The site doesn't offer 
 any blocking features only if you sign you get some filtering by tags, but the weirdos don't use tags or use 
 false ones to get exposition. The site doesn't mind it seems. So here is your tool to fight back. LGBT my ass.
 
