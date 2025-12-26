@@ -11,6 +11,8 @@ UPDATE: It will also hide galleries with less than 4 pictures in them automatica
 
 UPDATE 2: Now a mini draggable panel will show 3 options to hide users by reported gender. It came to my attention that a lot
 of "female" and "trans" users upload really weird stuff there. Be careful though that these options may hide "normal" content too.
+Also, be aware that in some cases the flag used to hide the gender may not be complete due to a site bug (?) and may not be filtered
+but these are rather rare.
  
 ### USAGE:
 ---------------
