@@ -8,6 +8,9 @@ To put it clear, the sense in doing this is because you are effectively removing
 if they uploaded more stuff on the site before you will not see them again and all in one click!
 
 UPDATE: It will also hide galleries with less than 4 pictures in them automatically.
+
+UPDATE 2: Now a mini draggable panel will show 3 options to hide users by reported gender. It came to my attention that a lot
+of "female" and "trans" users upload really weird stuff there. Be careful though that these options may hide "normal" content too.
  
 ### USAGE:
 ---------------
