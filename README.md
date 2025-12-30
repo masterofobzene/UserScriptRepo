@@ -99,10 +99,13 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Steam%20bad%20reviews.md)
 
 
-
+<br>
+<br>
+<br>
+<br>
 
 -----------
-### NSFW 
+### NSFW 🔞
 -----------
 
 [NSFW.XXX Downloader](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/NSFW.XXX%20Downloader.user.js) Download full-resolution images/videos from NSFW.XXX posts
@@ -143,9 +146,15 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/ImageFap%20User%20Gallery%20Hider.md)
 
------------
 
+<br>
+<br>
+<br>
+<br>
+
+-----------
 # Browser Extensions
+-----------
 
 [Search This](https://addons.mozilla.org/en-US/firefox/addon/search-this/)
 
