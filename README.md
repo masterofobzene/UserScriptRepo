@@ -92,6 +92,12 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Force%20Steam%20US%20Dollars.md)
 
+-----------
+
+[Steam Bad Reviews](https://github.com/masterofobzene/UserScriptRepo/blob/main/SFW/Steam_Bad_Reviews.user.js) Automatically switches to "bad reviews" when visiting the game page so you can judge the game a little bit better.
+
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Steam%20bad%20reviews.md)
+
 
 
 
