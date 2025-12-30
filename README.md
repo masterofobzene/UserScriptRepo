@@ -140,7 +140,7 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 
 -----------
 
-[Realbooru Bookmark](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/realbooru_bookmark.user.js) This extension acts like a book bookmark, but for realbooru and saves you from having to save a new bookmark everytime. 
+[Realbooru Bookmark](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/realbooru_bookmark.user.js) This extension acts like a book bookmark, but for realbooru and saves you from having to save a new bookmark and deleting the old everytime. 
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Realbooru_bookmark.md)
 
