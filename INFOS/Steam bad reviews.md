@@ -15,7 +15,7 @@ a fanboy of some sort. Its the way the industries manipulate people and people s
 instantaneously need to identify themselves with brands and objects, so they exploit this. 
 People bought the "hey this is me! look what I like!", poor souls need to do that.
 Imagine how the reviews system works after this. A useful review is not a positive review anymore. So to save you one step
-this userscript will automatically switch reviews to "negative" so all you will see is the negative reviews, but be aware
+this userscript will automatically switch reviews to "negative" so all you will see are the negative reviews, but be aware
 there are a lot of people giving bad reviews because they want to run Cyberpunk 2077 on a 2016 laptop. 
 
 Use your brain and... READ.
