@@ -94,7 +94,7 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 
 -----------
 
-[Steam Bad Reviews](https://github.com/masterofobzene/UserScriptRepo/blob/main/SFW/Steam_Bad_Reviews.user.js) Automatically switches to "bad reviews" when visiting the game page so you can judge the game a little bit better.
+[Steam Bad Reviews](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/Steam_Bad_Reviews.user.js) Automatically switches to "bad reviews" when visiting the game page so you can judge the game a little bit better.
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Steam%20bad%20reviews.md)
 
