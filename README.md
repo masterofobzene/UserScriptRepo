@@ -160,6 +160,8 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 # Browser Extensions
 -----------
 
+<img src="https://github.com/user-attachments/assets/b28831a3-cb9a-4d05-ae8f-4a68f46fadf1" width="400">
+
 [Search This](https://addons.mozilla.org/en-US/firefox/addon/search-this/)
 
 Description: Select text -> right click -> "search this" -> searches those words in Startpage or a custom engine. No submenus.
