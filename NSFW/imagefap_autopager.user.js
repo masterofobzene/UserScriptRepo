@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         ImageFap Auto-Pagination
-// @namespace    imagefap.autopager.
+// @namespace    imagefap.autopager
 // @version      1.0
 // @description  Load ImageFap gallery pages in batches.
 // @match        http*://www.imagefap.com/pictures/*
