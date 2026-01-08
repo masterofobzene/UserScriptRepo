@@ -150,6 +150,12 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/ImageFap%20User%20Gallery%20Hider.md)
 
+-----------
+
+[ImageFap Gallery Autopager](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/imagefap_autopager.user.js
+) This simple userscript will automatically paginate all the pages of a gallery.
+
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/imagefap_autopager.md)
 
 <br>
 <br>
