@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ImageFap Auto-Pagination
 // @namespace    imagefap.autopager
-// @version      1.0
+// @version      1.1
 // @description  Load ImageFap gallery pages in batches.
 // @match        http*://www.imagefap.com/pictures/*
 // @grant        none
@@ -17,19 +17,21 @@
     const mainGallery = document.querySelector('#gallery');
     if (!mainGallery) return;
 
-    // Detect total pages
-    const pageLinks = [...mainGallery.querySelectorAll('a[href*="&page="]')];
-    let maxPage = 0;
+    // Detect current page
+    const url = new URL(location.href);
+    const currentPage = parseInt(url.searchParams.get('page') || '0', 10);
 
+    let maxPage = 0;
+    const pageLinks = [...mainGallery.querySelectorAll('a[href*="page="]')];
     pageLinks.forEach(a => {
-        const m = a.href.match(/page=(\d+)/);
+        const m = a.href.match(/[\?&]page=(\d+)/);
         if (m) maxPage = Math.max(maxPage, parseInt(m[1], 10));
     });
 
-    console.log('[ImageFap] Pages detected:', maxPage + 1);
+    console.log('[ImageFap] Initial pages detected:', maxPage + 1);
 
-    const loadedPages = new Set([0]);
-    let nextPageToLoad = 1;
+    const loadedPages = new Set([currentPage]);
+    let nextPageToLoad = currentPage + 1;
     const BATCH_SIZE = 10;
     let loading = false;
 
@@ -57,6 +59,19 @@
         const gallery = doc.querySelector('#gallery');
         if (!gallery) return;
 
+        // Update maxPage from newly loaded page
+        const newLinks = gallery.querySelectorAll('a[href*="page="]');
+        [...newLinks].forEach(a => {
+            const m = a.href.match(/[\?&]page=(\d+)/);
+            if (m) {
+                const p = parseInt(m[1], 10);
+                if (p > maxPage) {
+                    maxPage = p;
+                    console.log('[ImageFap] Updated maxPage to', maxPage + 1);
+                }
+            }
+        });
+
         const wrapper = document.createElement('div');
         wrapper.style.marginTop = '30px';
 
@@ -72,24 +87,28 @@
         mainGallery.parentNode.appendChild(wrapper);
     }
 
-    async function loadNextBatch() {
+    async function loadNextBatch(size = BATCH_SIZE) {
         if (loading) return;
         loading = true;
 
         let loadedThisBatch = 0;
 
-        while (
-            loadedThisBatch < BATCH_SIZE &&
-            nextPageToLoad <= maxPage
-        ) {
-            await loadPage(nextPageToLoad);
-            nextPageToLoad++;
-            loadedThisBatch++;
-            await new Promise(r => setTimeout(r, 500)); // throttle
+        try {
+            while (
+                loadedThisBatch < size &&
+                nextPageToLoad <= maxPage
+            ) {
+                await loadPage(nextPageToLoad);
+                nextPageToLoad++;
+                loadedThisBatch++;
+                await new Promise(r => setTimeout(r, 500));
+            }
+        } catch (err) {
+            console.error('[ImageFap] Error during batch load:', err);
+        } finally {
+            loading = false;
+            updateButton();
         }
-
-        loading = false;
-        updateButton();
     }
 
     function updateButton() {
@@ -99,12 +118,11 @@
             button.style.opacity = '0.7';
         } else {
             button.textContent = 'Continue loading 👇';
+            button.disabled = false;
         }
     }
 
-    // Create control button
     const button = document.createElement('button');
-    button.textContent = 'Continue loading 👇';
     button.style.cssText = `
         display: block;
         margin: 50px auto;
@@ -118,11 +136,14 @@
         cursor: pointer;
     `;
 
-    button.addEventListener('click', loadNextBatch);
+    button.addEventListener('click', () => loadNextBatch(BATCH_SIZE));
 
     document.body.appendChild(button);
 
-    // Auto-load first batch
-    setTimeout(loadNextBatch, 1500);
+    // Initial auto-load
+    setTimeout(() => {
+        const initialSize = currentPage === 0 ? 9 : BATCH_SIZE;
+        loadNextBatch(initialSize);
+    }, 1500);
 
 })();
