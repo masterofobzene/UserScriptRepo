@@ -149,7 +149,7 @@ above if you see prices in other currency.
 
 -----------
 
-[ImageFap User Gallery Hider](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ImageFap_User_Gallery_Hider.user.js) Tired of trannsexuals, gays, furries and such weirdos trying to impose their filth and having no way to filter them? this userscript removes their galleries site-wide with one click on their avatar.
+[ImageFap User Gallery Hider](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ImageFap_User_Gallery_Hider.user.js) Tired of weirdos trying to impose their filth and having no way to filter them? this userscript removes their galleries site-wide with one click on their avatar.
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/ImageFap%20User%20Gallery%20Hider.md)
 
