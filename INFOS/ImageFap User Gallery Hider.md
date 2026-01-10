@@ -24,6 +24,7 @@ so it applies to ALL instances of the same user.
 ---------------
 That site is a dump filled with weirdos trying to somehow convince people to become gay. The site doesn't offer 
 any blocking features only if you sign you get some filtering by tags, but the weirdos don't use tags or use 
-false ones to get exposition. The site doesn't mind it seems. So here is your tool to fight back. LGBT my ass.
+false ones to get exposition. The site doesn't mind that, it seems. So here is your tool to clean it. LGBT my ass, gender
+dysphoria is not a virtue, nor normal.
 
 
