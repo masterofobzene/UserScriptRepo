@@ -20,4 +20,5 @@ const filterWords   = ['bundle', 'edition', 'supporter', 'halloween', 'christmas
 A cheap tactic to increase presence on the stores and get extra revenue from unsuspecting users, 
 many developers make "editions" of their games, this repeats the game exposure in the stores.
 This rather bad practices end up filling the catalogs with repeated games and its "special" versions.
-This script eliminates that problem.
+This script eliminates that problem. This userscript has been made thinking on using GOG as a catalog
+to know games and then download elsewere, so I do not care about special offers.
