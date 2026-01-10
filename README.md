@@ -88,17 +88,20 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 
 -----------
 
-<img src="https://github.com/user-attachments/assets/55e50dc1-43b3-4369-99ee-7402cce4eb81" width="400">
+[Force Steam US Dollars](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/Force%20Steam%20US%20Dollars.user.js)
+ Makes Steam search show prices in US dollars without caring about your 
+IP location. Useful to be able to use the price filter userscript from 
+above if you see prices in other currency.
 
-[Force Steam US Dollars](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/Force%20Steam%20US%20Dollars.user.js) Makes Steam search show prices in US dollars without caring about your IP location. Useful to be able to use the price filter userscript from above if you see prices in other currency.
+<img src="https://github.com/user-attachments/assets/55e50dc1-43b3-4369-99ee-7402cce4eb81" width="400">
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Force%20Steam%20US%20Dollars.md)
 
 -----------
 
-<img src="https://github.com/user-attachments/assets/14c395f9-8e84-41b2-a7a4-5723968ed626" width="400">
-
 [Steam Bad Reviews](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/Steam_Bad_Reviews.user.js) Automatically switches to "bad reviews" when visiting the game page so you can judge the game a little bit better.
+
+<img src="https://github.com/user-attachments/assets/14c395f9-8e84-41b2-a7a4-5723968ed626" width="400">
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Steam%20bad%20reviews.md)
 
