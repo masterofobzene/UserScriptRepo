@@ -5,7 +5,7 @@ in the main gallery search results. A red "X" button will appear on the users av
 from you view forever. If you want to restore users open the code view of the userscript, then go to "values" and 
 remove them (keep the format and commas). It is persistent so you don't have to do this each time you visit the site.
 To put it clear, the sense in doing this is because you are effectively removing users from your sight site-wide so even 
-if they uploaded more stuff on the site before you will not see them again and all in one click!
+if they uploaded more stuff on the site before or after, you will not see them again and all in one click!
 
 UPDATE: It will also hide galleries with less than 4 pictures in them automatically.
 
