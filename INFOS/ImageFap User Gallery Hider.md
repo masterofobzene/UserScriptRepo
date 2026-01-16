@@ -27,4 +27,6 @@ any blocking features only if you sign you get some filtering by tags, but the w
 false ones to get exposition. The site doesn't mind that, it seems. So here is your tool to clean it. LGBT my ass, gender
 dysphoria is not a virtue, nor normal.
 
-
+---------------
+[INSTALL LINK](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ImageFap_User_Gallery_Hider.user.js)
+You must have violentmonkey installed for this to work.
