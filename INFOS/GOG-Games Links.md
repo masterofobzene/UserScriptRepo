@@ -30,3 +30,7 @@ mostly outdated for a lot of games.
 ---------------
 Sometimes, you just want to see if "X" game is "available" on gog-games. The problem is that gog-games didn't have
 the possibility to quickly search for gameplay videos and changelogs. This userscript comes to fix that.
+
+---------------
+[INSTALL LINK](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--GOG-Games%20Links--.user.js)
+You must have violentmonkey installed for this to work.
