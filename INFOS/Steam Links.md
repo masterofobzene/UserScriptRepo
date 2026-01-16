@@ -13,3 +13,7 @@ deidetected.com.
 ### WHY?:
 ---------------
 Lazy game discovery/dl.
+
+---------------
+[INSTALL LINK](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--Steam%20Links--.user.js)
+You must have violentmonkey installed for this to work.
