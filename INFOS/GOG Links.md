@@ -11,3 +11,7 @@ Just click the buttons.
 ### WHY?:
 ---------------
 It is useful to use gog.com as a catalog; it makes all the process of finding games easier.
+
+---------------
+[INSTALL LINK](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--GOG%20Links--.user.js)
+You must have violentmonkey installed for this to work.
