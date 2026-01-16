@@ -13,5 +13,8 @@ Just enter any gallery on the site, it will do its thing automatically. Click on
 ---------------
 Ease of use. 
 
+---------------
+[INSTALL LINK](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/imagefap_autopager.user.js)
+You must have violentmonkey installed for this to work.
 
 
