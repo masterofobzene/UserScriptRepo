@@ -24,3 +24,7 @@ I was tired of wasting my time with the youtuber's showing their own intros plus
 the options he sets and the whole thing taking even more time when the youtuber stops to read what the heck he is 
 doing (reading menus, popups or just useles lore of the game). This extension aims to make viewers life %0,00000001
 less miserable.
+
+---------------
+[INSTALL LINK](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--YouTube%20Gameplay%20Skipper--.user.js)
+You must have violentmonkey installed for this to work.
