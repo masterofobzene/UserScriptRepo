@@ -28,3 +28,6 @@ fillers. This extension just makes life easier to the users so they don't have t
 search.
 
 
+---------------
+[INSTALL LINK](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/Startpage_Filter_Assistant.user.js)
+You must have violentmonkey installed for this to work.
