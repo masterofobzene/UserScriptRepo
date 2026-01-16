@@ -23,3 +23,7 @@ functionalities, I added further filters by using the reviews system.
 If you are thinking "why don't you simply use steamdb?" I answer you: steamdb has a hard-limit
 on tags you can filter, meaning it is also useless. 
 Enjoy browsing a clean, completely filtrable Steam catalog now!
+
+---------------
+[INSTALL LINK](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--Steam%20Search-%20Hide%20Games%20Under%20Minimum%20Price--.user.js)
+You must have violentmonkey installed for this to work.
