@@ -17,4 +17,7 @@ Click the same button to load the saved page even after you closed the browser.
 ---------------
 Useful to browse the whole site.
 
+---------------
+[INSTALL LINK](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/realbooru_bookmark.user.js)
+You must have violentmonkey installed for this to work.
 
