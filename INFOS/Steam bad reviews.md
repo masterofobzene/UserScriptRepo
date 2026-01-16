@@ -20,4 +20,6 @@ there are a lot of people giving bad reviews because they want to run Cyberpunk 
 
 Use your brain and... READ.
 
-
+---------------
+[INSTALL LINK](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/Steam_Bad_Reviews.user.js)
+You must have violentmonkey installed for this to work.
