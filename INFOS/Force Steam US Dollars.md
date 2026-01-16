@@ -15,3 +15,6 @@ If Steam shows prices in your local currency, the script to filter by prices wil
 you to either fix the prices listing by forcing prices in dollars (this userscript) or manually editing the userscript 
 to use your currency. Most users will feel editing the script is too much for them and prefer to set prices in dollars instead.
 
+---------------
+[INSTALL LINK](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/Force%20Steam%20US%20Dollars.user.js)
+You must have violentmonkey installed for this to work.
