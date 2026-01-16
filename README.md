@@ -139,7 +139,7 @@ above if you see prices in other currency.
 -----------
 [Pornpaw Gallery Filter](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ZZup%20Infinite%20Scroll.user.js) Lets you filter galleries by using words that can be found in any the title or the tags of the galleries
 
-[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Pornpaw%20Gallery%20Filter)
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Pornpaw%20Gallery%20Filter.md)
 
 -----------
 
