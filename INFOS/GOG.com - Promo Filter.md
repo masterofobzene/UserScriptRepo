@@ -22,3 +22,7 @@ many developers make "editions" of their games, this repeats the game exposure i
 This rather bad practices end up filling the catalogs with repeated games and its "special" versions.
 This script eliminates that problem. This userscript has been made thinking on using GOG as a catalog
 to know games and then download elsewere, so I do not care about special offers.
+
+---------------
+[INSTALL LINK](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/GOG.com%20-%20Promo%20Filter.user.js)
+You must have violentmonkey installed for this to work.
