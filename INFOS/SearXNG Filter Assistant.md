@@ -28,3 +28,7 @@ Search engines today NEED negative words to filter results, as they get more and
 fillers. This extension just makes life easier to the users so they don't have to use the special syntax to 
 search. Mind this is targeted at using a SEARXNG instance that SUPPORTS GOOGLE (since google supports negative
 words). Why would you use SEARXNG if not to use google anyway?...
+
+---------------
+[INSTALL LINK](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/SearXNG%20Filter%20Assistant.user.js)
+You must have violentmonkey installed for this to work.
