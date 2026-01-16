@@ -23,3 +23,7 @@ esto que piensan no se vé traducido en mejores salarios.
 Si pudiese hacer un userscript para no terminar en una consultora haciendo trabajos administrativos para clientes
 en supuestos puestos de técnico, la haría con todo gusto. 
 "Welcome to la precarización total".
+
+---------------
+[INSTALL LINK](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/Bumeran%20Job%20Filter.user.js)
+You must have violentmonkey installed for this to work.
