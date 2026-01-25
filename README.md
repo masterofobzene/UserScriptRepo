@@ -105,6 +105,14 @@ above if you see prices in other currency.
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Steam%20bad%20reviews.md)
 
+-----------
+
+[NXBrew Search Button](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/NXBrew_Search_Button.user.js) Automatically switches to "bad reviews" when visiting the game page so you can judge the game a little bit better.
+
+<img src="https://github.com/user-attachments/assets/8f945364-7f1a-4ca4-ab44-600683479137" width="400">
+
+
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/NXBrew_Search_Button.md)
 
 <br>
 <br>
