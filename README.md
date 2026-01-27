@@ -109,7 +109,7 @@ above if you see prices in other currency.
 
 [NXBrew Search Button](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/NXBrew_Search_Button.user.js) Shows a new button to search for the game on NXBrew so you can use the Big N's catalog to browse for games.
 
-<img src="https://github.com/user-attachments/assets/8f945364-7f1a-4ca4-ab44-600683479137" width="400">
+<img src="https://github.com/user-attachments/assets/8f945364-7f1a-4ca4-ab44-600683479137" height="400" width="200">
 
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/NXBrew_Search_Button.md)
