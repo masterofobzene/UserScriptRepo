@@ -173,7 +173,7 @@ above if you see prices in other currency.
 [Pornolab Filters](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/pornolab_filters.user.js
 ) This will let you set blacklist words for your search results, effectively removing subforum results too unlike with other userscripts where offending results still appear because the title of the post didn't had the offending word.
 
-[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/ponolab filter.md)
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/ponolab_filter.md)
 
 
 
