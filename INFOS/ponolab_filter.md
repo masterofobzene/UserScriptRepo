@@ -26,7 +26,7 @@ easily tell which posts have media in those formats. You can then remove the wor
 
 
 ---------------
-[INSTALL LINK](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/pornolab_filters.user.js)
+[INSTALL LINK](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/pornolab_filters.user.js)
 You must have violentmonkey installed for this to work.
 
 
