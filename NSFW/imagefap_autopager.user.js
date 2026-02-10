@@ -43,6 +43,21 @@
         color: #444;
     `;
 
+    function notifyUserscripts(page, wrapper, sourceDoc) {
+        // Custom hook (best option)
+        window.dispatchEvent(new CustomEvent('imagefap:page-loaded', {
+            detail: {
+                page,
+                wrapper,
+                document: sourceDoc
+            }
+        }));
+
+        // Legacy compatibility
+        document.dispatchEvent(new Event('DOMContentLoaded', { bubbles: true }));
+        window.dispatchEvent(new Event('load'));
+    }
+
     async function loadPage(page) {
         if (loadedPages.has(page)) return;
         loadedPages.add(page);
@@ -59,7 +74,7 @@
         const gallery = doc.querySelector('#gallery');
         if (!gallery) return;
 
-        // Update maxPage from newly loaded page
+        // Update maxPage dynamically
         const newLinks = gallery.querySelectorAll('a[href*="page="]');
         [...newLinks].forEach(a => {
             const m = a.href.match(/[\?&]page=(\d+)/);
@@ -85,6 +100,9 @@
         });
 
         mainGallery.parentNode.appendChild(wrapper);
+
+        // 🔔 Notify other userscripts
+        notifyUserscripts(page, wrapper, doc);
     }
 
     async function loadNextBatch(size = BATCH_SIZE) {
@@ -135,9 +153,8 @@
         border-radius: 6px;
         cursor: pointer;
     `;
-
+    button.textContent = 'Continue loading 👇';
     button.addEventListener('click', () => loadNextBatch(BATCH_SIZE));
-
     document.body.appendChild(button);
 
     // Initial auto-load
