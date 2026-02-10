@@ -178,7 +178,7 @@ above if you see prices in other currency.
 -----------
 
 [Imagefap image dimensions highlighter](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/dimensions_highlighter.user.js
-) This will let you set blacklist words for your search results, effectively removing subforum results too unlike with other userscripts where offending results still appear because the title of the post didn't had the offending word.
+) This will show colored sizes below the images on the thumbs page of galleries.
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/ImageFap_Dimensions_Highligher.md)
 
