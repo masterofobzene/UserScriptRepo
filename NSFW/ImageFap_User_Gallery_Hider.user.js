@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ImageFap User Gallery Hider
 // @namespace    ImageFap_User_Gallery_Hider
-// @version      1.6
+// @version      1.7
 // @description  Hide ImageFap galleries by user, auto-hide <4 pics, and hide by gender (women / couples / transsexuals).
 // @author       masterofobzene
 // @match        https://www.imagefap.com/gallery.php*
@@ -163,13 +163,15 @@
             if (!link) return;
             if (link.textContent.trim().toLowerCase() !== username) return;
 
-            let titleRow = avatar;
-            while (titleRow && titleRow.tagName !== 'TR') {
-                titleRow = titleRow.parentElement;
+            let detailRow = avatar;
+            while (detailRow && detailRow.tagName !== 'TR') {
+                detailRow = detailRow.parentElement;
             }
-            if (!titleRow) return;
+            if (!detailRow) return;
 
-            const detailRow = titleRow.nextElementSibling;
+            const titleRow = detailRow.previousElementSibling;
+            if (!titleRow || titleRow.tagName !== 'TR') return;
+
             hideRow(titleRow, detailRow);
         });
     }
