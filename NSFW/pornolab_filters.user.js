@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         Pornolab Filters
 // @namespace    pornolab-filters
-// @version      1.1
+// @version      1.2
 // @author       masterofobzene
-// @description  Persistent client-side blacklist to filter topics (titles) and forums (categories) separately in pornolab
+// @description  Persistent client-side blacklist to filter topics (titles) and forums (categories) separately in pornolab also unhides pagination buttons
 // @match        *://pornolab.net/forum/tracker.php*
 // @icon         https://pornolab.net/favicon.ico
 // @grant        none
@@ -57,7 +57,7 @@
 
         box.innerHTML = `<div style="font-weight:bold; margin-bottom:10px;">Client-side blacklist (persistent):</div>`;
 
-        // Title input
+        // Title filter
         const titleLabel = document.createElement('div');
         titleLabel.textContent = 'Hide titles containing:';
         titleLabel.style.marginTop = '8px';
@@ -75,7 +75,7 @@
         });
         box.appendChild(titleInput);
 
-        // Forum input
+        // Forum filter
         const forumLabel = document.createElement('div');
         forumLabel.textContent = 'Hide forums containing:';
         forumLabel.style.marginTop = '12px';
@@ -119,15 +119,74 @@
         });
     }
 
-    function attachTableObserver(table) {
-        new MutationObserver(() => applyFilter(table))
-            .observe(table, { childList: true, subtree: true });
+    // ==================== FULL PAGINATION ====================
+    function buildFullPagination() {
+        // Ищем оба блока пагинации (верхний и нижний)
+        const paginationContainers = document.querySelectorAll('.bottom_info .nav, p.small');
+
+        paginationContainers.forEach(container => {
+            const text = container.textContent || '';
+            const totalMatch = text.match(/из\s*<b>(\d+)<\/b>/) || text.match(/из\s*(\d+)/);
+            if (!totalMatch) return;
+
+            const totalPages = parseInt(totalMatch[1]);
+            if (!totalPages || totalPages <= 1) return;
+
+            // Текущая страница
+            const currentBold = container.querySelector('b');
+            const currentPage = currentBold ? parseInt(currentBold.textContent) : 1;
+
+            // Базовый URL (убираем старый start)
+            let base = location.href.split('&start=')[0].split('?start=')[0];
+            if (!base.includes('?')) base += '?';
+            else base += '&';
+
+            let html = `<a class="menu-root" href="#pg-jump">Страницы</a> :&nbsp;&nbsp; `;
+
+            // Кнопка "Пред."
+            if (currentPage > 1) {
+                const prev = (currentPage - 2) * 50;
+                html += `<a class="pg" href="${base}start=${prev}">Пред.</a>&nbsp;&nbsp;`;
+            }
+
+            // Все страницы подряд
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === currentPage) {
+                    html += `<b>${i}</b>`;
+                } else {
+                    const start = (i - 1) * 50;
+                    html += `<a class="pg" href="${base}start=${start}">${i}</a>`;
+                }
+                if (i < totalPages) html += ', ';
+            }
+
+            // Кнопка "След."
+            if (currentPage < totalPages) {
+                const next = currentPage * 50;
+                html += `&nbsp;&nbsp;<a class="pg" href="${base}start=${next}">След.</a>`;
+            }
+
+            // Заменяем содержимое
+            const targetP = container.querySelector('p[style*="float: right"]') || container.querySelector('p') || container;
+            if (targetP) targetP.innerHTML = html;
+        });
+    }
+
+    function attachObservers(table) {
+        new MutationObserver(() => {
+            applyFilter(table);
+            buildFullPagination();
+        }).observe(table, { childList: true, subtree: true });
     }
 
     waitForTable(table => {
         createUI(table);
         applyFilter(table);
-        attachTableObserver(table);
+        buildFullPagination();           // сразу при загрузке
+        attachObservers(table);
     });
+
+    // На случай, если пагинация подгружается позже
+    setTimeout(buildFullPagination, 800);
 
 })();
