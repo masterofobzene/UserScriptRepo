@@ -6,6 +6,7 @@ It will remove results that contain any of the words that the user writes in the
 is that it also removes results that have the offending words as the "forum" value (the sub forum) so this time you can
 effectively remove all bad results that the people create by not using the correct tags, for example the elusive "gay"
 tag that is not being used in the post names.
+UPDATE: It will now unhide the pagination numbers so you don't get hidden pages and can browse easier.
 
 ### USAGE:
 ---------------
