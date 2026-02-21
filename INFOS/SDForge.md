@@ -4,12 +4,14 @@ Easier access to most used buttons.
 
 ### USAGE:
 ---------------
-Click'em!
+Click'em!. 
 
 
 ### WHY?:
 ---------------
 Stop having to scroll up and down because some buttons or toggles are far from image preview and quick access.
+Yeah, lazy. This extension just does that. Simple and dumb.
+
 
 ---------------
 [INSTALL LINK](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/SDForge.user.js)
