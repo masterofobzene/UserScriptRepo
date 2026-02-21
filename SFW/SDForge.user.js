@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name FLL- Forge Lazy Layout
-// @namespace FLL
+// @name SDForge quick access buttons
+// @namespace SDForge_quick_access_buttons
 // @match http://127.0.0.1:7860/*
 // @grant none
 // @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/SDForge.user.js
