@@ -116,7 +116,7 @@ above if you see prices in other currency.
 
 -----------
 
-[Stable Diffusion FORGE quick access buttons](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/SDForge.user.js) Shows a copy of the most used buttons: "generate", "Reuse seed", "random seed" and "hires.fix" toggle. Also it ha a box showing the current seed (mostly for knowing if you are on -1 or reusing)
+[Stable Diffusion FORGE quick access buttons](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/SDForge.user.js) Shows a copy of the most used buttons: "generate", "Reuse seed", "random seed", "save image" and "hires.fix" toggle. Also it has a box showing the current seed (mostly for knowing if you are on -1 or reusing). Mind that the 📌 instead of ♻ icons are because I moded them, not part of this script.
 
 <img src="https://github.com/user-attachments/assets/675c1821-aee9-4a7f-afac-209ded7bf097" height="400" width="400">
 
