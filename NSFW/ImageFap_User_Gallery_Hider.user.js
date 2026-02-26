@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ImageFap User Gallery Hider
 // @namespace    ImageFap_User_Gallery_Hider
-// @version      1.7
+// @version      1.8
 // @description  Hide ImageFap galleries by user, auto-hide <4 pics, and hide by gender (women / couples / transsexuals).
 // @author       masterofobzene
 // @match        https://www.imagefap.com/gallery.php*
