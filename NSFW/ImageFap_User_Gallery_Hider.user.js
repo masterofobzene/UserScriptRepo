@@ -74,7 +74,7 @@
                 Hide users
             </div>
             <div style="padding:8px 10px;">
-                <label><input type="checkbox" id="hideWomen"> Women</label><br>
+                <label><input type="checkbox" id="hideWomen"> "Women"</label><br>
                 <label><input type="checkbox" id="hideCouples"> Couples</label><br>
                 <label><input type="checkbox" id="hideTrans"> Transsexuals</label>
             </div>
