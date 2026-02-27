@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         ImageFap User Gallery Hider
 // @namespace    ImageFap_User_Gallery_Hider
-// @version      1.8
-// @description  Hide ImageFap galleries by user, auto-hide <4 pics, and hide by gender (women / couples / transsexuals).
+// @version      1.9
+// @description  Hide ImageFap galleries by user, <4 pics, gender, and country (Germany/France)
 // @author       masterofobzene
 // @match        https://www.imagefap.com/gallery.php*
 // @icon         https://www.imagefap.com/favicon.ico
@@ -13,22 +13,21 @@
 // @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ImageFap_User_Gallery_Hider.user.js
 // ==/UserScript==
 
-(function () {
+(function() {
     'use strict';
 
-    /* =======================
-       STORAGE
-    ======================= */
     const hiddenUsersKey = 'imagefap_hidden_users';
-    const hideConfigKey = 'imagefap_hide_gender';
-    const panelPosKey = 'imagefap_gender_panel_pos';
+    const hideConfigKey  = 'imagefap_hide_filters';
+    const panelPosKey    = 'imagefap_gender_panel_pos';
 
     let hiddenUsers = new Set(GM_getValue(hiddenUsersKey, []));
 
     const DEFAULT_HIDE_CONFIG = {
-        women: false,
-        couples: false,
-        transsexuals: false
+        women:       false,
+        couples:     false,
+        transsexuals: false,
+        germany:     false,
+        france:      false
     };
 
     function getHideConfig() {
@@ -39,9 +38,6 @@
         GM_setValue(hideConfigKey, cfg);
     }
 
-    /* =======================
-       PANEL
-    ======================= */
     function createGenderPanel() {
         if (document.getElementById('genderFilterPanel')) return;
 
@@ -51,32 +47,23 @@
         const panel = document.createElement('div');
         panel.id = 'genderFilterPanel';
         panel.style.cssText = `
-            position: fixed;
-            top: ${pos.top}px;
-            right: ${pos.right}px;
-            background: #111;
-            color: #fff;
-            width: 170px;
-            font-size: 13px;
-            z-index: 99999;
-            border: 1px solid #444;
-            border-radius: 6px;
-            box-shadow: 0 0 6px black;
+            position:fixed;top:${pos.top}px;right:${pos.right}px;
+            background:#111;color:#fff;width:170px;font-size:13px;
+            z-index:99999;border:1px solid #444;border-radius:6px;
+            box-shadow:0 0 6px black;
         `;
 
         panel.innerHTML = `
-            <div id="panelHeader" style="
-                font-weight:bold;
-                padding:6px 8px;
-                cursor:move;
-                background:#1b1b1b;
-                border-bottom:1px solid #333;">
+            <div id="panelHeader" style="font-weight:bold;padding:6px 8px;cursor:move;
+                background:#1b1b1b;border-bottom:1px solid #333;">
                 Hide users
             </div>
             <div style="padding:8px 10px;">
                 <label><input type="checkbox" id="hideWomen"> "Women"</label><br>
                 <label><input type="checkbox" id="hideCouples"> Couples</label><br>
-                <label><input type="checkbox" id="hideTrans"> Transsexuals</label>
+                <label><input type="checkbox" id="hideTrans"> Transsexuals</label><br>
+                <label><input type="checkbox" id="hideGermany"> Germany</label><br>
+                <label><input type="checkbox" id="hideFrance"> France</label>
             </div>
         `;
 
@@ -85,40 +72,43 @@
         const w = panel.querySelector('#hideWomen');
         const c = panel.querySelector('#hideCouples');
         const t = panel.querySelector('#hideTrans');
+        const g = panel.querySelector('#hideGermany');
+        const f = panel.querySelector('#hideFrance');
 
         w.checked = cfg.women;
         c.checked = cfg.couples;
         t.checked = cfg.transsexuals;
+        g.checked = cfg.germany;
+        f.checked = cfg.france;
 
         const update = () => {
             setHideConfig({
                 women: w.checked,
                 couples: c.checked,
-                transsexuals: t.checked
+                transsexuals: t.checked,
+                germany: g.checked,
+                france: f.checked
             });
             applyAll();
         };
 
-        w.onchange = c.onchange = t.onchange = update;
+        w.onchange = c.onchange = t.onchange = g.onchange = f.onchange = update;
 
-        /* Drag */
         const header = panel.querySelector('#panelHeader');
         let sx, sy, st, sr, drag = false;
 
         header.onpointerdown = e => {
             drag = true;
             header.setPointerCapture(e.pointerId);
-            sx = e.clientX;
-            sy = e.clientY;
+            sx = e.clientX; sy = e.clientY;
             const r = panel.getBoundingClientRect();
-            st = r.top;
-            sr = window.innerWidth - r.right;
+            st = r.top; sr = window.innerWidth - r.right;
         };
 
         header.onpointermove = e => {
             if (!drag) return;
-            panel.style.top = st + (e.clientY - sy) + 'px';
-            panel.style.right = sr - (e.clientX - sx) + 'px';
+            panel.style.top = (st + e.clientY - sy) + 'px';
+            panel.style.right = (sr - (e.clientX - sx)) + 'px';
         };
 
         header.onpointerup = e => {
@@ -131,18 +121,25 @@
         };
     }
 
-    /* =======================
-       HELPERS
-    ======================= */
-
-    function shouldHideByGender(detailRow) {
+    function shouldHideByFilter(detailRow) {
         const cfg = getHideConfig();
-        const s = detailRow.querySelector('.sex.iconSex');
-        if (!s) return false;
 
-        return (cfg.women && s.classList.contains('sexW')) ||
-               (cfg.couples && s.classList.contains('sexC')) ||
-               (cfg.transsexuals && s.classList.contains('sexS'));
+        const sexIcon = detailRow.querySelector('.sex.iconSex');
+        const hideGender =
+            (cfg.women       && sexIcon?.classList.contains('sexW')) ||
+            (cfg.couples     && sexIcon?.classList.contains('sexC')) ||
+            (cfg.transsexuals && sexIcon?.classList.contains('sexS'));
+
+        const flagDiv = detailRow.querySelector('div.country.iconCountry');
+        let hideCountry = false;
+        if (flagDiv) {
+            const style = flagDiv.getAttribute('style') || '';
+            hideCountry =
+                (cfg.germany && style.includes('/DE.gif')) ||
+                (cfg.france  && style.includes('/FR.gif'));
+        }
+
+        return hideGender || hideCountry;
     }
 
     function getPicCount(titleRow) {
@@ -160,25 +157,17 @@
     function hideAllGalleriesForUser(username) {
         document.querySelectorAll('div.avatar').forEach(avatar => {
             const link = avatar.querySelector('a.gal_title');
-            if (!link) return;
-            if (link.textContent.trim().toLowerCase() !== username) return;
+            if (!link || link.textContent.trim().toLowerCase() !== username) return;
 
             let detailRow = avatar;
-            while (detailRow && detailRow.tagName !== 'TR') {
-                detailRow = detailRow.parentElement;
-            }
+            while (detailRow && detailRow.tagName !== 'TR') detailRow = detailRow.parentElement;
             if (!detailRow) return;
 
             const titleRow = detailRow.previousElementSibling;
-            if (!titleRow || titleRow.tagName !== 'TR') return;
-
-            hideRow(titleRow, detailRow);
+            if (titleRow?.tagName === 'TR') hideRow(titleRow, detailRow);
         });
     }
 
-    /* =======================
-       CORE
-    ======================= */
     function processGallery(titleRow) {
         const detailRow = titleRow.nextElementSibling;
         if (!detailRow || detailRow.getAttribute('valign') !== 'top') return;
@@ -189,26 +178,22 @@
 
         const username = userLink.textContent.trim().toLowerCase();
 
-        /* 1. HARD BLOCK */
         if (hiddenUsers.has(username)) {
             hideRow(titleRow, detailRow);
             return;
         }
 
-        /* 2. <4 PICTURES */
         const picCount = getPicCount(titleRow);
         if (picCount !== null && picCount < 4) {
             hideRow(titleRow, detailRow);
             return;
         }
 
-        /* 3. GENDER FILTER */
-        if (shouldHideByGender(detailRow)) {
+        if (shouldHideByFilter(detailRow)) {
             hideRow(titleRow, detailRow);
             return;
         }
 
-        /* 4. ADD BLOCK BUTTON */
         if (avatar.querySelector('.ifap-hide-btn')) return;
 
         const btn = document.createElement('span');
@@ -216,40 +201,41 @@
         btn.textContent = '✖';
         btn.title = `Block ${userLink.textContent.trim()} site-wide`;
         btn.style.cssText = `
-            position:absolute;
-            top:4px; right:4px;
-            width:24px; height:24px;
-            background:rgba(255,0,0,.8);
-            color:white;
-            font-weight:bold;
-            text-align:center;
-            line-height:24px;
-            border-radius:50%;
-            cursor:pointer;
-            z-index:9999;
+            position:absolute;top:4px;right:4px;
+            width:24px;height:24px;background:rgba(255,0,0,.8);
+            color:white;font-weight:bold;text-align:center;line-height:24px;
+            border-radius:50%;cursor:pointer;z-index:9999;
         `;
 
         avatar.style.position = 'relative';
         avatar.appendChild(btn);
 
         btn.onclick = e => {
-            e.preventDefault();
-            e.stopPropagation();
-
+            e.preventDefault(); e.stopPropagation();
             hiddenUsers.add(username);
             GM_setValue(hiddenUsersKey, [...hiddenUsers]);
-
-            /* IMMEDIATE GLOBAL SWEEP */
             hideAllGalleriesForUser(username);
         };
     }
 
     function applyAll() {
         createGenderPanel();
+
+        // Reset visibility of both title and detail rows
+        document.querySelectorAll('tr').forEach(tr => {
+            if (tr.querySelector('a[href*="gallery.php?gid="]') ||
+                tr.getAttribute('valign') === 'top' ||
+                tr.hasAttribute('bgcolor') ||
+                tr.style.borderTop?.includes('dotted')) {
+                tr.style.display = '';
+            }
+        });
+
+        // Re-apply hiding
         document.querySelectorAll('a[href*="gallery.php?gid="]').forEach(a => {
-            let tr = a;
-            while (tr && tr.tagName !== 'TR') tr = tr.parentElement;
-            if (tr) processGallery(tr);
+            let titleRow = a;
+            while (titleRow && titleRow.tagName !== 'TR') titleRow = titleRow.parentElement;
+            if (titleRow) processGallery(titleRow);
         });
     }
 
@@ -263,5 +249,4 @@
         childList: true,
         subtree: true
     });
-
 })();
