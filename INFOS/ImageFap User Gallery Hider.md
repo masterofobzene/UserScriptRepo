@@ -13,6 +13,9 @@ UPDATE 2: Now a mini draggable panel will show 3 options to hide users by report
 of "female" and "trans" users upload really weird stuff there. Be careful though that these options may hide "normal" content too.
 Also, be aware that in some cases the code used to hide the gender may not be complete due to a site bug (?) and may not be filtered
 but these are rather rare.
+
+UPDATE 1.9: Now you can filter by user country. Germany is the worst offender, France the second. Sorry for users of those countries, I have nothing against you but things go like that for some reason. Maybe I will add more countries if I identify more of these trends.
+
  
 ### USAGE:
 ---------------
