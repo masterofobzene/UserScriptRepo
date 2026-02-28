@@ -16,6 +16,9 @@ but these are rather rare.
 
 UPDATE 1.9: Now you can filter by user country. Germany is the worst offender, France the second. Sorry for users of those countries, I have nothing against you but things go like that for some reason. Maybe I will add more countries if I identify more of these trends.
 
+UPDATE 2.0: Now the left categories menu is collapseable, meaning no more "empty space" when paginating the search results.
+
+
  
 ### USAGE:
 ---------------
