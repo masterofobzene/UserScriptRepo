@@ -28,8 +28,7 @@ mostly outdated for a lot of games.
 
 ### WHY?:
 ---------------
-Sometimes, you just want to see if "X" game is "available" on gog-games. The problem is that gog-games didn't have
-the possibility to quickly search for gameplay videos and changelogs. This userscript comes to fix that.
+Sometimes, you just start your search for "available" games on gog-games directly instead of gog.com. The problem is that gog-games didn't have the possibility to quickly search for gameplay videos and changelogs. This userscript comes to fix that.
 
 ---------------
 [INSTALL LINK](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--GOG-Games%20Links--.user.js)
