@@ -22,7 +22,7 @@ const TARGET_WORDS = ['gameplay', 'longplay', 'no commentary']; // Words to dete
 ---------------
 I was tired of wasting my time with the youtuber's showing their own intros plus the intros of the games and then
 the options he sets and the whole thing taking even more time when the youtuber stops to read what the heck he is 
-doing (reading menus, popups or just useles lore of the game). This extension aims to make viewers life %0,00000001
+doing (reading menus, popups or just useless lore of the game). This extension aims to make viewers life %0,00000001
 less miserable.
 
 ---------------
