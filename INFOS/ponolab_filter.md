@@ -21,7 +21,7 @@ in which users upload to a special gay subforum and they don't see the need to w
 are already posting on the gay subforum. This userscript will also remove the "gay" subforum results if you input 'gay' as a filter
 word, because it also checks the subforum name (in this case "gay") and not only the topic (post) name to do the filtering. 
 
-Other good uses are to temporarily filter all post having a determined resoultion (1080p, 720p, etc) so you can
+Other good uses are to temporarily filter all post having a determined resolution (1080p, 720p, etc) so you can
 easily tell which posts have media in those formats. You can then remove the word and see all resolutions again.
 
 
