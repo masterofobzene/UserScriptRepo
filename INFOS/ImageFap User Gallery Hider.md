@@ -22,8 +22,8 @@ UPDATE 2.0: Now the left categories menu is collapsible, meaning no more "empty 
  
 ### USAGE:
 ---------------
-Just click the red X button on the avatar of the offender. After applying to a user or many in the page, reload
-so it applies to ALL instances of the same user.
+Just click the red X button on the avatar of the offender. After applying to a user or many in the page.
+All instances (past and future) will not appear anymore in your searches.
 You can also collapse or extend the left categories menu.
 
 
