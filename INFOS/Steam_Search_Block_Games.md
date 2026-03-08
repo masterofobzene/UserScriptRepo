@@ -5,7 +5,8 @@ Block tag-abused games from appearing.
 ### USAGE:
 ---------------
 On each game card a red "block" button appears so you can hide it if you want effectively taking care of 
-shitty games that use tags you like or need to keep in the search.
+shitty games that use tags you like or need to keep in the search. It has persistent storage so you do this
+one time. If you like to unblock a game, search for it in the "Values" tab of the script and delete the entry.
 
 ### WHY?:
 ---------------
