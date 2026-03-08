@@ -93,7 +93,7 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 IP location. Useful to be able to use the price filter userscript from 
 above if you see prices in other currency.
 
-<img src="https://github.com/user-attachments/assets/55e50dc1-43b3-4369-99ee-7402cce4eb81" width="400">
+<img src="https://github.com/user-attachments/assets/55e50dc1-43b3-4369-99ee-7402cce4eb81" width="200">
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Force%20Steam%20US%20Dollars.md)
 
