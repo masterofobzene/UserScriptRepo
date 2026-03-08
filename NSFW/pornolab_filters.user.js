@@ -1,22 +1,26 @@
 // ==UserScript==
-// @name         Pornolab Filters
-// @namespace    pornolab-filters
-// @version      1.2
-// @author       masterofobzene
-// @description  Persistent client-side blacklist to filter topics (titles) and forums (categories) separately in pornolab also unhides pagination buttons
-// @match        *://pornolab.net/forum/tracker.php*
-// @icon         https://pornolab.net/favicon.ico
-// @grant        none
-// @run-at       document-end
-// @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/pornolab_filters.user.js
-// @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/pornolab_filters.user.js
+// @name Pornolab Filters
+// @namespace pornolab-filters
+// @version 1.3
+// @author masterofobzene
+// @description Persistent client-side blacklist — now with whole-word matching + unhides pagination
+// @match *://pornolab.net/forum/tracker.php*
+// @icon https://pornolab.net/favicon.ico
+// @grant none
+// @run-at document-end
+// @downloadURL https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/pornolab_filters.user.js
+// @updateURL https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/pornolab_filters.user.js
 // ==/UserScript==
 
 (function () {
     'use strict';
 
     const STORAGE_KEY_TITLES = 'pornolab_blacklist_titles';
-    const STORAGE_KEY_FORUMS = 'pornolab_blacklist_forums';
+    const STORAGE_KEY_FORUMS  = 'pornolab_blacklist_forums';
+
+    function escapeRegExp(str) {
+        return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
 
     function waitForTable(cb) {
         const t = document.querySelector('#tor-tbl');
@@ -55,18 +59,17 @@
             background: #1b1b1b;
         `;
 
-        box.innerHTML = `<div style="font-weight:bold; margin-bottom:10px;">Client-side blacklist (persistent):</div>`;
+        box.innerHTML = `<div style="font-weight:bold; margin-bottom:10px;">Client-side blacklist (whole words):</div>`;
 
-        // Title filter
         const titleLabel = document.createElement('div');
-        titleLabel.textContent = 'Hide titles containing:';
+        titleLabel.textContent = 'Hide titles containing (whole words):';
         titleLabel.style.marginTop = '8px';
         box.appendChild(titleLabel);
 
         const titleInput = document.createElement('input');
         titleInput.type = 'text';
         titleInput.style.cssText = `width: 100%; max-width: 700px; padding: 8px; font-size: 14px;`;
-        titleInput.placeholder = 'word1 word2 word3';
+        titleInput.placeholder = 'ts shemale amateur';
         titleInput.value = localStorage.getItem(STORAGE_KEY_TITLES) || '';
 
         titleInput.addEventListener('input', () => {
@@ -75,16 +78,15 @@
         });
         box.appendChild(titleInput);
 
-        // Forum filter
         const forumLabel = document.createElement('div');
-        forumLabel.textContent = 'Hide forums containing:';
+        forumLabel.textContent = 'Hide forums containing (whole words):';
         forumLabel.style.marginTop = '12px';
         box.appendChild(forumLabel);
 
         const forumInput = document.createElement('input');
         forumInput.type = 'text';
         forumInput.style.cssText = `width: 100%; max-width: 700px; padding: 8px; font-size: 14px;`;
-        forumInput.placeholder = 'word1 word2 word3';
+        forumInput.placeholder = 'amateur onlyfans shemale';
         forumInput.value = localStorage.getItem(STORAGE_KEY_FORUMS) || '';
 
         forumInput.addEventListener('input', () => {
@@ -98,7 +100,7 @@
 
     function applyFilter(table) {
         const titleWords = getWords(STORAGE_KEY_TITLES);
-        const forumWords = getWords(STORAGE_KEY_FORUMS);
+        const forumWords  = getWords(STORAGE_KEY_FORUMS);
 
         table.querySelectorAll('tbody > tr').forEach(row => {
             if (!row.cells || row.cells.length < 4) {
@@ -112,8 +114,15 @@
             const forumText = (forumCell.textContent || '').toLowerCase();
             const topicText = (topicCell.textContent || '').toLowerCase();
 
-            const hideByForum = forumWords.some(w => forumText.includes(w));
-            const hideByTitle = titleWords.some(w => topicText.includes(w));
+            const hideByForum = forumWords.some(w => {
+                const re = new RegExp(`\\b${escapeRegExp(w)}\\b`, 'i');
+                return re.test(forumText);
+            });
+
+            const hideByTitle = titleWords.some(w => {
+                const re = new RegExp(`\\b${escapeRegExp(w)}\\b`, 'i');
+                return re.test(topicText);
+            });
 
             row.style.display = (hideByForum || hideByTitle) ? 'none' : '';
         });
@@ -121,7 +130,6 @@
 
     // ==================== FULL PAGINATION ====================
     function buildFullPagination() {
-        // Ищем оба блока пагинации (верхний и нижний)
         const paginationContainers = document.querySelectorAll('.bottom_info .nav, p.small');
 
         paginationContainers.forEach(container => {
@@ -132,24 +140,20 @@
             const totalPages = parseInt(totalMatch[1]);
             if (!totalPages || totalPages <= 1) return;
 
-            // Текущая страница
             const currentBold = container.querySelector('b');
             const currentPage = currentBold ? parseInt(currentBold.textContent) : 1;
 
-            // Базовый URL (убираем старый start)
             let base = location.href.split('&start=')[0].split('?start=')[0];
             if (!base.includes('?')) base += '?';
             else base += '&';
 
             let html = `<a class="menu-root" href="#pg-jump">Страницы</a> :&nbsp;&nbsp; `;
 
-            // Кнопка "Пред."
             if (currentPage > 1) {
                 const prev = (currentPage - 2) * 50;
                 html += `<a class="pg" href="${base}start=${prev}">Пред.</a>&nbsp;&nbsp;`;
             }
 
-            // Все страницы подряд
             for (let i = 1; i <= totalPages; i++) {
                 if (i === currentPage) {
                     html += `<b>${i}</b>`;
@@ -160,13 +164,11 @@
                 if (i < totalPages) html += ', ';
             }
 
-            // Кнопка "След."
             if (currentPage < totalPages) {
                 const next = currentPage * 50;
                 html += `&nbsp;&nbsp;<a class="pg" href="${base}start=${next}">След.</a>`;
             }
 
-            // Заменяем содержимое
             const targetP = container.querySelector('p[style*="float: right"]') || container.querySelector('p') || container;
             if (targetP) targetP.innerHTML = html;
         });
@@ -182,11 +184,9 @@
     waitForTable(table => {
         createUI(table);
         applyFilter(table);
-        buildFullPagination();           // сразу при загрузке
+        buildFullPagination();
         attachObservers(table);
     });
 
-    // На случай, если пагинация подгружается позже
     setTimeout(buildFullPagination, 800);
-
 })();
