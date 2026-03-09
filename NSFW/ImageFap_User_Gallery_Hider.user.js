@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name ImageFap User Gallery Hider
 // @namespace ImageFap_User_Gallery_Hider
-// @version 2.0
+// @version 2.1
 // @description Hide ImageFap galleries by user, <4 pics, gender, country. Left menu collapsible vertically, pagination friendly + debounced.
 // @author masterofobzene + Grok
 // @match https://www.imagefap.com/gallery.php*
@@ -23,7 +23,7 @@
 
     let hiddenUsers = new Set(GM_getValue(hiddenUsersKey, []));
 
-    const DEFAULT_HIDE_CONFIG = { women: false, couples: false, transsexuals: false, germany: false, france: false };
+    const DEFAULT_HIDE_CONFIG = { women: false, couples: false, transsexuals: false, germany: false, belgium: false };
 
     function getHideConfig() { return GM_getValue(hideConfigKey, DEFAULT_HIDE_CONFIG); }
     function setHideConfig(cfg) { GM_setValue(hideConfigKey, cfg); }
@@ -42,20 +42,20 @@
                 <label><input type="checkbox" id="hideCouples"> Couples</label><br>
                 <label><input type="checkbox" id="hideTrans"> Transsexuals</label><br>
                 <label><input type="checkbox" id="hideGermany"> Germany</label><br>
-                <label><input type="checkbox" id="hideFrance"> France</label>
+                <label><input type="checkbox" id="hideBelgium"> Belgium</label>
             </div>
         `;
         document.body.appendChild(panel);
 
         const w = panel.querySelector('#hideWomen'), c = panel.querySelector('#hideCouples'),
               t = panel.querySelector('#hideTrans'), g = panel.querySelector('#hideGermany'),
-              f = panel.querySelector('#hideFrance');
+              f = panel.querySelector('#hideBelgium');
 
         w.checked = cfg.women; c.checked = cfg.couples; t.checked = cfg.transsexuals;
-        g.checked = cfg.germany; f.checked = cfg.france;
+        g.checked = cfg.germany; f.checked = cfg.belgium;
 
         const update = () => {
-            setHideConfig({ women: w.checked, couples: c.checked, transsexuals: t.checked, germany: g.checked, france: f.checked });
+            setHideConfig({ women: w.checked, couples: c.checked, transsexuals: t.checked, germany: g.checked, belgium: f.checked });
             applyAll();
         };
         w.onchange = c.onchange = t.onchange = g.onchange = f.onchange = update;
@@ -109,7 +109,7 @@
         let hideCountry = false;
         if (flagDiv) {
             const style = flagDiv.getAttribute('style') || '';
-            hideCountry = (cfg.germany && style.includes('/DE.gif')) || (cfg.france && style.includes('/FR.gif'));
+            hideCountry = (cfg.germany && style.includes('/DE.gif')) || (cfg.belgium && style.includes('/BE.gif'));
         }
         return hideGender || hideCountry;
     }
