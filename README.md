@@ -126,7 +126,7 @@ above if you see prices in other currency.
 
 [Youtube Music controls always visible](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/YT_Music_Controls.user.js) Shows volume, shuffle and repeat always without having to hover on the arrow. Also removed the arrow.
 
-<img width="1433" height="143" alt="FhsNpBQ1lW" src="https://github.com/user-attachments/assets/125f2c27-392f-42fa-8edb-75f653c389df" />
+<img width="600" height="143" alt="FhsNpBQ1lW" src="https://github.com/user-attachments/assets/125f2c27-392f-42fa-8edb-75f653c389df" />
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/YT_Music_Controls.md)
 
@@ -134,7 +134,7 @@ above if you see prices in other currency.
 
 [Steam Block Games](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/Steam_Block_Games.user.js) Shows a "Block" button on each game card on steam to stop seeing trash games that have your desired tags. Control given back to you.
 
-<img width="900" height="549" alt="ID9CSDOuzf" src="https://github.com/user-attachments/assets/bd634b51-649c-40c7-a9cc-55d0a7d9a52f" />
+<img width="400" height="549" alt="ID9CSDOuzf" src="https://github.com/user-attachments/assets/bd634b51-649c-40c7-a9cc-55d0a7d9a52f" />
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Steam_Search_Block_Games.md)
 
