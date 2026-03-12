@@ -13,7 +13,7 @@ him to wait 40 seconds before trying to scroll. Scrolling is how we tell steam t
 minute before continuing.
 
 __TIP:__ If you use the steam filters to take out more games that can appear on the search, you will likely avoid the throttling
-since you will not have to remove thousands of games, but as you know, tags are abused and you could be removing more than
+since you will not have to remove hundreds of games, but as you know, tags are abused and you could be removing more than
 you want with them.
 
 ### USAGE:
