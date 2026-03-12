@@ -219,6 +219,7 @@ above if you see prices in other currency.
 
 [Imagefap image dimensions highlighter](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/dimensions_highlighter.user.js
 ) This will show colored sizes below the images on the thumbs page of galleries.
+NO it doesn't do what you are thinking.
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/ImageFap_Dimensions_Highligher.md)
 
