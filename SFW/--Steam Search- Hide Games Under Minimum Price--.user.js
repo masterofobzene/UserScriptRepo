@@ -81,7 +81,7 @@ function showThrottleMessage() {
         throttleMessage.innerHTML = `
         Throttled by Steam, wait at least 40 seconds before scrolling<br>
         <span style="font-size:12px;color:#c6d4df;">
-        We just removed thousands of games by now believe it or not.<br>
+        We just removed hundreds of games by now believe it or not.<br>
         After that time just go up and down with the scroll wheel to continue.
         </span>
         `;
