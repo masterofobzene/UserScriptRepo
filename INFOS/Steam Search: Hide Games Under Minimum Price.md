@@ -10,7 +10,7 @@ UPDATE 1.6: Now we show a steam throttling message. Steam Throttles our results 
 too fast and consequently asking for more at a rate not considered normal for the servers. With this we: A- explain to 
 the user why he is not seeing any more results suddenly, and B- We stop him (with a warning only) from scrolling and tell
 him to wait 40 seconds before trying to scroll. Scrolling is how we tell steam to load more results, so we have to wait a
-minute before continuing. The script is not "broken" its just how protection works on networks.
+minute before continuing.
 
 ### USAGE:
 ---------------
