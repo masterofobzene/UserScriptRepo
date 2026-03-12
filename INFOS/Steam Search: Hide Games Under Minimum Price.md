@@ -11,6 +11,7 @@ too fast and consequently asking for more at a rate not considered normal for th
 the user why he is not seeing any more results suddenly, and B- We stop him (with a warning only) from scrolling and tell
 him to wait 40 seconds before trying to scroll. Scrolling is how we tell steam to load more results, so we have to wait a
 minute before continuing.
+
 __TIP:__ If you use the steam filters to take out more games that can appear on the search, you will likely avoid the throttling
 since you will not have to remove thousands of games, but as you know, tags are abused and you could be removing more than
 you want with them.
