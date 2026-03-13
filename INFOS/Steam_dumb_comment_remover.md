@@ -6,7 +6,7 @@ or words that the user inputs. Optionally you can replace the whole comment with
 ### USAGE:
 ---------------
 On each game page you will now get a floating small window with two buttons: "Edit Phrases" and "Edit Replacement".
-The only explaination you need is that you put phrases between double quotes and separate them with commas.
+The only explanation you need is that you put phrases between double quotes and separate them with commas.
 
 
 ### WHY?:
