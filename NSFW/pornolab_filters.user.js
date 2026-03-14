@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Pornolab Filters
 // @namespace pornolab-filters
-// @version 1.3
+// @version 1.4
 // @author masterofobzene
 // @description Persistent client-side blacklist — now with whole-word matching + unhides pagination
 // @match *://pornolab.net/forum/tracker.php*
@@ -12,11 +12,12 @@
 // @updateURL https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/pornolab_filters.user.js
 // ==/UserScript==
 
+
 (function () {
     'use strict';
 
     const STORAGE_KEY_TITLES = 'pornolab_blacklist_titles';
-    const STORAGE_KEY_FORUMS  = 'pornolab_blacklist_forums';
+    const STORAGE_KEY_FORUMS = 'pornolab_blacklist_forums';
 
     function escapeRegExp(str) {
         return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -100,7 +101,7 @@
 
     function applyFilter(table) {
         const titleWords = getWords(STORAGE_KEY_TITLES);
-        const forumWords  = getWords(STORAGE_KEY_FORUMS);
+        const forumWords = getWords(STORAGE_KEY_FORUMS);
 
         table.querySelectorAll('tbody > tr').forEach(row => {
             if (!row.cells || row.cells.length < 4) {
@@ -128,9 +129,9 @@
         });
     }
 
-    // ==================== FULL PAGINATION ====================
+    // ==================== FULL PAGINATION (preserves search_id + all params) ====================
     function buildFullPagination() {
-        const paginationContainers = document.querySelectorAll('.bottom_info .nav, p.small');
+        const paginationContainers = document.querySelectorAll('.bottom_info .nav');
 
         paginationContainers.forEach(container => {
             const text = container.textContent || '';
@@ -143,9 +144,21 @@
             const currentBold = container.querySelector('b');
             const currentPage = currentBold ? parseInt(currentBold.textContent) : 1;
 
-            let base = location.href.split('&start=')[0].split('?start=')[0];
-            if (!base.includes('?')) base += '?';
-            else base += '&';
+            // ROBUST BASE: take existing site link (guaranteed to have search_id/params) and strip start
+            let base = '';
+            const exampleLink = container.querySelector('a.pg') || container.querySelector('a[href*="tracker.php"]');
+            if (exampleLink) {
+                let exHref = exampleLink.getAttribute('href') || '';
+                exHref = exHref.replace(/[?&]start=\d+(&?)/g, (m, p) => p || '');
+                exHref = exHref.replace(/[?&]$/, '');
+                base = exHref.includes('?') ? exHref + '&' : exHref + '?';
+            } else {
+                // fallback
+                let urlObj = new URL(location.href);
+                urlObj.searchParams.delete('start');
+                base = urlObj.toString();
+                base += base.includes('?') ? '&' : '?';
+            }
 
             let html = `<a class="menu-root" href="#pg-jump">Страницы</a> :&nbsp;&nbsp; `;
 
