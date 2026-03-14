@@ -11,6 +11,8 @@ UPDATE: It will now unhide the pagination numbers so you don't get hidden pages 
 UPDATE 1.3: Now the filter will filter complete words separated by spaces and not everything that contains those words,
 for example to filter 'ts' it will not match e.g. 'pants' as before; it will only match 'ts' exactly as you entered it.
 
+UPDATE 1.4: Fixed pagination reseting the search on page change + filters now apply correctly on results automatically.
+
 ### USAGE:
 ---------------
 Input the words you want to match on offending results. It is persistent so you can save your list.
