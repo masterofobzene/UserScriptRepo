@@ -13,6 +13,9 @@ for example to filter 'ts' it will not match e.g. 'pants' as before; it will onl
 
 UPDATE 1.4: Fixed pagination reseting the search on page change + filters now apply correctly on results automatically.
 
+UPDATE 1.5: Again fixed filters not applying correctly after changing page or searching, it worked randomly before, now 
+it should update with a little delay that might be unpleasant to see but makes it work better.
+
 ### USAGE:
 ---------------
 Input the words you want to match on offending results. It is persistent so you can save your list.
