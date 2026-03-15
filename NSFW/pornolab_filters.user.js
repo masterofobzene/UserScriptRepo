@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Pornolab Filters
 // @namespace pornolab-filters
-// @version 1.4
+// @version 1.5
 // @author masterofobzene
 // @description Persistent client-side blacklist — now with whole-word matching + unhides pagination
 // @match *://pornolab.net/forum/tracker.php*
@@ -23,18 +23,18 @@
         return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
 
-    function waitForTable(cb) {
-        const t = document.querySelector('#tor-tbl');
-        if (t) return cb(t);
+    function waitForTable(callback) {
+        const table = document.querySelector('#tor-tbl');
+        if (table) return callback(table);
 
-        const obs = new MutationObserver(() => {
+        const observer = new MutationObserver(() => {
             const t = document.querySelector('#tor-tbl');
             if (t) {
-                obs.disconnect();
-                cb(t);
+                observer.disconnect();
+                callback(t);
             }
         });
-        obs.observe(document.body, { childList: true, subtree: true });
+        observer.observe(document.body, { childList: true, subtree: true });
     }
 
     function getWords(key) {
@@ -44,8 +44,8 @@
             .filter(Boolean);
     }
 
-    function saveWords(key, val) {
-        localStorage.setItem(key, val.trim());
+    function saveWords(key, value) {
+        localStorage.setItem(key, value.trim());
     }
 
     function createUI(table) {
@@ -55,41 +55,42 @@
         box.id = 'pl-blacklist-box';
         box.style.cssText = `
             margin: 15px 0;
-            padding: 10px;
+            padding: 12px;
             border: 1px solid #666;
             background: #1b1b1b;
+            color: #ddd;
         `;
 
-        box.innerHTML = `<div style="font-weight:bold; margin-bottom:10px;">Client-side blacklist (whole words):</div>`;
+        box.innerHTML = `<div style="font-weight:bold; margin-bottom:10px;">Client-side blacklist (whole words only):</div>`;
 
+        // Titles
         const titleLabel = document.createElement('div');
-        titleLabel.textContent = 'Hide titles containing (whole words):';
-        titleLabel.style.marginTop = '8px';
+        titleLabel.textContent = 'Hide titles containing:';
+        titleLabel.style.margin = '8px 0 4px';
         box.appendChild(titleLabel);
 
         const titleInput = document.createElement('input');
         titleInput.type = 'text';
-        titleInput.style.cssText = `width: 100%; max-width: 700px; padding: 8px; font-size: 14px;`;
-        titleInput.placeholder = 'ts shemale amateur';
+        titleInput.placeholder = 'ts shemale amateur onlyfans';
         titleInput.value = localStorage.getItem(STORAGE_KEY_TITLES) || '';
-
+        titleInput.style.cssText = 'width:100%; max-width:700px; padding:8px; font-size:14px; box-sizing:border-box;';
         titleInput.addEventListener('input', () => {
             saveWords(STORAGE_KEY_TITLES, titleInput.value);
             applyFilter(table);
         });
         box.appendChild(titleInput);
 
+        // Forums
         const forumLabel = document.createElement('div');
-        forumLabel.textContent = 'Hide forums containing (whole words):';
-        forumLabel.style.marginTop = '12px';
+        forumLabel.textContent = 'Hide forums containing:';
+        forumLabel.style.margin = '16px 0 4px';
         box.appendChild(forumLabel);
 
         const forumInput = document.createElement('input');
         forumInput.type = 'text';
-        forumInput.style.cssText = `width: 100%; max-width: 700px; padding: 8px; font-size: 14px;`;
-        forumInput.placeholder = 'amateur onlyfans shemale';
+        forumInput.placeholder = 'amateur shemale onlyfans milf';
         forumInput.value = localStorage.getItem(STORAGE_KEY_FORUMS) || '';
-
+        forumInput.style.cssText = 'width:100%; max-width:700px; padding:8px; font-size:14px; box-sizing:border-box;';
         forumInput.addEventListener('input', () => {
             saveWords(STORAGE_KEY_FORUMS, forumInput.value);
             applyFilter(table);
@@ -103,87 +104,81 @@
         const titleWords = getWords(STORAGE_KEY_TITLES);
         const forumWords = getWords(STORAGE_KEY_FORUMS);
 
-        table.querySelectorAll('tbody > tr').forEach(row => {
-            if (!row.cells || row.cells.length < 4) {
-                row.style.display = '';
-                return;
-            }
+        // Delay needed because tablesorter / ajax sorting often runs after DOM is ready
+        setTimeout(() => {
+            const rows = table.querySelectorAll('tbody > tr');
+            rows.forEach(row => {
+                if (!row.cells || row.cells.length < 5) {
+                    row.style.display = '';
+                    return;
+                }
 
-            const forumCell = row.cells[2];
-            const topicCell = row.cells[3];
+                // Forum name cell = index 2, Topic title cell = index 3
+                const forumCell = row.cells[2];
+                const topicCell = row.cells[3];
 
-            const forumText = (forumCell.textContent || '').toLowerCase();
-            const topicText = (topicCell.textContent || '').toLowerCase();
+                const forumText = (forumCell?.textContent || '').toLowerCase().trim();
+                const topicText = (topicCell?.textContent || '').toLowerCase().trim();
 
-            const hideByForum = forumWords.some(w => {
-                const re = new RegExp(`\\b${escapeRegExp(w)}\\b`, 'i');
-                return re.test(forumText);
+                const hideByForum = forumWords.some(word =>
+                    new RegExp(`\\b${escapeRegExp(word)}\\b`, 'i').test(forumText)
+                );
+
+                const hideByTitle = titleWords.some(word =>
+                    new RegExp(`\\b${escapeRegExp(word)}\\b`, 'i').test(topicText)
+                );
+
+                row.style.display = (hideByForum || hideByTitle) ? 'none' : '';
             });
-
-            const hideByTitle = titleWords.some(w => {
-                const re = new RegExp(`\\b${escapeRegExp(w)}\\b`, 'i');
-                return re.test(topicText);
-            });
-
-            row.style.display = (hideByForum || hideByTitle) ? 'none' : '';
-        });
+        }, 1400); // increased delay to outrun most site scripts
     }
 
-    // ==================== FULL PAGINATION (preserves search_id + all params) ====================
     function buildFullPagination() {
-        const paginationContainers = document.querySelectorAll('.bottom_info .nav');
-
-        paginationContainers.forEach(container => {
-            const text = container.textContent || '';
+        document.querySelectorAll('.bottom_info .nav').forEach(nav => {
+            const text = nav.textContent || '';
             const totalMatch = text.match(/из\s*<b>(\d+)<\/b>/) || text.match(/из\s*(\d+)/);
             if (!totalMatch) return;
 
-            const totalPages = parseInt(totalMatch[1]);
-            if (!totalPages || totalPages <= 1) return;
+            const totalPages = parseInt(totalMatch[1], 10);
+            if (totalPages <= 1) return;
 
-            const currentBold = container.querySelector('b');
-            const currentPage = currentBold ? parseInt(currentBold.textContent) : 1;
+            const currentPageElem = nav.querySelector('b');
+            const currentPage = currentPageElem ? parseInt(currentPageElem.textContent, 10) : 1;
 
-            // ROBUST BASE: take existing site link (guaranteed to have search_id/params) and strip start
-            let base = '';
-            const exampleLink = container.querySelector('a.pg') || container.querySelector('a[href*="tracker.php"]');
-            if (exampleLink) {
-                let exHref = exampleLink.getAttribute('href') || '';
-                exHref = exHref.replace(/[?&]start=\d+(&?)/g, (m, p) => p || '');
-                exHref = exHref.replace(/[?&]$/, '');
-                base = exHref.includes('?') ? exHref + '&' : exHref + '?';
+            let baseUrl = '';
+            const link = nav.querySelector('a.pg') || nav.querySelector('a[href*="tracker.php"]');
+            if (link) {
+                let href = link.getAttribute('href') || '';
+                href = href.replace(/[?&]start=\d+(&?)/g, (m, p) => p || '');
+                href = href.replace(/[?&]$/, '');
+                baseUrl = href + (href.includes('?') ? '&' : '?');
             } else {
-                // fallback
-                let urlObj = new URL(location.href);
-                urlObj.searchParams.delete('start');
-                base = urlObj.toString();
-                base += base.includes('?') ? '&' : '?';
+                const url = new URL(location.href);
+                url.searchParams.delete('start');
+                baseUrl = url.toString() + (url.search ? '&' : '?');
             }
 
-            let html = `<a class="menu-root" href="#pg-jump">Страницы</a> :&nbsp;&nbsp; `;
+            let html = `<a class="menu-root" href="#pg-jump">Страницы</a> :&nbsp;&nbsp;`;
 
             if (currentPage > 1) {
-                const prev = (currentPage - 2) * 50;
-                html += `<a class="pg" href="${base}start=${prev}">Пред.</a>&nbsp;&nbsp;`;
+                html += `<a class="pg" href="${baseUrl}start=${(currentPage - 2) * 50}">Пред.</a>&nbsp;&nbsp;`;
             }
 
             for (let i = 1; i <= totalPages; i++) {
                 if (i === currentPage) {
                     html += `<b>${i}</b>`;
                 } else {
-                    const start = (i - 1) * 50;
-                    html += `<a class="pg" href="${base}start=${start}">${i}</a>`;
+                    html += `<a class="pg" href="${baseUrl}start=${(i - 1) * 50}">${i}</a>`;
                 }
                 if (i < totalPages) html += ', ';
             }
 
             if (currentPage < totalPages) {
-                const next = currentPage * 50;
-                html += `&nbsp;&nbsp;<a class="pg" href="${base}start=${next}">След.</a>`;
+                html += `&nbsp;&nbsp;<a class="pg" href="${baseUrl}start=${currentPage * 50}">След.</a>`;
             }
 
-            const targetP = container.querySelector('p[style*="float: right"]') || container.querySelector('p') || container;
-            if (targetP) targetP.innerHTML = html;
+            const target = nav.querySelector('p[style*="float: right"]') || nav;
+            if (target) target.innerHTML = html;
         });
     }
 
@@ -191,15 +186,19 @@
         new MutationObserver(() => {
             applyFilter(table);
             buildFullPagination();
-        }).observe(table, { childList: true, subtree: true });
+        }).observe(table, { childList: true, subtree: true, characterData: true });
     }
 
     waitForTable(table => {
         createUI(table);
-        applyFilter(table);
-        buildFullPagination();
         attachObservers(table);
+
+        // Multiple delayed runs to survive site re-sorting / ajax
+        setTimeout(() => { applyFilter(table); buildFullPagination(); }, 1400);
+        setTimeout(() => { applyFilter(table); buildFullPagination(); }, 3000);
+        setTimeout(() => { applyFilter(table); buildFullPagination(); }, 5500);
     });
 
-    setTimeout(buildFullPagination, 800);
+    // Extra safety run
+    setTimeout(buildFullPagination, 1200);
 })();
