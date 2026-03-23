@@ -140,7 +140,6 @@ above if you see prices in other currency.
 
 -----------
 
-
 [Steam Dumb Comment Remover](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/Steam_dumb_comment_remover.user.js) Shows two buttons on the bottom to match phrases and optionally replace the comment with custom messages. More like a joke but can be useful sometimes. "I REALLY WANTED TO LOVE THIS DESCRIPTION BUT..."
 
 <img width="400" height="387" alt="OKCtj4GgKS" src="https://github.com/user-attachments/assets/e6f4c070-9178-4c5d-9330-f712df78cc01" />
@@ -151,7 +150,16 @@ above if you see prices in other currency.
 
 -----------
 
+[DeepSeek auto collapse thinking](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/DeepSeek_Auto_Collapse_Thinking.user.js) Collapses the thinking cluster automatically for every answer.
 
+<img width="400" height="555" alt="37YvtBU3LC" src="https://github.com/user-attachments/assets/9381ad1f-3f27-493a-bc12-64ca4e9f0916" />
+
+
+
+
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Steam_dumb_comment_remover.md)
+
+-----------
 
 
 <br>
