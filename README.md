@@ -157,7 +157,7 @@ above if you see prices in other currency.
 
 
 
-[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Steam_dumb_comment_remover.md)
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/DeepSeek_Auto_Collapse_Thinking.md)
 
 -----------
 
