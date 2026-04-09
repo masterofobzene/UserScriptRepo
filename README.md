@@ -231,6 +231,12 @@ NO it doesn't do what you are thinking.
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/ImageFap_Dimensions_Highligher.md)
 
+-----------
+
+[Heavy-R Tag Hider](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/Heavy-R_Tag_Hider.user.js
+) This will hide content that has the tags you determine in the script code.
+
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Heavy-R_Tag_Hider.md)
 
 <br>
 <br>
