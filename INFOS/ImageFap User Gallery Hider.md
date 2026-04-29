@@ -19,6 +19,9 @@ UPDATE 1.9: Now you can filter by user country. Germany is the worst offender, F
 UPDATE 2.0: Now the left categories menu is collapsible, meaning no more "empty space" when paginating the search results.
 
 UPDATE 2.1: Changed France to Belgium. I found that Belgium has worse users than France. Germany remains the worst offender.
+
+UPDATE 2.2: Added back France and added Spain. Europe seems to be derailing very hard.
+
  
 ### USAGE:
 ---------------
