@@ -7,6 +7,8 @@ Lazy game discovery and acquisition on NXBrew, using Nintendo's store as a catal
 On each game card, you will have 1 big red button to search the game name on NXBrew.
 
 UPDATE 1.2: Fixed new nxbrew.me domain. Now the script removes any "™" that would break the search.
+UPDATE 1.3: ROLLBACK!! as nxbrew.me is a FAKE MALWARE DOMAIN. DO NOT USE IT.
+
 
 ### WHY?:
 ---------------
