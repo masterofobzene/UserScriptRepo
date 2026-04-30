@@ -109,7 +109,7 @@ above if you see prices in other currency.
 
 [nswpedia Search Button](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/NXBrew_Search_Button.user.js) Shows a new button to search for the game on ~NXBrew~ nswpedia so you can use the Big N's catalog to browse for games.
 
-<img width="400" height="200" alt="MpzbL14VKC" src="https://github.com/user-attachments/assets/ebcec24e-03f3-4ab4-b6a8-ce2e19622283" />
+<img width="200" alt="MpzbL14VKC" src="https://github.com/user-attachments/assets/ebcec24e-03f3-4ab4-b6a8-ce2e19622283" />
 
 
 
@@ -119,7 +119,7 @@ above if you see prices in other currency.
 
 [Stable Diffusion FORGE quick access buttons](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/SDForge.user.js) Shows a copy of the most used buttons: "generate", "Reuse seed", "random seed", "save image" and "hires.fix" toggle. Also it has a box showing the current seed (mostly for knowing if you are on -1 or reusing). Mind that the 📌 instead of ♻ icons are because I modded them, not part of this script.
 
-<img src="https://github.com/user-attachments/assets/675c1821-aee9-4a7f-afac-209ded7bf097" height="400" width="400">
+<img src="https://github.com/user-attachments/assets/675c1821-aee9-4a7f-afac-209ded7bf097" height="400" width="600">
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/SDForge.md)
 
@@ -127,7 +127,7 @@ above if you see prices in other currency.
 
 [Youtube Music controls always visible](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/YT_Music_Controls.user.js) Shows volume, shuffle and repeat always without having to hover on the arrow. Also removed the arrow.
 
-<img width="600" height="143" alt="FhsNpBQ1lW" src="https://github.com/user-attachments/assets/125f2c27-392f-42fa-8edb-75f653c389df" />
+<img height="200" alt="FhsNpBQ1lW" src="https://github.com/user-attachments/assets/125f2c27-392f-42fa-8edb-75f653c389df" />
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/YT_Music_Controls.md)
 
@@ -135,7 +135,7 @@ above if you see prices in other currency.
 
 [Steam Block Games](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/Steam_Block_Games.user.js) Shows a "Block" button on each game card on steam to stop seeing trash games that have your desired tags. Control given back to you.
 
-<img width="400" height="549" alt="ID9CSDOuzf" src="https://github.com/user-attachments/assets/bd634b51-649c-40c7-a9cc-55d0a7d9a52f" />
+<img height="200" alt="ID9CSDOuzf" src="https://github.com/user-attachments/assets/bd634b51-649c-40c7-a9cc-55d0a7d9a52f" />
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Steam_Search_Block_Games.md)
 
@@ -143,7 +143,7 @@ above if you see prices in other currency.
 
 [Steam Dumb Comment Remover](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/Steam_dumb_comment_remover.user.js) Shows two buttons on the bottom to match phrases and optionally replace the comment with custom messages. More like a joke but can be useful sometimes. "I REALLY WANTED TO LOVE THIS DESCRIPTION BUT..."
 
-<img width="400" height="387" alt="OKCtj4GgKS" src="https://github.com/user-attachments/assets/e6f4c070-9178-4c5d-9330-f712df78cc01" />
+<img height="200" alt="OKCtj4GgKS" src="https://github.com/user-attachments/assets/e6f4c070-9178-4c5d-9330-f712df78cc01" />
 
 
 
@@ -153,7 +153,7 @@ above if you see prices in other currency.
 
 [DeepSeek auto collapse thinking](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/DeepSeek_Auto_Collapse_Thinking.user.js) Collapses the thinking cluster automatically for every answer.
 
-<img width="400" height="555" alt="37YvtBU3LC" src="https://github.com/user-attachments/assets/9381ad1f-3f27-493a-bc12-64ca4e9f0916" />
+<img height="200" alt="37YvtBU3LC" src="https://github.com/user-attachments/assets/9381ad1f-3f27-493a-bc12-64ca4e9f0916" />
 
 
 
