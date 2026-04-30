@@ -26,7 +26,9 @@
             console.log('[NXBrew] Game found:', name);
 
             name = name
-                .replace(/\s*(Nintendo Switch|™|®|Switch 2|\(Switch\)|Edition|Deluxe|DLC|Bundle|\+.*|–.*)$/gi, '')
+                .replace(/[™®]/g, '')
+                .replace(/\s*(Nintendo Switch|Switch 2|\(Switch\)|Edition|Deluxe|DLC|Bundle|\+.*|–.*)$/gi, '')
+                .replace(/\s{2,}/g, ' ')
                 .trim();
 
             if (!name) return;
