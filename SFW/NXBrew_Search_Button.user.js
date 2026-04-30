@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         NXBrew Search Button
 // @namespace    NXBrew_Search_Button
-// @version      1.2
+// @version      1.3
 // @description  Adds SEARCH ON NXBREW button on each game card on Nintendo game catalog.
 // @author       masterofobzene
 // @match        https://www.nintendo.com/us/store/games/*
@@ -33,7 +33,7 @@
 
             if (!name) return;
 
-            const url = `https://nxbrew.me/?s=${encodeURIComponent(name)}`;
+            const url = `https://nxbrew.net/?s=${encodeURIComponent(name)}`;
 
             const btn = document.createElement('a');
             btn.href = url;
