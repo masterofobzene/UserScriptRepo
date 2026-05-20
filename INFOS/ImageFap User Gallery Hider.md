@@ -25,16 +25,18 @@ UPDATE 2.2: Added back France and added Spain. Europe seems to be derailing very
  
 ### USAGE:
 ---------------
-Just click the red X button on the avatar of the offender. After applying to a user or many in the page.
-All instances (past and future) will not appear anymore in your searches.
+Just click the red X button on the avatar of the offender.
+All content of the user (past and future) will not appear anymore in your searches.
 You can also collapse or extend the left categories menu.
 
 
 ### WHY?:
 ---------------
 That site is a dump filled with weirdos trying to somehow convince people to become gay. The site doesn't offer 
-any blocking features only if you sign you get some filtering by tags, but the weirdos don't use tags or use 
-false ones to get exposition. The site doesn't mind that, it seems. So here is your tool to clean it. LGBT my ass, gender
+any blocking features only if you sign in, you get some filtering by tags but the weirdos don't use tags or use 
+false ones to get exposition and the tags you can filter in the options are limited in numbers + the site loves 
+profiling users.
+The site doesn't mind that. So here is your tool to clean it. LGBT my ass, gender
 dysphoria is not a virtue, nor normal.
 
 ---------------
