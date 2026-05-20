@@ -10,7 +10,7 @@ Supports:
 
 ## INSTALL INDEX
 You must have violentmonkey, tampermonkey or another script manager for these to work.
-Click on the script name to install it. All scripts here were made for Firefox/Librewolf but you can try them on Chrome and see if they work.
+Click on the script name to install it. All scripts here were made for Firefox/Librewolf but you can try them on Chrome/Brave and see if they work.
 
 ### SFW 
 -----------
