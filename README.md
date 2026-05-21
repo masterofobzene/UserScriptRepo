@@ -239,6 +239,14 @@ NO it doesn't do what you are thinking.
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Heavy-R_Tag_Hider.md)
 
+-----------
+
+[Pornolab post preview](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/Pornolab_Post_Preview.user.js
+) Shows the first post image in a dynamic popup while hovering on a post link, so you can preview the contents without having to click the link.
+
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Pornolab_Post_Preview.md)
+
+
 <br>
 <br>
 <br>
