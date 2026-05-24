@@ -264,10 +264,18 @@ Description: Select text -> right click -> "search this" -> searches those words
 
 
 
+<br>
+<br>
+<br>
+<br>
+
+--------------------------
 
 
-
-
+> [!TIP]
+> - <img width="100" height="30" alt="azRggiVKee" src="https://github.com/user-attachments/assets/667665b1-1c0d-47fe-837e-1d2035f9ed7f" /> – This button is **not** for installing anything.
+> - <img width="100" height="30" alt="g41eGfc03s" src="https://github.com/user-attachments/assets/c1b90a05-2d8f-40f7-87de-ea69d251c55b" /> – This button is to show that you **like** this repo.
+> - <img width="100" height="30" alt="fIVz9FY5CQ" src="https://github.com/user-attachments/assets/eed88252-51be-4376-8428-b9feb8342863" /> – This button is to **get spam** every time I modify something.
 
 
 
