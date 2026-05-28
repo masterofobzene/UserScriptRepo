@@ -4,7 +4,7 @@
 // @version      1.1
 // @author       masterofobzene
 // @description  Block button to hide individual games.
-// @match        https://store.steampowered.com/search/*
+// @match        https://store.steampowered.com/search*
 // @grant        GM_getValue
 // @grant        GM_setValue
 // @grant        GM_registerMenuCommand
