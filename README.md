@@ -163,6 +163,16 @@ above if you see prices in other currency.
 -----------
 
 
+[DeepSeek be concise](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/deepseek-concise.user.js) Makes DeepSeek give concise answers instead of walls of text.
+
+<img width="400" height="200" alt="e65aw4NRcw" src="https://github.com/user-attachments/assets/6fa3cfea-2545-432b-bb16-8fc35b299f81" />
+
+
+
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/DeepSeek_Auto_Collapse_Thinking.md)
+
+-----------
+
 <br>
 <br>
 <br>
