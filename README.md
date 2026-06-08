@@ -169,7 +169,7 @@ above if you see prices in other currency.
 
 
 
-[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/DeepSeek_Auto_Collapse_Thinking.md)
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/deepseek-concise.md)
 
 -----------
 
