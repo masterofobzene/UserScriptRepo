@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ::Steam Links::
 // @namespace    Steam-Links
-// @version      2.2
+// @version      2.3
 // @icon         https://cdn.freebiesupply.com/images/large/2x/steam-logo-black-transparent.png
 // @description  Lets you easily search the games on clean DL sites, watch gameplays without youtuber's comments and see if the game is woke-oriented.
 // @author       masterofobzene
@@ -32,11 +32,10 @@
 
         // Sites configuration
         const sites = [
-            { name: 'GOG Games', url: `https://gog-games.to/?search=${encodeURIComponent(gameName)}`},
             { name: 'CS.RIN.RU', url: `https://cs.rin.ru/forum/search.php?keywords=${encodeURIComponent(gameName)}` + '&terms=any&author=&sc=1&sf=titleonly&sk=t&sd=d&sr=topics&st=0&ch=300&t=0&submit=Search'},
             { name: 'Torrminatorr', url: `https://forum.torrminatorr.com/search.php?keywords=${encodeURIComponent(gameName)}` },
             { name: 'FitGirl Repacks', url: `https://fitgirl-repacks.site/?s=${encodeURIComponent(gameName)}` },
-            { name: 'DElDETECTED', url: `https://deidetected.com/games/?search=${encodeURIComponent(gameName)}` },
+            { name: 'DEIDETECTED', url: `https://deidetected.com/games/?search=${encodeURIComponent(gameName)}` },
             { name: 'YouTube (No Commentary)', url: `https://www.youtube.com/results?search_query=${encodeURIComponent(gameName + ' no commentary')}` }
         ];
 
