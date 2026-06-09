@@ -15,7 +15,7 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 ### SFW 
 -----------
 
-[::GOG Links::](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--GOG%20Links--.user.js) Adds links for GOG store to gameplay videos without youtubers comments and direct search on Gog-games for free clean download.
+[::GOG Links::](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--GOG%20Links--.user.js) Adds links for GOG store to gameplay videos without youtubers comments and direct search on Torrminatorr for free clean download.
 
 <img src="https://github.com/user-attachments/assets/2d74e639-dcc7-426b-8eb7-f6be3b99f908" width="400">
 
@@ -23,7 +23,7 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 
 -----------
 
-[::GOG-Games Links::](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--GOG-Games%20Links--.user.js) Adds "Gameplay Video" and "Changelog" buttons per game card to search for no-commentary gameplay videos and if lucky, a changelog.
+~~[::GOG-Games Links::](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--GOG-Games%20Links--.user.js)~~ ~~Adds "Gameplay Video" and "Changelog" buttons per game card to search for no-commentary gameplay videos and if lucky, a changelog.~~ Gog-games admin says he is not updating the site anymore and will close the site on September 6/2026.
 
 <img src="https://github.com/user-attachments/assets/d297d4a1-42c9-4cfb-82dc-677dd8c2ff91" width="400">
 
