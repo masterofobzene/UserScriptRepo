@@ -17,7 +17,7 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 
 [::GOG Links::](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--GOG%20Links--.user.js) Adds links for GOG store to gameplay videos without youtubers comments and direct search on Torrminatorr for free clean download.
 
-<img src="https://github.com/user-attachments/assets/2d74e639-dcc7-426b-8eb7-f6be3b99f908" width="400">
+<img width="400" alt="GeaabI9Wys" src="https://github.com/user-attachments/assets/2d6678a0-b397-4ba8-846b-6bfe7ca5a88a" />
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/GOG%20Links.md)
 
