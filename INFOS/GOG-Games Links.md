@@ -14,7 +14,7 @@ message (September 6). This was a personal decision and not because of
 any legal pressure. All remaining funds (around 700 EUR in XMR) will be 
 donated to torrminatorr. ❤️ A huge thank you to anyone who donated. Your funds will be going to a good home. ❤️
 
-I cannot imagine the face of donors after they realize the money will go to a forum that probably doesn't even know them with no VIP treatment or anything. ❤️❤️❤️ 🤣😂
+I cannot imagine the face of the donors ❤️❤️❤️ 🤣😂
 
 ### WHY?:
 ---------------
