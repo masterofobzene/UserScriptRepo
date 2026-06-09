@@ -2,8 +2,8 @@
 // @name         ::GOG Links::
 // @namespace    masterofobzene
 // @author       masterofobzene
-// @version      1.9
-// @description  Adds links for GOG store to gameplay videos without youtubers comments and direct search on Gog-games for free clean download.
+// @version      2.0
+// @description  Adds links for GOG store to gameplay videos without youtubers comments and direct search on Torrminatorr for free clean download.
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
 // @match        *://www.gog.com/*/game/*
 // @homepage     https://github.com/masterofobzene/UserScriptRepo
@@ -17,9 +17,9 @@
 
 var pirateLinks = [
     {
-        url: "https://gog-games.to/?search=",
+        url: "https://forum.torrminatorr.com/search.php?keywords=",
         urlSpecial: "",
-        title: "Search on GoG-Games"
+        title: "Search on Torrminatorr"
     },
     {
         url: "https://www.youtube.com/results?search_query=",
