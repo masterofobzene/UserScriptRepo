@@ -1,7 +1,8 @@
 ### USE CASE:
 --------------
 Lazy game discovery. This userscript will add 2 new buttons to Gog.com; one to search for non(voice)commented gameplay videos
-on youtube to roughly judge gameplay, and one for searching that game on gog-games.to for download. 
+on youtube to roughly judge gameplay, and one for searching that game on torrminatorr forum for download. 
+ATTENTION: IT IS NOW REQUIRED TO HAVE A USER ON TORRMINATORR TO WORK WITH THIS EXTENSION.
 
 ### USAGE:
 ---------------
