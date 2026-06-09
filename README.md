@@ -34,7 +34,8 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 
 [::Steam Links::](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--Steam%20Links--.user.js) Lets you easily search the games on clean DL sites, watch gameplays without youtuber's comments and see if the game is woke-oriented.
 
-<img src="https://github.com/user-attachments/assets/3ea35791-0753-4503-a458-aba84db86af8" width="400">
+<img width="400" alt="E9MtE02Pbt" src="https://github.com/user-attachments/assets/7010b109-cb97-4861-8915-4c0b8ce0f26a" />
+
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Steam%20Links.md)
 
