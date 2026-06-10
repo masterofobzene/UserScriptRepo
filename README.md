@@ -100,7 +100,7 @@ above if you see prices in other currency.
 
 -----------
 
-[Steam Bad Reviews](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/Steam_Bad_Reviews.user.js) Automatically switches to "bad reviews" when visiting the game page so you can judge the game a little bit better.
+[Steam Bad Reviews](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/Steam_Bad_Reviews.user.js) Automatically switches to "negative reviews" when visiting the game page so you can judge the game a little bit better.
 
 <img src="https://github.com/user-attachments/assets/14c395f9-8e84-41b2-a7a4-5723968ed626" width="400">
 
