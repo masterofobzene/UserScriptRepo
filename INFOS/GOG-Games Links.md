@@ -16,7 +16,7 @@ donated to torrminatorr. ❤️ A huge thank you to anyone who donated. Your fun
 
 I cannot imagine the face of the donors ❤️❤️❤️ 🤣😂
 
-UPDATE: He shut down the site today June 12 2026.
+
 
 ### WHY?:
 ---------------
