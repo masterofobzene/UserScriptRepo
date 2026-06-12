@@ -7,7 +7,7 @@
 ~~Just click the purple button to search for a gameplay video of the selected game without annoying youtubers 
 screaming and mumbling word salads or click the orange button to HOPEFULLY get a changelog FROM STEAM.~~
 
-Gog-games will go offline on September 6 2026, according to the site owner:
+~~Gog-games will go offline on September 6 2026~~, according to the site owner:
 > PLEASE READ: It has been decided that all operations will cease (no new 
 games, updates, etc.) and the site will go offline in 90 days from this 
 message (September 6). This was a personal decision and not because of 
@@ -15,6 +15,8 @@ any legal pressure. All remaining funds (around 700 EUR in XMR) will be
 donated to torrminatorr. ❤️ A huge thank you to anyone who donated. Your funds will be going to a good home. ❤️
 
 I cannot imagine the face of the donors ❤️❤️❤️ 🤣😂
+
+UPDATE: He shut down the site today June 12 2026.
 
 ### WHY?:
 ---------------
