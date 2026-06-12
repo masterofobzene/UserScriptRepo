@@ -25,7 +25,7 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 
 ~~[::GOG-Games Links::](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--GOG-Games%20Links--.user.js)~~ ~~Adds "Gameplay Video" and "Changelog" buttons per game card to search for no-commentary gameplay videos and if lucky, a changelog.~~ 
 
-Gog-games admin says he is not updating the site anymore and ~will close the site on September 6/2026.~ UPDATE: he shut down the site today june 12. RIP gog-games.to 👋, now GET YOUR torrminatorr account created (free) and use the other scripts that are updated for it to search for your games! 😁
+Gog-games admin says he is not updating the site anymore and ~will close the site on September 6/2026.~ UPDATE: he took down the site today june 12. RIP gog-games.to 👋, now GET YOUR torrminatorr account created (free) and use the other scripts that are updated for it to search for your games! 😁
 
 <img width="400" alt="so long gog-games" src="https://github.com/user-attachments/assets/f5af89ee-64b6-44f5-a40f-336dd23e5966" />
 
