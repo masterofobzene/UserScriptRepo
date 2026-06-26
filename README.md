@@ -193,7 +193,7 @@ above if you see prices in other currency.
 -----------
 [Realbooru Downloader](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/Realbooru%20Downloader.user.js) Download full-resolution images and videos from Realbooru posts with a small button
 
-[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/NSFW%20Button%20Downloaders.md)
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Realbooru_Downloader.md)
 
 -----------
 [Reddtastic Downloader](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/Reddtastic%20Downloader.user.js) Shows a download button for each thumbnail to download the full res file.
