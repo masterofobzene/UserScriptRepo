@@ -1,6 +1,6 @@
 ### USE CASE:
 --------------
-Download individual files from this especific site. If you want massive downloading, use gallery-dl instead!
+Download individual files from realbooru with a single click on a button. If you want massive downloading, use gallery-dl instead!
 
 ### USAGE:
 ---------------
