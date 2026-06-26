@@ -6,6 +6,7 @@ Download individual files from realbooru with a single click on a button. If you
 ---------------
 Just click the "Download" button.
 
+1.8: Updated to work again.
 
 ### WHY?:
 ---------------
