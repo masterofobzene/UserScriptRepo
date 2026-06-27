@@ -1,16 +1,12 @@
 // ==UserScript==
 // @name         Reddtastic Downloader
-// @namespace    Reddtastic-Downloader
-// @homepage     https://github.com/masterofobzene/UserScriptRepo
-// @author       masterofobzene
-// @version      1.4.8
-// @description  Shows a download button for each thumbnail to download the full res file.
+// @namespace    https://reddtastic.com/
+// @version      1.4.9
+// @description  Muestra un boton "download" para imagenes y videos.
 // @match        https://reddtastic.com/*
 // @icon         https://reddtastic.com/favicon.ico
 // @grant        GM_download
 // @grant        GM_xmlhttpRequest
-// @grant        GM_registerMenuCommand
-// @connect      *
 // @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/Reddtastic%20Downloader.user.js
 // @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/Reddtastic%20Downloader.user.js
 // ==/UserScript==
@@ -27,7 +23,7 @@
       top: 5px; right: 5px;
       z-index: 9999;
       padding: 4px 8px;
-      background: rebeccapurple;
+      background: #FF00FF;
       color: white;
       font-size: 12px;
       font-weight: bold;
@@ -39,14 +35,7 @@
   `;
   document.head.appendChild(style);
 
-  GM_registerMenuCommand("Set Download Method", function () {
-    const method = prompt("Choose download method:\n1. IDM (recommended)\n2. Firefox Native", "1");
-    localStorage.setItem('rdDownloadMethod', method === "2" ? "firefox" : "idm");
-  });
-
-  function getDownloadMethod() {
-    return localStorage.getItem('rdDownloadMethod') || 'idm';
-  }
+  // ---- removed: GM_registerMenuCommand & getDownloadMethod ----
 
   function randStr(len = 8) {
     return Math.random().toString(36).substr(2, len);
@@ -70,40 +59,18 @@
     });
   }
 
-  function triggerIDMDownload(url, filename) {
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename || url.split('/').pop() || `reddit_${randStr()}.jpg`;
-    a.style.display = 'none';
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(() => document.body.removeChild(a), 100);
-  }
+  // ---- removed: triggerIDMDownload ----
 
   function doDownload(url, defaultName) {
-    const method = getDownloadMethod();
-
-    if (method === 'firefox') {
-      GM_download({
-        url: url,
-        name: defaultName,
-        saveAs: false,
-        onerror: () => {
-          console.warn('GM_download failed, falling back to IDM click method.');
-          triggerIDMDownload(url, defaultName);
-        }
-      });
-    } else {
-      GM_download({
-        url: url,
-        name: defaultName,
-        saveAs: false,
-        onerror: () => {
-          console.warn('GM_download failed, falling back to fake link click.');
-          triggerIDMDownload(url, defaultName);
-        }
-      });
-    }
+    // Always use native GM_download – fallback to IDM removed
+    GM_download({
+      url: url,
+      name: defaultName,
+      saveAs: false,
+      onerror: () => {
+        console.warn('GM_download failed for:', url);
+      }
+    });
   }
 
   function makeBtn(parent, onClick) {
@@ -112,8 +79,8 @@
     parent.classList.add('vm-dl-wrap');
     const btn = document.createElement('button');
     btn.className = 'vm-dl-btn';
-    btn.textContent = 'Download (IDM)';
-    btn.title = 'Download with IDM';
+    btn.textContent = 'DL⬇';               // changed from "Download (IDM)"
+    btn.title = 'Download';               // changed from "Download with IDM"
     btn.addEventListener('click', e => {
       e.stopPropagation();
       e.preventDefault();
