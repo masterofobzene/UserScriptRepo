@@ -200,7 +200,7 @@ above if you see prices in other currency.
 
 [NSFW.XXX Downloader](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/NSFW.XXX%20Downloader.user.js) Download full-resolution images/videos from NSFW.XXX posts
 
-[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/NSFW%20Button%20Downloaders.md)
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/NSFW.XXX_Downloader.md)
 
 -----------
 [Realbooru Downloader](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/Realbooru%20Downloader.user.js) Download full-resolution images and videos from Realbooru posts with a small button
