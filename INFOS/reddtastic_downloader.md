@@ -1,6 +1,6 @@
 ### USE CASE:
 --------------
-Download individual files from reddstatic with a single click on a button. If you want massive downloading, use gallery-dl instead!
+Download individual files from reddtastic with a single click on a button. If you want massive downloading, use gallery-dl instead!
 
 ### USAGE:
 ---------------
