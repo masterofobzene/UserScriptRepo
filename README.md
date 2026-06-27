@@ -210,7 +210,7 @@ above if you see prices in other currency.
 -----------
 [Reddtastic Downloader](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/Reddtastic%20Downloader.user.js) Shows a download button for each thumbnail to download the full res file.
 
-[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/NSFW%20Button%20Downloaders.md)
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/reddtastic_downloader.md)
 
 -----------
 ~~Successor of zzup~~
