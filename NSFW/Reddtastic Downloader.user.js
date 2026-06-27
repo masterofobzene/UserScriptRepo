@@ -2,7 +2,7 @@
 // @name         Reddtastic Downloader
 // @namespace    https://reddtastic.com/
 // @version      1.4.9
-// @description  Muestra un boton "download" para imagenes y videos.
+// @description  Shows a button for downloading media on each thumbnail.
 // @match        https://reddtastic.com/*
 // @icon         https://reddtastic.com/favicon.ico
 // @grant        GM_download
