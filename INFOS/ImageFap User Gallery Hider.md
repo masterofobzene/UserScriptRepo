@@ -22,6 +22,7 @@ UPDATE 2.1: Changed France to Belgium. I found that Belgium has worse users than
 
 UPDATE 2.2: Added back France and added Spain. Europe seems to be derailing very hard.
 
+UPDATE 2.3: Make it match the whole domain instead of only the galleries.
  
 ### USAGE:
 ---------------
