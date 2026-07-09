@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ImageFap User Gallery Hider
 // @namespace    ImageFap_User_Gallery_Hider
-// @version      2.3
+// @version      2.4
 // @description  Hide ImageFap galleries by user, less than 4 pics, gender, country. Left menu collapsible vertically, pagination friendly.
 // @author       masterofobzene
 // @match        https://www.imagefap.com/gallery.php*
