@@ -4,7 +4,8 @@
 // @version      2.3
 // @description  Hide ImageFap galleries by user, less than 4 pics, gender, country. Left menu collapsible vertically, pagination friendly.
 // @author       masterofobzene
-// @match        https://www.imagefap.com/*
+// @match        https://www.imagefap.com/gallery.php*
+// @match        https://www.imagefap.com/pics/*
 // @icon         https://www.imagefap.com/favicon.ico
 // @grant        GM_getValue
 // @grant        GM_setValue
