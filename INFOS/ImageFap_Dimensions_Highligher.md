@@ -5,7 +5,7 @@ Quickly identify aprox image size by looking at the colored sizes below each ima
 ### USAGE:
 ---------------
 You can identify image sizes by looking at the colored box below the image in the gallery thumbs page.
-
+It ONLY WORKS ON "DETAILED" VIEW in the galleries (it is the default).
 
 ### WHY?:
 ---------------
