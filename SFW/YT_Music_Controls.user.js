@@ -7,8 +7,9 @@
 // @grant        none
 // @license      GNU GPLv3
 // @run-at       document-end
-// @version      1.0
+// @version      1.1
 // @icon         https://music.youtube.com/favicon.ico
+// @homepage     https://github.com/masterofobzene/UserScriptRepo
 // @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/YT_Music_Controls.user.js
 // @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/YT_Music_Controls.user.js
 // ==/UserScript==
