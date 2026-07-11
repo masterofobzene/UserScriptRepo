@@ -1,6 +1,6 @@
 ### USE CASE:
 --------------
-Lazy game discovery and acquisition on ~NXBrew~ NSWPEDIA, using Nintendo's store as a catalog. 
+Lazy game discovery and acquisition on NXBrew using Nintendo's store as a catalog. 
 
 ### USAGE:
 ---------------
@@ -14,11 +14,13 @@ UPDATE 1.4: Since nxbrew.net is hacked and nxbrew.me IS A MALWARE SITE, I've mov
 games in a similar way. For the time being, the script will still be called "NXBrew Search Button" internally to avoid
 problems when updating, otherwise I would have to remove it and make users install a new extension.
 
+UPDATE 1.7: Went back with nxbrew.net as it is back online!. Added a favicon.
+
 ### WHY?:
 ---------------
 As with Steam and GOG too, it is way better to use Nintendo's store as a catalog to search for 
 new games to download from clean sites later, having filtering options to avoid the wave of trash 
-games that appear in ~NXBrew~ NSWPEDIA that has no filtering options.
+games that appear in NXBrew that has no filtering options.
 
 
 ---------------
