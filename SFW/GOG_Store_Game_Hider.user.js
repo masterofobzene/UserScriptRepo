@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GOG Store Game Hider
 // @namespace    GOG_Store_Game_Hider
-// @version      1.0
+// @version      1.1
 // @description  Hide games on GOG store
 // @match        https://www.gog.com/*/games
 // @grant        GM_setValue
@@ -23,10 +23,14 @@
     let hiddenGames = new Set();
 
     function load() {
-        try { hiddenGames = new Set(JSON.parse(GM_getValue(STORAGE_KEY, '[]'))); } catch(e) {}
+        let raw = GM_getValue(STORAGE_KEY, null);
+        if (raw === null) raw = localStorage.getItem(STORAGE_KEY);
+        try { hiddenGames = new Set(JSON.parse(raw || '[]')); } catch(e) {}
     }
     function save() {
-        GM_setValue(STORAGE_KEY, JSON.stringify([...hiddenGames]));
+        const data = JSON.stringify([...hiddenGames]);
+        GM_setValue(STORAGE_KEY, data);
+        try { localStorage.setItem(STORAGE_KEY, data); } catch(e) {}
     }
 
     function getGameIdentifier(card) {
