@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         DeepSeek Answer in English
 // @namespace    DeepSeek_Answer_In_English
-// @version      1.0
+// @version      1.1
 // @description  Appends "answer in english" to the prompt before sending and provides an enable/disable toggle.
 // @author       masterofobzene
 // @match        *://*.deepseek.com/*
@@ -10,6 +10,7 @@
 // @run-at       document-idle
 // @license      GNU GPLv3
 // @icon         https://deepseek.com/favicon.ico
+// @homepage     https://github.com/masterofobzene/UserScriptRepo
 // @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/deepseek-answer-in-english.user.js
 // @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/deepseek-answer-in-english.user.js
 // ==/UserScript==
