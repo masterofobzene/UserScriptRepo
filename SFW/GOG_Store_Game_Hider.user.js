@@ -9,6 +9,7 @@
 // @run-at       document-end
 // @license      GNU GPLv3
 // @author       masterofobzene
+// @icon         https://www.gog.com/favicon.ico
 // @homepage     https://github.com/masterofobzene/UserScriptRepo
 // @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/GOG_Store_Game_Hider.user.js
 // @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/GOG_Store_Game_Hider.user.js
