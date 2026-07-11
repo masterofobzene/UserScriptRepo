@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Steam Dumb Comment Remover
 // @namespace    steam-comment-remover
-// @version      1.0
+// @version      1.1
 // @author       masterofobzene
 // @description  Removes comments that have the strings that the user inputs and optionally replaces them with a generic commment.
 // @match        https://store.steampowered.com/app/*
@@ -9,6 +9,8 @@
 // @grant        GM_setValue
 // @run-at       document-idle
 // @icon         https://store.steampowered.com/favicon.ico
+// @homepage     https://github.com/masterofobzene/UserScriptRepo
+// @license      GNU GPLv3
 // @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/Steam_dumb_comment_remover.user.js
 // @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/Steam_dumb_comment_remover.user.js
 // ==/UserScript==
