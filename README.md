@@ -104,10 +104,9 @@ above if you see prices in other currency.
 
 -----------
 
-[nswpedia Search Button](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/NXBrew_Search_Button.user.js) Shows a new button to search for the game on ~NXBrew~ nswpedia so you can use the Big N's catalog to browse for games.
+[NXBREW Search Button](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/NXBrew_Search_Button.user.js) Shows a new button to search for the game on NXBrew AGAIN! so you can use the Big N's catalog to browse for games. NXBREW is back after being hacked, this time with a real webpage.
 
-<img width="200" alt="MpzbL14VKC" src="https://github.com/user-attachments/assets/ebcec24e-03f3-4ab4-b6a8-ce2e19622283" />
-
+<img width="200" alt="oLhCUqI3Gy" src="https://github.com/user-attachments/assets/ed470483-c521-4f80-bdfc-d360a20e91b1" />
 
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/NXBrew_Search_Button.md)
