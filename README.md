@@ -76,19 +76,12 @@ Gog-games admin says he is not updating the site anymore and will close the site
 
 -----------
 
-[SearXNG Filter Assistant](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/SearXNG%20Filter%20Assistant.user.js) [BETA] - Add predefined filters to SearXNG searches.
+[Duck Duck Go filters](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/DDGFilterAssistant.user.js)  Add predefined filters to DDG searches.
 
-<img src="https://github.com/user-attachments/assets/04f2ab4a-2175-4368-858f-eba597153beb" width="400">
+<img width="200" alt="kj3XmFqdRU" src="https://github.com/user-attachments/assets/32d8cdf7-6b60-47c4-8468-d93dbe5e3139" />
 
-[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/SearXNG%20Filter%20Assistant.md)
 
------------
-
-[StartPage Filter Assistant](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/Startpage_Filter_Assistant.user.js)  Add predefined filters to Startpage searches.
-
-<img src="https://github.com/user-attachments/assets/33d7379a-1f4f-46d1-94df-95aefe2a4127" width="400">
-
-[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Startpage%20Filter%20Assistant.md)
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/DDGFilterAssistant.md)
 
 -----------
 
