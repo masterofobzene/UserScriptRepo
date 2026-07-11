@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         NSWPEDIA Search Button
-// @namespace    NSWPEDIA_Search_Button
-// @version      1.4
-// @description  Adds SEARCH ON NSWPEDIA button on each game card on Nintendo game catalog.
+// @name         NXBREW Search Button
+// @namespace    NXBREW_Search_Button
+// @version      1.6
+// @description  Adds SEARCH ON NXBREW button on each game card on Nintendo game catalog.
 // @author       masterofobzene
 // @match        https://www.nintendo.com/us/store/games/*
 // @license      GNU GPLv3
@@ -33,13 +33,13 @@
 
             if (!name) return;
 
-            const url = `https://nswpedia.com/?s=${encodeURIComponent(name)}`;
+            const url = `https://nxbrew.net/?s=${encodeURIComponent(name)}`;
 
             const btn = document.createElement('a');
             btn.href = url;
             btn.target = "_blank";
             btn.rel = "noopener noreferrer";
-            btn.textContent = "SEARCH ON NSWPEDIA";
+            btn.textContent = "SEARCH ON NXBREW";
             btn.style.cssText = `
                 display: block !important;
                 margin: 12px auto 8px !important;
