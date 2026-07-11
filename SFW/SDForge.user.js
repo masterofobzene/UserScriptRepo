@@ -5,9 +5,12 @@
 // @grant none
 // @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/SDForge.user.js
 // @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/SDForge.user.js
-// @version 2.3
+// @version 2.4
 // @description Puts some of the most used buttons/toggles above the image preview for easier access.
 // @run-at document-end
+// @author       masterofobzene
+// @homepage     https://github.com/masterofobzene/UserScriptRepo
+// @license      GNU GPLv3
 // ==/UserScript==
 
 (function() {
