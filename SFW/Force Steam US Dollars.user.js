@@ -1,13 +1,17 @@
 // ==UserScript==
 // @name         Force Steam US Dollars
 // @namespace    Force-Steam-US-Dollars
-// @version      1.2
+// @version      1.3
 // @description  Always use dollars as currency in Steam Search results.
 // @author       masterofobzene
 // @match        https://store.steampowered.com/*
 // @grant        none
 // @license      GNU GPLv3
+// @icon         https://store.steampowered.com/favicon.ico
 // @run-at       document-start
+// @homepage     https://github.com/masterofobzene/UserScriptRepo
+// @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/Force%20Steam%20US%20Dollars.user.js
+// @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/Force%20Steam%20US%20Dollars.user.js
 // ==/UserScript==
 
 (function() {
