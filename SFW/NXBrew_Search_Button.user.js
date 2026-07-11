@@ -1,11 +1,12 @@
 // ==UserScript==
 // @name         NXBREW Search Button
 // @namespace    NXBREW_Search_Button
-// @version      1.6
+// @version      1.7
 // @description  Adds SEARCH ON NXBREW button on each game card on Nintendo game catalog.
 // @author       masterofobzene
 // @match        https://www.nintendo.com/us/store/games/*
 // @license      GNU GPLv3
+// @icon         https://nxbrew.net/favicon.ico
 // @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/NXBrew_Search_Button.user.js
 // @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/NXBrew_Search_Button.user.js
 // @grant        none
