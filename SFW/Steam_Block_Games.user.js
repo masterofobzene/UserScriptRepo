@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Steam Search Block Games
 // @namespace    Steam_Search_Block_Games
-// @version      1.2
+// @version      1.3
 // @author       masterofobzene
 // @description  Block button to hide individual games.
 // @match        https://store.steampowered.com/search*
@@ -11,6 +11,7 @@
 // @run-at       document-end
 // @license      GNU GPLv3
 // @icon         https://store.steampowered.com/favicon.ico
+// @homepage     https://github.com/masterofobzene/UserScriptRepo
 // @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/Steam_Block_Games.user.js
 // @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/Steam_Block_Games.user.js
 // ==/UserScript==
