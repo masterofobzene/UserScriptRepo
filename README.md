@@ -23,6 +23,15 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 
 -----------
 
+[GOG Store Game Hider](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/GOG_Store_Game_Hider.user.js) Hide games on GOG store
+
+<img width="200" alt="EkX6ubEddj" src="https://github.com/user-attachments/assets/77473d10-b577-495f-9c64-e7082a352ea4" />
+
+
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/GOG_Store_Game_Hider.md)
+
+-----------
+
 ~~[::GOG-Games Links::](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--GOG-Games%20Links--.user.js)~~ ~~Adds "Gameplay Video" and "Changelog" buttons per game card to search for no-commentary gameplay videos and if lucky, a changelog.~~ 
 
 Gog-games admin says he is not updating the site anymore and will close the site on September 6/2026. RIP gog-games.to 👋, now GET YOUR torrminatorr account created (free) and use the other scripts that are updated for it to search for your games! 😁
