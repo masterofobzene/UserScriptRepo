@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         DeepSeek Auto-Collapse Thinking
 // @namespace    DeepSeek_Auto_Collapse_Thinking
-// @version      1.1
+// @version      1.2
 // @description  Automatically collapses the "thinking" section in DeepSeek chat messages.
 // @author       masterofobzene
 // @match        https://chat.deepseek.com/*
@@ -10,6 +10,7 @@
 // @icon         https://cdn.deepseek.com/chat/icon.png
 // @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/DeepSeek_Auto_Collapse_Thinking.user.js
 // @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/DeepSeek_Auto_Collapse_Thinking.user.js
+// @homepage     https://github.com/masterofobzene/UserScriptRepo
 // ==/UserScript==
 
 (function() {
