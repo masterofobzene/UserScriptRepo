@@ -4,6 +4,7 @@
 // @version      1.0
 // @match        *://duckduckgo.com/*
 // @match        *://*.duckduckgo.com/*
+// @icon         https://duckduckgo.com/favicon.ico
 // @grant        none
 // @description  Add/remove recurring filters to DuckDuckGo searches
 // @author       masterofobzene
