@@ -10,6 +10,7 @@ videos, and one for checking if the game has been "infected" with DEI policies b
 deidetected.com.
 
 UPDATE 2.4: Removed DEIDETECTED as that web is a joke. Why? go see for yourself, the guy is asking for donations and running a business out of this and his socials. That site [doesn't even have the MOST DEI-LGBT game out here that is "Starfield"](https://deidetected.com/games/?_search=starfield) and doesn't let the users submit new DEI detected games. In short, it will become a blackmail business if it manages to get real exposure, making devs pay for not being listed and not getting a "bad review".
+By the way, [they sell your data](https://deidetected.com/privacy-policy/).
 
 ### WHY?:
 ---------------
