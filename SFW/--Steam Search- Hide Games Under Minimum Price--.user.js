@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ::Steam Search: Hide Games Under Minimum Price::
 // @namespace    masterofobzene-Hide Games Under Minimum Price
-// @version      1.6
+// @version      1.7
 // @description  Hides games by minimum price set by the user, also can hide no-reviews or mixed/negative reviewed games on Steam search.
 // @author       masterofobzene
 // @homepage     https://github.com/masterofobzene/UserScriptRepo
@@ -149,7 +149,7 @@ function filterRow(row) {
 
     let shouldHide = false;
 
-    const priceElement = row.querySelector('.discount_final_price');
+    const priceElement = row.querySelector('.discount_original_price') || row.querySelector('.discount_final_price');
     if (!priceElement) return;
 
     const priceText = priceElement.textContent.trim();
