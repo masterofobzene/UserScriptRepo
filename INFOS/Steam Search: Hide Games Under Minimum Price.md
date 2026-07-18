@@ -12,6 +12,8 @@ the user why he is not seeing any more results suddenly, and B- We stop him (wit
 him to wait 40 seconds before trying to scroll. Scrolling is how we tell steam to load more results, so we have to wait a
 minute before continuing.
 
+1.7: Now the script uses the original price, so if a game is at discount, you will still see it in your search even when its lower priced.
+
 __TIP:__ If you use the steam filters to take out more games that can appear on the search, you will likely avoid the throttling
 since you will not have to remove hundreds of games, but as you know, tags are abused and you could be removing more than
 you want with them.
