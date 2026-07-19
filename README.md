@@ -71,14 +71,6 @@ Gog-games admin says he is not updating the site anymore and will close the site
 
 -----------
 
-[Bumeran Job Filter](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/Bumeran%20Job%20Filter.user.js) Esconde "job cards" de la búsqueda basado en palabras clave.
-
-<img src="https://github.com/user-attachments/assets/375a4ad8-c43d-447a-adca-82310e4e4519" width="400">
-
-[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Bumeran%20Job%20Filter.md)
-
------------
-
 [GOG.com - Promo Filter](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/GOG.com%20-%20Promo%20Filter.user.js) Hide/remove games matching your keywords on GOG.com and collapse the grid slots they occupied
 
 <img src="https://github.com/user-attachments/assets/6b0b4cb4-248a-422e-a737-a617f71e557d" width="400">
