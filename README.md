@@ -17,7 +17,8 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 
 [::GOG Links::](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--GOG%20Links--.user.js) Adds links for GOG store to gameplay videos without youtubers comments and direct search on Torrminatorr for free clean download.
 
-<img width="400" alt="GeaabI9Wys" src="https://github.com/user-attachments/assets/2d6678a0-b397-4ba8-846b-6bfe7ca5a88a" />
+<img width="400" alt="qGnvK0Ri17" src="https://github.com/user-attachments/assets/7220567f-12f7-49b6-8233-45f72327b33f" />
+
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/GOG%20Links.md)
 
@@ -44,9 +45,10 @@ Gog-games admin says he is not updating the site anymore and will close the site
 
 -----------
 
-[::Steam Links::](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--Steam%20Links--.user.js) Lets you easily search the games on clean DL sites, watch gameplays without youtuber's comments and see if the game is woke-oriented.
+[::Steam Links::](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--Steam%20Links--.user.js) Lets you easily search the games on clean DL sites and watch gameplays without youtuber's comments.
 
-<img width="400" alt="E9MtE02Pbt" src="https://github.com/user-attachments/assets/7010b109-cb97-4861-8915-4c0b8ce0f26a" />
+<img width="400" alt="q47upgVOtH" src="https://github.com/user-attachments/assets/2c2efd7e-8b20-4f15-86c5-3d2b4ca773ae" />
+
 
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Steam%20Links.md)
