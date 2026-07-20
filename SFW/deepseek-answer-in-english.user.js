@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         DeepSeek Answer in English
-// @namespace    DeepSeek_Answer_In_English
-// @version      1.1
-// @description  Appends "answer in english" to the prompt before sending and provides an enable/disable toggle.
+// @name         DeepSeek Never use chinese
+// @namespace    DeepSeek_Never_use_chinese
+// @version      1.2
+// @description  Appends "Never use chinese" to the prompt before sending and provides an enable/disable toggle.
 // @author       masterofobzene
 // @match        *://*.deepseek.com/*
 // @grant        GM_getValue
@@ -18,10 +18,10 @@
 (() => {
     'use strict';
 
-    console.log('[Answer in English] Script loaded');
+    console.log('[Never use chinese] Script loaded');
 
     let enabled = GM_getValue('answerInEnglishEnabled', true);
-    const SUFFIX = ' answer in english';
+    const SUFFIX = ' never use chinese';
 
     function appendSuffixToInput() {
         try {
@@ -34,7 +34,7 @@
                 document.querySelector('[contenteditable="true"]');
 
             if (!input) {
-                console.warn('[Answer in English] Input not found');
+                console.warn('[Never use chinese] Input not found');
                 return;
             }
 
@@ -81,9 +81,9 @@
                 })
             );
 
-            console.log('[Answer in English] Prompt modified');
+            console.log('[Never use chinese] Prompt modified');
         } catch (error) {
-            console.error('[Answer in English]', error);
+            console.error('[Never use chinese]', error);
         }
     }
 
@@ -105,7 +105,7 @@
 
                 appendSuffixToInput();
             } catch (error) {
-                console.error('[Answer in English]', error);
+                console.error('[Never use chinese]', error);
             }
         },
         true
@@ -143,7 +143,7 @@
             container.innerHTML = `
                 <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
                     <input type="checkbox" id="answer-in-english-checkbox" ${enabled ? 'checked' : ''}>
-                    <span>Answer in English</span>
+                    <span>Never use chinese</span>
                 </label>
             `;
 
@@ -155,12 +155,12 @@
                 enabled = event.target.checked;
                 GM_setValue('answerInEnglishEnabled', enabled);
 
-                console.log('[Answer in English] Enabled:', enabled);
+                console.log('[Never use chinese] Enabled:', enabled);
             });
 
-            console.log('[Answer in English] Toggle added');
+            console.log('[Never use chinese] Toggle added');
         } catch (error) {
-            console.error('[Answer in English]', error);
+            console.error('[Never use chinese]', error);
         }
     }
 
