@@ -173,7 +173,7 @@ above if you see prices in other currency.
 -----------
 
 
-[DeepSeek always in english](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/deepseek-answer-in-english.user.js) Makes DeepSeek give answers in english instead of randomly using chinese.
+[DeepSeek Never use Chinese](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/deepseek-answer-in-english.user.js) Makes DeepSeek give answers in english instead of randomly using chinese.
 
 <img width="350" height="200" alt="2MepdZsKOX" src="https://github.com/user-attachments/assets/1849dfc3-7a04-4a80-a531-3bf0cdef0515" />
 
