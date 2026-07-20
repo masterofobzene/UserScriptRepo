@@ -9,7 +9,7 @@ different known-to-be-safe sites, some for review, some for dl. It also has one 
 videos, and one for checking if the game has been "infected" with DEI policies by searching for it on
 deidetected.com.
 
-UPDATE 2.4: Removed DEIDETECTED as that web is a joke. Why? go see for yourself, the guy is asking for donations and running a business out of this and his socials. There is no transpparency, no graph showing how much needed for web hosting costs and not showing current donations, meaning they expect you to donate all the time and make money for themselves.  That site [doesn't even have the MOST DEI-LGBT game out there that is "Starfield"](https://deidetected.com/games/?_search=starfield) and doesn't let the users submit new DEI detected games.
+UPDATE 2.4: Removed DEIDETECTED as that web is a joke. Why? go see for yourself, the guy is asking for donations and running a business out of this and his socials. There is no transparency, no graph showing how much needed for web hosting costs and not showing current donations, meaning they expect you to donate all the time and make money for themselves.  That site [doesn't even have the MOST DEI-LGBT game out there that is "Starfield"](https://deidetected.com/games/?_search=starfield) and doesn't let the users submit new DEI detected games.
 By the way, [they sell your data](https://deidetected.com/privacy-policy/) so they are obviously trying to run a business out of people against brainwashing.
 
 
