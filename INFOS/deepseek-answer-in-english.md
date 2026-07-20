@@ -6,6 +6,8 @@ Force Deepseek to use english.
 ---------------
 Just install it. A Checkbox will appear on the top right to turn ON or OFF this script.
 
+1.2:  Changed "answer in english" for "never use chinese" because the later seems to be more fail-proof. 
+Changed ui and script name to reflect this.
 
 ### WHY?:
 ---------------
