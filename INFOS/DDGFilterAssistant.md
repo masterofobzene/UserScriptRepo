@@ -20,6 +20,9 @@ NO ANDROID: Filters android results e.g "download {something} APK for free".
 ```
 If you want to clear all checkboxes, use the broomstick icon 🧹
 
+1.2: Fixed cannot insert spaces in search box in DDG. 
+
+
 ### WHY?:
 ---------------
 Search engines today NEED negative words to filter results, as they get more and more bloated with ads and 
