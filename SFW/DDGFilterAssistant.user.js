@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         DuckDuckGo Filter Assistant
 // @namespace    DDGFilterAssistant
-// @version      1.0
+// @version      1.1
 // @match        *://duckduckgo.com/*
 // @match        *://*.duckduckgo.com/*
 // @icon         https://duckduckgo.com/favicon.ico
@@ -39,13 +39,23 @@
         return document.querySelector(inputSelector);
     }
 
+    // NOTE: this intentionally does NOT trim trailing whitespace.
+    // Trimming here was the source of the "can't type spaces" bug: since this
+    // runs on every keystroke, trimming the trailing space the user just
+    // typed caused it to be immediately stripped back out of the field.
     function stripFilters(text) {
         let clean = text;
         Object.values(FILTERS).forEach(f => {
             const esc = f.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
             clean = clean.replace(new RegExp(`(?:^|\\s)${esc}(?=\\s|$)`, 'gi'), '');
         });
-        return clean.replace(/\s+/g, ' ').trim();
+        // Collapse runs of 2+ spaces (e.g. left behind after removing a
+        // filter from the middle of the string) into one, and drop any
+        // leading whitespace. A single trailing space is left untouched
+        // so the user can keep typing.
+        clean = clean.replace(/ {2,}/g, ' ');
+        clean = clean.replace(/^\s+/, '');
+        return clean;
     }
 
     function getActiveFilterString() {
@@ -57,7 +67,11 @@
 
     function buildFullQuery() {
         const active = getActiveFilterString();
-        return (baseQuery + (active ? ' ' + active : '')).trim();
+        if (!active) return baseQuery;
+        // Only trim here, when we actually need to glue filter terms on —
+        // this is fine because it only fires on checkbox changes, not on
+        // every keystroke.
+        return baseQuery.replace(/\s+$/, '') + ' ' + active;
     }
 
     function updateInput() {
