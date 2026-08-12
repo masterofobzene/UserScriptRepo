@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Steam_Bad_Reviews
 // @namespace    Steam_Bad_Reviews
-// @version      1.1
-// @description  Auto-select "Negative" review type on Steam app pages
+// @version      1.2
+// @description  Auto-select "Negative" + "Recent" on Steam app pages
 // @author       masterofobzene
 // @match        https://store.steampowered.com/app/*
 // @grant        none
@@ -17,10 +17,13 @@
 (function() {
     'use strict';
     const interval = setInterval(() => {
-        const negativeRadio = document.getElementById('review_type_negative');
-        if (negativeRadio) {
-            negativeRadio.checked = true;
-            negativeRadio.dispatchEvent(new Event('change'));
+        const negative = document.getElementById('review_type_negative');
+        const recent = document.getElementById('review_context_recent');
+        if (negative && recent) {
+            negative.checked = true;
+            negative.dispatchEvent(new Event('change'));
+            recent.checked = true;
+            recent.dispatchEvent(new Event('change'));
             clearInterval(interval);
         }
     }, 500);
