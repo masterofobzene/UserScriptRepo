@@ -7,6 +7,7 @@ of course, paid reviews.
 ---------------
 Just browse into a game description page.
 
+1.2: It now also sorts the reviews by recent, so you can always get the most updated reviews.
 
 ### WHY?:
 ---------------
