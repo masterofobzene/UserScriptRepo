@@ -21,7 +21,7 @@ NO ANDROID: Filters android results e.g "download {something} APK for free".
 If you want to clear all checkboxes, use the broomstick icon 🧹
 
 1.2: Fixed cannot insert spaces in search box in DDG. 
-
+1.3: Fixed weird text editing bugs in the search box (space would put edit cursor at the end of the search string)
 
 ### WHY?:
 ---------------
