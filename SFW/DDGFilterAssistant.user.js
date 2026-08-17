@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name DuckDuckGo Filter Assistant
 // @namespace DDGFilterAssistant
-// @version 1.2
+// @version 1.3
 // @match *://duckduckgo.com/*
 // @match *://*.duckduckgo.com/*
 // @icon https://duckduckgo.com/favicon.ico
