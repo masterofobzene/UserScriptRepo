@@ -9,6 +9,8 @@ Just browse into a game description page.
 
 1.2: It now also sorts the reviews by recent, so you can always get the most updated reviews.
 
+1.3: Fixed the script to work again with Steam changes.
+
 ### WHY?:
 ---------------
 Nowadays we are surrounded by simps. Some of them are brand fans, some are gadgets fans, everybody is being turned into
