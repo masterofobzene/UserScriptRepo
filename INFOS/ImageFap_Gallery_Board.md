@@ -8,6 +8,8 @@ infinite scroll page. It is integrated with the Gallery hider userscript, so you
 ---------------
 Click on the "⚡ Booru Mode" button.
 
+⚠ If you find that clicking an image/gif shows a different one, its a site-side known issue!
+
 ### WHY?:
 ---------------
 With so many random content galleries, you don't know exactly whats inside by just looking at the first 4 preview
