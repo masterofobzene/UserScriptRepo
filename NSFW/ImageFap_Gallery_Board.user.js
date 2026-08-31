@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ImageFap Gallery Board (with User/Gallery Hider)
 // @namespace    ifap-gallery-board
-// @version      1.0
+// @version      1.1
 // @description  Loads galleries from the current search/category page (and automatically continues to page 2, 3, ... of the search results) with a polite 5-second delay between requests, displays every thumbnail with scroll-gated infinite loading, and integrates a persistent block-list so hidden users/galleries are filtered out everywhere — including on search-result pages fetched in the background, not just the live page.
 // @author       You (Board) / masterofobzene (original Hider logic, integrated)
 // @match        https://www.imagefap.com/gallery.php*
@@ -15,7 +15,6 @@
 // @run-at       document-end
 // @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ImageFap_User_Gallery_Hider.user.js
 // @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ImageFap_User_Gallery_Hider.user.js
-// @icon         https://www.imagefap.com/favicon.ico
 // ==/UserScript==
 
 (function() {
@@ -389,19 +388,19 @@
     let driveLoopRunning     = false; // single-flight guard for the loop
 
     /* ---- Trigger button (small, left side) ---- */
-    const triggerBtn = document.createElement('button');
-    triggerBtn.id = 'ifap-board-trigger';
-    triggerBtn.textContent = '⚡ Booru Mode';
-    triggerBtn.title = 'Open All Galleries';
-    triggerBtn.style.cssText = `
-        position:fixed;top:90px;left:12px;z-index:2147483647;
-        width:32px;height:32px;padding:0;background:#3366cc;color:#fff;
-        border:none;border-radius:6px;font-size:15px;font-weight:bold;
-        cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.4);
-        font-family:sans-serif;line-height:32px;text-align:center;
-    `;
-    triggerBtn.addEventListener('click', startBoard);
-    document.body.appendChild(triggerBtn);
+		const triggerBtn = document.createElement('button');
+		triggerBtn.id = 'ifap-board-trigger';
+		triggerBtn.textContent = '⚡ Booru Mode';
+		triggerBtn.title = 'Open All Galleries';
+		triggerBtn.style.cssText = `
+			position:fixed;top:90px;left:12px;z-index:2147483647;
+			padding:6px 10px;background:#3366cc;color:#fff;
+			border:none;border-radius:6px;font-size:15px;font-weight:bold;
+			cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.4);
+			font-family:sans-serif;text-align:center;white-space:nowrap;
+		`;
+		triggerBtn.addEventListener('click', startBoard);
+		document.body.appendChild(triggerBtn);
 
     /* ---- Discover galleries in a document (live page or fetched page),
        skipping anything the block-list / filters would hide. Because
