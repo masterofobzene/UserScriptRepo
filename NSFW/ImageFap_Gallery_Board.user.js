@@ -13,6 +13,9 @@
 // @grant        GM_setValue
 // @connect      www.imagefap.com
 // @run-at       document-end
+// @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ImageFap_User_Gallery_Hider.user.js
+// @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ImageFap_User_Gallery_Hider.user.js
+// @icon         https://www.imagefap.com/favicon.ico
 // ==/UserScript==
 
 (function() {
