@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ImageFap Gallery Board (with User/Gallery Hider)
 // @namespace    ifap-gallery-board
-// @version      2.0
+// @version      1.0
 // @description  Loads galleries from the current search/category page (and automatically continues to page 2, 3, ... of the search results) with a polite 5-second delay between requests, displays every thumbnail with scroll-gated infinite loading, and integrates a persistent block-list so hidden users/galleries are filtered out everywhere — including on search-result pages fetched in the background, not just the live page.
 // @author       You (Board) / masterofobzene (original Hider logic, integrated)
 // @match        https://www.imagefap.com/gallery.php*
