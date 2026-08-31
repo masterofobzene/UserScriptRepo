@@ -260,6 +260,12 @@ NO it doesn't do what you are thinking.
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Pornolab_Post_Preview.md)
 
+-----------
+
+[ImageFap Gallery Board](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ImageFap_Gallery_Board.user.js
+) Loads all the galleries in an infinite scroll in a booru style page while also letting you block offending users to remove all their content.
+
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/ImageFap_Gallery_Board.md)
 
 <br>
 <br>
