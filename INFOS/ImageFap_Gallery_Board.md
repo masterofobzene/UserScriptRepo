@@ -10,6 +10,10 @@ Click on the "⚡ Booru Mode" button.
 
 ⚠ If you find that clicking an image/gif shows a different one, its a site-side known issue!
 
+
+1.2:  Major overhaul, save the last page loaded (save sessions), load them, stop load/resume, fixed duplicate galleries loaded.
+      
+
 ### WHY?:
 ---------------
 With so many random content galleries, you don't know exactly whats inside by just looking at the first 4 preview
