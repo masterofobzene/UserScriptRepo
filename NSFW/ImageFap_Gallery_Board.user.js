@@ -1,12 +1,11 @@
 // ==UserScript==
-// @name         ImageFap Gallery Board (with User/Gallery Hider)
+// @name         ImageFap Gallery Board
 // @namespace    ifap-gallery-board
-// @version      1.1
-// @description  Loads galleries from the current search/category page (and automatically continues to page 2, 3, ... of the search results) with a polite 5-second delay between requests, displays every thumbnail with scroll-gated infinite loading, and integrates a persistent block-list so hidden users/galleries are filtered out everywhere — including on search-result pages fetched in the background, not just the live page.
+// @version      1.2
+// @description  Loads galleries from the current search/category page and presents them as a booru page.
 // @author       masterofobzene
 // @match        https://www.imagefap.com/gallery.php*
 // @match        https://www.imagefap.com/pictures/*
-// @match        https://www.imagefap.com/pics/*
 // @icon         https://www.imagefap.com/favicon.ico
 // @grant        GM_xmlhttpRequest
 // @grant        GM_getValue
@@ -22,16 +21,14 @@
 
     /* ====================================================================
        SHARED BLOCK-LIST STATE
-       Used by both the live-page Hider UI and the Gallery Board's
-       background page fetching, so a block applies everywhere.
        ==================================================================== */
     const hiddenUsersKey  = 'imagefap_hidden_users';
     const hideConfigKey   = 'imagefap_hide_filters';
     const panelPosKey     = 'imagefap_gender_panel_pos';
     const menuCollapsedKey = 'imagefap_menu_collapsed';
+    const SESSION_KEY     = 'ifap_board_session';
 
     let hiddenUsers = new Set(GM_getValue(hiddenUsersKey, []));
-
     const DEFAULT_HIDE_CONFIG = {
         women: false,
         couples: false,
@@ -48,7 +45,6 @@
     function setHideConfig(cfg) {
         GM_setValue(hideConfigKey, cfg);
     }
-
     function blockUser(username) {
         if (!username) return;
         username = username.toLowerCase();
@@ -56,15 +52,12 @@
         hiddenUsers.add(username);
         GM_setValue(hiddenUsersKey, [...hiddenUsers]);
         console.log(`[ImageFap Hider] User blocked: ${username}`);
-        hideAllGalleriesForUser(username);   // update the live page, if present
-        removeUserFromBoard(username);       // update the open Gallery Board, if present
+        hideAllGalleriesForUser(username);
+        removeUserFromBoard(username);
     }
 
     /* ====================================================================
-       SHARED FILTER LOGIC (gender / country / pic-count / blocked user)
-       Works against either the live document or a document fetched via
-       GM_xmlhttpRequest, since it only reads DOM structure/attributes,
-       never relies on inline styles set by the live-page MutationObserver.
+       SHARED FILTER LOGIC
        ==================================================================== */
     function shouldHideByFilter(detailRow) {
         const cfg = getHideConfig();
@@ -86,14 +79,12 @@
         }
         return hideGender || hideCountry;
     }
-
     function getPicCount(titleRow) {
         const center = titleRow.querySelector('td > center');
         if (!center) return null;
         const n = parseInt(center.textContent.trim(), 10);
         return Number.isNaN(n) ? null : n;
     }
-
     function getGalleryUsername(detailRow) {
         if (!detailRow) return null;
         const avatar = detailRow.querySelector('div.avatar');
@@ -101,13 +92,10 @@
         if (!avatar || !userLink) return null;
         return userLink.textContent.trim().toLowerCase();
     }
-
-    // The single source of truth for "should this gallery be filtered out?"
-    // Used by the live-page hider AND by the Board's discoverGalleriesFromDoc.
     function isGalleryHidden(titleRow, detailRow) {
         if (!titleRow) return true;
-        if (titleRow.style && titleRow.style.display === 'none') return true; // already hidden live
-        if (!detailRow || detailRow.tagName !== 'TR') return false; // can't evaluate further, don't hide by default
+        if (titleRow.style && titleRow.style.display === 'none') return true;
+        if (!detailRow || detailRow.tagName !== 'TR') return false;
         if (detailRow.style && detailRow.style.display === 'none') return true;
 
         const username = getGalleryUsername(detailRow);
@@ -116,13 +104,11 @@
 
         const picCount = getPicCount(titleRow);
         if (picCount !== null && picCount < 4) return true;
-
         return false;
     }
 
     /* ====================================================================
-       LIVE-PAGE HIDER UI (gender/country panel, per-gallery block button,
-       collapsible menu) — unchanged behaviour, just sharing state above.
+       LIVE-PAGE HIDER UI
        ==================================================================== */
     function createGenderPanel() {
         if (document.getElementById('genderFilterPanel')) return;
@@ -222,7 +208,6 @@
             });
         };
     }
-
     function applyMenuState() {
         const collapsed = GM_getValue(menuCollapsedKey, false);
         document.querySelectorAll('#menuContentWrapper').forEach(w => {
@@ -234,7 +219,6 @@
             h.innerHTML = `${text} <span style="font-size:17px;">${icon}</span>`;
         });
     }
-
     function setupMenuCollapser() {
         document.querySelectorAll('#main > center > table > tbody > tr > td:nth-of-type(1)').forEach(leftTd => {
             if (leftTd.querySelector('#menuToggleHeader')) return;
@@ -253,14 +237,12 @@
                 user-select:none;
             `;
             leftTd.insertBefore(header, leftTd.firstChild);
-
             const wrapper = document.createElement('div');
             wrapper.id = 'menuContentWrapper';
             Array.from(leftTd.children)
                 .filter(el => el !== header)
                 .forEach(el => wrapper.appendChild(el));
             leftTd.appendChild(wrapper);
-
             header.onclick = () => {
                 GM_setValue(menuCollapsedKey, !GM_getValue(menuCollapsedKey, false));
                 applyMenuState();
@@ -268,12 +250,10 @@
         });
         applyMenuState();
     }
-
     function hideRow(titleRow, detailRow) {
         titleRow.style.display = 'none';
         if (detailRow) detailRow.style.display = 'none';
     }
-
     function hideAllGalleriesForUser(username) {
         document.querySelectorAll('div.avatar').forEach(avatar => {
             const link = avatar.querySelector('a.gal_title');
@@ -286,10 +266,10 @@
             if (titleRow?.tagName === 'TR') hideRow(titleRow, detailRow);
         });
     }
-
     function processGallery(titleRow) {
         const detailRow = titleRow.nextElementSibling;
         if (!detailRow || detailRow.getAttribute('valign') !== 'top') return;
+
         const avatar = detailRow.querySelector('div.avatar');
         const userLink = avatar?.querySelector('a.gal_title');
         if (!avatar || !userLink) return;
@@ -298,8 +278,8 @@
             hideRow(titleRow, detailRow);
             return;
         }
-
         if (avatar.querySelector('.ifap-hide-btn')) return;
+
         const btn = document.createElement('span');
         btn.className = 'ifap-hide-btn';
         btn.textContent = '✖';
@@ -327,7 +307,6 @@
             blockUser(userLink.textContent.trim());
         };
     }
-
     function applyAll() {
         try {
             createGenderPanel();
@@ -351,13 +330,11 @@
             console.error('[ImageFap Hider] applyAll failed', err);
         }
     }
-
     let applyTimeout = null;
     const debouncedApplyAll = () => {
         if (applyTimeout) clearTimeout(applyTimeout);
         applyTimeout = setTimeout(applyAll, 150);
     };
-
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', debouncedApplyAll);
     } else {
@@ -371,42 +348,37 @@
     /* ====================================================================
        GALLERY BOARD
        ==================================================================== */
-    const DELAY_MS   = 5000;   // polite delay between HTTP requests
-    const BATCH_SIZE  = 60;    // images rendered per scroll-triggered chunk
+    const DELAY_MS   = 5000;
+    const BATCH_SIZE  = 60;
 
-    let boardImages       = [];    // all images discovered so far
-    let renderedCount     = 0;     // how many of boardImages are in the DOM
-    let galleryQueue      = [];    // galleries discovered but not yet crawled
-    let currentSearchPage = 1;     // which search-results page we're on
-    let searchPageBaseUrl = '';    // current search URL with any "page" param stripped
+    let boardImages       = [];
+    let renderedCount     = 0;
+    let galleryQueue      = [];
+    let currentSearchPage = 1;
+    let lastSearchPageUrl  = '';
     let noMoreSearchPages = false;
     let isRunning          = false;
     let infiniteObserver   = null;
-    let lastRequestAt      = 0;    // timestamp of last network request (for the delay)
+    let lastRequestAt      = 0;
+    let consecutiveEmptyPages = 0;
+    let sentinelIntersecting = false;
+    let driveLoopRunning     = false;
+    let seenGalleryUrls      = new Set();
 
-    let sentinelIntersecting = false; // is the sentinel currently in view?
-    let driveLoopRunning     = false; // single-flight guard for the loop
+    const triggerBtn = document.createElement('button');
+    triggerBtn.id = 'ifap-board-trigger';
+    triggerBtn.textContent = '⚡ Booru Mode';
+    triggerBtn.title = 'Open All Galleries';
+    triggerBtn.style.cssText = `
+        position:fixed;top:90px;left:12px;z-index:2147483647;
+        padding:6px 10px;background:#3366cc;color:#fff;
+        border:none;border-radius:6px;font-size:15px;font-weight:bold;
+        cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.4);
+        font-family:sans-serif;text-align:center;white-space:nowrap;
+    `;
+    triggerBtn.addEventListener('click', startBoard);
+    document.body.appendChild(triggerBtn);
 
-    /* ---- Trigger button (small, left side) ---- */
-		const triggerBtn = document.createElement('button');
-		triggerBtn.id = 'ifap-board-trigger';
-		triggerBtn.textContent = '⚡ Booru Mode';
-		triggerBtn.title = 'Open All Galleries';
-		triggerBtn.style.cssText = `
-			position:fixed;top:90px;left:12px;z-index:2147483647;
-			padding:6px 10px;background:#3366cc;color:#fff;
-			border:none;border-radius:6px;font-size:15px;font-weight:bold;
-			cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.4);
-			font-family:sans-serif;text-align:center;white-space:nowrap;
-		`;
-		triggerBtn.addEventListener('click', startBoard);
-		document.body.appendChild(triggerBtn);
-
-    /* ---- Discover galleries in a document (live page or fetched page),
-       skipping anything the block-list / filters would hide. Because
-       isGalleryHidden() reads structure (username, pic count, gender,
-       country) rather than inline styles, this now works correctly on
-       pages fetched in the background too — not just the live DOM. ---- */
     function discoverGalleriesFromDoc(doc) {
         const links = doc.querySelectorAll('a[href^="/gallery.php?gid="]');
         const map = new Map();
@@ -428,37 +400,16 @@
         });
         return Array.from(map.values());
     }
-
-    function stripPageParam(url) {
-        const u = new URL(url, location.origin);
-        u.searchParams.delete('page');
-        return u;
-    }
-
-    function buildSearchPageUrl(pageNum) {
-        const u = new URL(searchPageBaseUrl);
-        if (pageNum > 1) u.searchParams.set('page', String(pageNum));
-        return u.toString();
-    }
-
-    function findNextSearchPageUrlFromDoc(doc, currentUrl, wantPage) {
-        const relNext = doc.querySelector('link[rel="next"]');
-        if (relNext && relNext.getAttribute('href')) {
-            return new URL(relNext.getAttribute('href'), currentUrl).toString();
+    function getNextSearchPageInfo(baseUrl, currentPageNum) {
+        try {
+            const u = new URL(baseUrl);
+            const next = currentPageNum + 1;
+            u.searchParams.set('page', String(next));
+            return { url: u.toString(), pageNum: next };
+        } catch (e) {
+            return null;
         }
-        const anchors = doc.querySelectorAll('a[href*="gallery.php"]');
-        for (const a of anchors) {
-            const href = a.getAttribute('href');
-            if (!href) continue;
-            try {
-                const u = new URL(href, currentUrl);
-                const p = u.searchParams.get('page');
-                if (p && parseInt(p, 10) === wantPage) return u.toString();
-            } catch (e) { /* ignore malformed href */ }
-        }
-        return buildSearchPageUrl(wantPage);
     }
-
     function createOverlay() {
         const existing = document.getElementById('ifap-board-overlay');
         if (existing) existing.remove();
@@ -486,9 +437,12 @@
                     Preparing…
                 </div>
             </div>
-            <div style="display:flex;align-items:center;gap:10px;">
+            <div style="display:flex;align-items:center;gap:8px;">
                 <span id="ifap-board-counter" style="font-size:12px;color:#aaa;">0 images</span>
+                <button id="ifap-board-save" style="padding:6px 10px;background:#27ae60;border:none;border-radius:4px;color:#fff;cursor:pointer;font-weight:bold;font-size:12px;">Save</button>
+                <button id="ifap-board-load" style="padding:6px 10px;background:#8e44ad;border:none;border-radius:4px;color:#fff;cursor:pointer;font-weight:bold;font-size:12px;">Load</button>
                 <button id="ifap-board-stop" style="padding:6px 14px;background:#c0392b;border:none;border-radius:4px;color:#fff;cursor:pointer;font-weight:bold;">Stop</button>
+                <button id="ifap-board-resume" style="display:none;padding:6px 14px;background:#2980b9;border:none;border-radius:4px;color:#fff;cursor:pointer;font-weight:bold;">Resume</button>
                 <button id="ifap-board-close" style="padding:6px 14px;background:#444;border:none;border-radius:4px;color:#fff;cursor:pointer;font-weight:bold;">Close</button>
             </div>
         `;
@@ -521,12 +475,14 @@
         ov.appendChild(header);
         ov.appendChild(grid);
         document.body.appendChild(ov);
-
         grid.appendChild(sentinel);
         grid.appendChild(endMarker);
 
         document.getElementById('ifap-board-close').onclick = destroyOverlay;
         document.getElementById('ifap-board-stop').onclick = stopLoading;
+        document.getElementById('ifap-board-resume').onclick = resumeLoading;
+        document.getElementById('ifap-board-save').onclick = saveSession;
+        document.getElementById('ifap-board-load').onclick = loadSession;
 
         const escHandler = (e) => { if (e.key === 'Escape') destroyOverlay(); };
         document.addEventListener('keydown', escHandler);
@@ -534,7 +490,6 @@
 
         setupInfiniteScroll();
     }
-
     function destroyOverlay() {
         isRunning = false;
         sentinelIntersecting = false;
@@ -551,17 +506,70 @@
         renderedCount = 0;
         currentSearchPage = 1;
         noMoreSearchPages = false;
+        consecutiveEmptyPages = 0;
+        seenGalleryUrls.clear();
     }
-
     function stopLoading() {
         isRunning = false;
         const status = document.getElementById('ifap-board-status');
-        if (status) status.textContent += ' (stopped by user)';
+        if (status) status.textContent = 'Stopped. Click Resume to continue.';
+        const stopBtn = document.getElementById('ifap-board-stop');
+        const resumeBtn = document.getElementById('ifap-board-resume');
+        if (stopBtn) stopBtn.style.display = 'none';
+        if (resumeBtn) resumeBtn.style.display = '';
+    }
+    function resumeLoading() {
+        if (isRunning) return;
+        isRunning = true;
+        const status = document.getElementById('ifap-board-status');
+        if (status) status.textContent = 'Resuming…';
+        const stopBtn = document.getElementById('ifap-board-stop');
+        const resumeBtn = document.getElementById('ifap-board-resume');
+        if (stopBtn) stopBtn.style.display = '';
+        if (resumeBtn) resumeBtn.style.display = 'none';
+        sentinelIntersecting = true;
+        driveLoop();
     }
 
-    // Remove a user's cards from the open board, and drop their galleries
-    // from the pending queue, the moment they're blocked (from the live
-    // page's ✖ button, or from the board's own per-card block button).
+    function saveSession() {
+        GM_setValue(SESSION_KEY, {
+            currentSearchPage,
+            lastSearchPageUrl,
+            galleryQueue: galleryQueue.slice(),
+            noMoreSearchPages,
+            consecutiveEmptyPages,
+            lastRequestAt,
+            seenGalleryUrls: [...seenGalleryUrls]
+        });
+        const status = document.getElementById('ifap-board-status');
+        if (status) status.textContent = `Session saved at search page ${currentSearchPage}.`;
+    }
+    function loadSession() {
+        const data = GM_getValue(SESSION_KEY, null);
+        if (!data) {
+            alert('No saved session.');
+            return;
+        }
+        isRunning = true;
+        boardImages = [];
+        renderedCount = 0;
+        galleryQueue = data.galleryQueue || [];
+        currentSearchPage = data.currentSearchPage || 1;
+        lastSearchPageUrl = data.lastSearchPageUrl || location.href;
+        noMoreSearchPages = !!data.noMoreSearchPages;
+        consecutiveEmptyPages = data.consecutiveEmptyPages || 0;
+        lastRequestAt = data.lastRequestAt || 0;
+        seenGalleryUrls = new Set(data.seenGalleryUrls || []);
+        galleryQueue.forEach(g => seenGalleryUrls.add(g.url));
+
+        triggerBtn.style.display = 'none';
+        createOverlay();
+        const status = document.getElementById('ifap-board-status');
+        if (status) status.textContent = `Resuming from search page ${currentSearchPage}…`;
+        sentinelIntersecting = true;
+        driveLoop();
+    }
+
     function removeUserFromBoard(username) {
         const grid = document.getElementById('ifap-board-grid');
         if (grid) {
@@ -573,12 +581,10 @@
     }
 
     function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
-
     async function waitForPoliteGap() {
         const elapsed = Date.now() - lastRequestAt;
         if (elapsed < DELAY_MS) await sleep(DELAY_MS - elapsed);
     }
-
     function fetchDocument(url) {
         return new Promise((resolve, reject) => {
             if (!isRunning) return reject(new Error('Aborted'));
@@ -595,13 +601,11 @@
             });
         });
     }
-
     async function politeFetch(url) {
         await waitForPoliteGap();
         lastRequestAt = Date.now();
         return fetchDocument(url);
     }
-
     function extractImagesFromGalleryDoc(doc, galleryMeta) {
         const out = [];
         const anchors = doc.querySelectorAll('a[href^="/photo/"]');
@@ -613,6 +617,7 @@
             if (!thumb) return;
             if (thumb.startsWith('//')) thumb = 'https:' + thumb;
             else if (thumb.startsWith('/')) thumb = 'https://www.imagefap.com' + thumb;
+
             const fullPhoto = photoHref.startsWith('http') ? photoHref : 'https://www.imagefap.com' + photoHref;
             out.push({
                 photoUrl: fullPhoto,
@@ -624,11 +629,11 @@
         });
         return out;
     }
-
     function findNextGalleryPageUrl(doc, currentUrl, gid) {
         const curMatch = currentUrl.match(/[?&]page=(\d+)/);
         const curPage = curMatch ? parseInt(curMatch[1]) : 1;
         const want = curPage + 1;
+
         const relNext = doc.querySelector('link[rel="next"]');
         if (relNext) {
             const h = relNext.getAttribute('href');
@@ -643,19 +648,15 @@
         }
         return null;
     }
-
     async function crawlGallery(gallery, statusEl) {
-        // Skip work entirely if this gallery's uploader got blocked while queued.
-        if (gallery.username && hiddenUsers.has(gallery.username)) return;
-
+        if (gallery.username && hiddenUsers.has(gallery.username)) return 'done';
         let pageUrl = 'https://www.imagefap.com' + gallery.url;
         let safety = 0;
         while (pageUrl && isRunning && safety < 200) {
             safety++;
-            // Re-check on every page in case the user got blocked mid-crawl.
-            if (gallery.username && hiddenUsers.has(gallery.username)) return;
+            if (gallery.username && hiddenUsers.has(gallery.username)) return 'done';
             try {
-                statusEl.textContent = `Loading "${gallery.title}" (page ${safety})…`;
+                statusEl.textContent = `Search page ${currentSearchPage} — "${gallery.title}"…`;
                 const doc = await politeFetch(pageUrl);
                 const imgs = extractImagesFromGalleryDoc(doc, gallery);
                 if (imgs.length) {
@@ -667,40 +668,58 @@
                 const next = findNextGalleryPageUrl(doc, pageUrl, gid);
                 pageUrl = next ? (next.startsWith('http') ? next : 'https://www.imagefap.com' + next) : null;
             } catch (e) {
+                if (e.message === 'Aborted') return 'aborted';
                 console.warn('[ifap-board] Gallery page failed:', pageUrl, e);
                 break;
             }
         }
+        return 'done';
     }
-
     async function loadNextSearchPage(statusEl) {
         if (noMoreSearchPages || !isRunning) return;
-        const wantPage = currentSearchPage + 1;
-        const guessUrl = buildSearchPageUrl(wantPage);
-        statusEl.textContent = `Loading search results page ${wantPage}…`;
+
+        const info = getNextSearchPageInfo(lastSearchPageUrl, currentSearchPage);
+        if (!info) {
+            noMoreSearchPages = true;
+            statusEl.textContent = `No more results after search page ${currentSearchPage}.`;
+            return;
+        }
+
+        statusEl.textContent = `Loading search results page ${info.pageNum}…`;
         try {
-            const doc = await politeFetch(guessUrl);
-            const resolvedUrl = findNextSearchPageUrlFromDoc(doc, guessUrl, wantPage);
-            let finalDoc = doc;
-            if (resolvedUrl !== guessUrl) {
-                try {
-                    finalDoc = await politeFetch(resolvedUrl);
-                } catch (e) { finalDoc = doc; }
+            const doc = await politeFetch(info.url);
+            lastSearchPageUrl  = info.url;
+            currentSearchPage  = info.pageNum;
+
+            const rawLinks = doc.querySelectorAll('a[href^="/gallery.php?gid="]').length;
+            const newGalleries = discoverGalleriesFromDoc(doc).filter(g => !seenGalleryUrls.has(g.url));
+
+            if (rawLinks === 0) {
+                consecutiveEmptyPages++;
+                if (consecutiveEmptyPages >= 2) {
+                    noMoreSearchPages = true;
+                    statusEl.textContent = `No more results after search page ${currentSearchPage}.`;
+                    return;
+                }
+                statusEl.textContent = `Search page ${currentSearchPage} empty — checking next…`;
+            } else {
+                consecutiveEmptyPages = 0;
+                if (newGalleries.length) {
+                    newGalleries.forEach(g => seenGalleryUrls.add(g.url));
+                    galleryQueue.push(...newGalleries);
+                } else {
+                    statusEl.textContent = `Search page ${currentSearchPage} had nothing visible — checking next page…`;
+                }
             }
-            const newGalleries = discoverGalleriesFromDoc(finalDoc); // block-list already applied here
-            if (!newGalleries.length) {
-                noMoreSearchPages = true;
-                statusEl.textContent = `No more results after page ${currentSearchPage}.`;
+        } catch (e) {
+            if (e.message === 'Aborted') {
+                console.warn('[ifap-board] Search page load aborted.');
                 return;
             }
-            currentSearchPage = wantPage;
-            galleryQueue.push(...newGalleries);
-        } catch (e) {
             console.warn('[ifap-board] Failed to load next search page:', e);
             noMoreSearchPages = true;
         }
     }
-
     async function doNextStep() {
         if (!isRunning) return;
         const statusEl = document.getElementById('ifap-board-status');
@@ -711,17 +730,15 @@
             renderBatch(BATCH_SIZE);
             return;
         }
-
         if (galleryQueue.length > 0) {
-            const gallery = galleryQueue.shift();
-            statusEl.textContent = `Gallery: "${gallery.title}" (search page ${currentSearchPage})`;
-            await crawlGallery(gallery, statusEl);
+            const gallery = galleryQueue[0];
+            const result = await crawlGallery(gallery, statusEl);
+            if (result !== 'aborted') galleryQueue.shift();
         } else if (!noMoreSearchPages) {
             await loadNextSearchPage(statusEl);
         }
 
         if (counterEl) counterEl.textContent = `${boardImages.length} images found`;
-
         if (isRunning && galleryQueue.length === 0 && noMoreSearchPages && renderedCount >= boardImages.length) {
             statusEl.textContent = `All done — ${boardImages.length} images across ${currentSearchPage} search page(s).`;
             const sentinel = document.getElementById('ifap-board-sentinel');
@@ -730,15 +747,14 @@
             if (endMarker) endMarker.style.display = 'block';
         }
     }
-
     async function driveLoop() {
         if (driveLoopRunning) return;
         driveLoopRunning = true;
         try {
-            while (isRunning && sentinelIntersecting) {
-                const hasBufferedImages   = renderedCount < boardImages.length;
-                const hasQueuedGalleries  = galleryQueue.length > 0;
-                const hasMoreSearchPages  = !noMoreSearchPages;
+            while (isRunning) {
+                const hasBufferedImages  = renderedCount < boardImages.length;
+                const hasQueuedGalleries = galleryQueue.length > 0;
+                const hasMoreSearchPages = !noMoreSearchPages;
                 if (!hasBufferedImages && !hasQueuedGalleries && !hasMoreSearchPages) break;
                 await doNextStep();
             }
@@ -746,31 +762,32 @@
             driveLoopRunning = false;
         }
     }
-
     async function startBoard() {
         if (isRunning) return;
-
-        searchPageBaseUrl = stripPageParam(location.href).toString();
+        lastSearchPageUrl  = location.href;
         const pMatch = location.href.match(/[?&]page=(\d+)/);
         currentSearchPage = pMatch ? parseInt(pMatch[1], 10) : 1;
         noMoreSearchPages = false;
+        consecutiveEmptyPages = 0;
 
-        const initialGalleries = discoverGalleriesFromDoc(document); // block-list applied
+        const initialGalleries = discoverGalleriesFromDoc(document);
         if (!initialGalleries.length) {
             alert('No galleries found on this page (or everything here is blocked/filtered).');
             return;
         }
+
+        seenGalleryUrls.clear();
+        initialGalleries.forEach(g => seenGalleryUrls.add(g.url));
+
         galleryQueue = initialGalleries;
         boardImages = [];
         renderedCount = 0;
-
         isRunning = true;
         triggerBtn.style.display = 'none';
-
         createOverlay();
+        sentinelIntersecting = true;
         driveLoop();
     }
-
     function renderBatch(count) {
         const grid = document.getElementById('ifap-board-grid');
         const counter = document.getElementById('ifap-board-counter');
@@ -831,14 +848,11 @@
                 };
                 card.appendChild(blockBtn);
             }
-
             grid.insertBefore(card, sentinel);
         });
-
         renderedCount = end;
         if (counter) counter.textContent = `${renderedCount} / ${boardImages.length} images shown`;
     }
-
     function setupInfiniteScroll() {
         const sentinel = document.getElementById('ifap-board-sentinel');
         const grid = document.getElementById('ifap-board-grid');
@@ -856,5 +870,4 @@
         });
         infiniteObserver.observe(sentinel);
     }
-
 })();
