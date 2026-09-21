@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ::Steam Search: Hide Games Under Minimum Price::
 // @namespace    masterofobzene-Hide Games Under Minimum Price
-// @version      1.7
+// @version      1.8
 // @description  Hides games by minimum price set by the user, also can hide no-reviews or mixed/negative reviewed games on Steam search.
 // @author       masterofobzene
 // @homepage     https://github.com/masterofobzene/UserScriptRepo
@@ -23,6 +23,7 @@ let minPrice = parseFloat(localStorage.getItem('minPrice')) || 5.00;
 let enablePriceFilter = localStorage.getItem('enablePriceFilter') === 'true' || true;
 let hideMixedNegative = localStorage.getItem('hideMixedNegative') === 'true' || false;
 let hideNoRating = localStorage.getItem('hideNoRating') === 'true' || false;
+let hideSimulator = localStorage.getItem('hideSimulator') === 'true' || false;
 
 
 /* ---------------- THROTTLE DETECTION ---------------- */
@@ -182,6 +183,15 @@ function filterRow(row) {
     if (hideMixedNegative && (ratingClass === 'mixed' || ratingClass === 'negative'))
         shouldHide = true;
 
+    if (hideSimulator) {
+
+        const titleElement = row.querySelector('.title');
+        const titleText = titleElement ? titleElement.textContent : '';
+
+        if (/simulator/i.test(titleText))
+            shouldHide = true;
+    }
+
     row.style.display = shouldHide ? 'none' : '';
 }
 
@@ -267,9 +277,14 @@ function createToggleUI() {
             Hide Mixed/Negative
         </label>
 
-        <label style="display:block;">
+        <label style="display:block;margin-bottom:4px;">
             <input type="checkbox" id="hideNoRating" ${hideNoRating ? 'checked' : ''}>
             Hide No Rating
+        </label>
+
+        <label style="display:block;">
+            <input type="checkbox" id="hideSimulator" ${hideSimulator ? 'checked' : ''}>
+            Hide "Simulator" titles
         </label>
     `;
 
@@ -297,6 +312,12 @@ function createToggleUI() {
     document.getElementById('hideNoRating').addEventListener('change', e => {
         hideNoRating = e.target.checked;
         localStorage.setItem('hideNoRating', hideNoRating);
+        hideLowPriceGames();
+    });
+
+    document.getElementById('hideSimulator').addEventListener('change', e => {
+        hideSimulator = e.target.checked;
+        localStorage.setItem('hideSimulator', hideSimulator);
         hideLowPriceGames();
     });
 }
