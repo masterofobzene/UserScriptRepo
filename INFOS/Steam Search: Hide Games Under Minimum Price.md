@@ -14,6 +14,13 @@ minute before continuing.
 
 1.7: Now the script uses the original price, so if a game is at discount, you will still see it in your search even when its lower priced.
 
+1.8: New option added: "hide "Simulator" titles". This new option will hide all games that have the "simulator" word in their title. We all know those games are slop, here is the tool to get rid of them without filtering the simulation tag.
+
+BEFORE: <img width="200" alt="UwGYTDuLDk" src="https://github.com/user-attachments/assets/19932950-94f4-46e0-b32d-258cb17d2e2a" /> AFTER: <img width="200" alt="nqi1lBR8tJ" src="https://github.com/user-attachments/assets/108c6e45-315a-412d-a9af-edea5e754462" />
+
+<br>
+<br>
+<br>
 __TIP:__ If you use the steam filters to take out more games that can appear on the search, you will likely avoid the throttling
 since you will not have to remove hundreds of games, but as you know, tags are abused and you could be removing more than
 you want with them.
