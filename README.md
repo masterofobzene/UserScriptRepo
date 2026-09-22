@@ -46,7 +46,8 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 
 [::Steam Search: Hide Games Under Minimum Price::](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/--Steam%20Search-%20Hide%20Games%20Under%20Minimum%20Price--.user.js) Hides games by minimum price set by the user, also can hide no-reviews or mixed/negative reviewed games on Steam search.
 
-<img src="https://github.com/user-attachments/assets/6b653c69-677c-4f27-aa48-2c76d02acf5b" width="400">
+<img width="250" alt="HFz82kyjcS" src="https://github.com/user-attachments/assets/df4b625b-3ee0-469a-9ae7-3034d7e5d800" />
+
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Steam%20Search%3A%20Hide%20Games%20Under%20Minimum%20Price.md)
 
