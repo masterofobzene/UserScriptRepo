@@ -202,13 +202,13 @@ above if you see prices in other currency.
 
 -----------
 
-[Realbooru Bookmark](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/realbooru_bookmark.user.js) This extension acts like a book bookmark, but for realbooru and saves you from having to save a new bookmark and deleting the old everytime. 
+[Realbooru Bookmark](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/realbooru_bookmark.user.js) This extension lets you easily resume your browsing where you left off (for people wanting to dive deep into the booru).
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Realbooru_bookmark.md)
 
 -----------
 
-[ImageFap User Gallery Hider](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ImageFap_User_Gallery_Hider.user.js) Tired of weirdos trying to impose their filth and having no way to filter them? this userscript removes their galleries site-wide with one click on their avatar.
+[ImageFap User Gallery Hider](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ImageFap_User_Gallery_Hider.user.js) Tired of weirdos trying to impose their filth and having no way to filter them? this userscript removes their galleries site-wide with one click on their avatar. ⚠ Replaced by ["Imagefap Gallery Board"](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/ImageFap_Gallery_Board.md)
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/ImageFap%20User%20Gallery%20Hider.md)
 
@@ -222,7 +222,7 @@ above if you see prices in other currency.
 -----------
 
 [Pornolab Filters](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/pornolab_filters.user.js
-) This will let you set blacklist words for your search results, effectively removing subforum results too unlike with other userscripts where offending results still appear because the title of the post didn't had the offending word.
+) This will let you set blacklist words for your search results, effectively removing subforum results too, unlike with other userscripts where offending results still appear because the title of the post didn't had the blacklisted word.
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/ponolab_filter.md)
 
@@ -230,7 +230,7 @@ above if you see prices in other currency.
 
 [Imagefap image dimensions highlighter](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/dimensions_highlighter.user.js
 ) This will show colored sizes below the images on the thumbs page of galleries.
-NO it doesn't do what you are thinking.
+
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/ImageFap_Dimensions_Highligher.md)
 
@@ -251,7 +251,7 @@ NO it doesn't do what you are thinking.
 -----------
 
 [ImageFap Gallery Board](https://github.com/masterofobzene/UserScriptRepo/raw/main/NSFW/ImageFap_Gallery_Board.user.js
-) Loads all the galleries in an infinite scroll in a booru style page while also letting you block offending users to remove all their content.
+) Loads all the complete galleries in an infinite scroll in a booru style page while also letting you block offending users to remove all their content site-wide. (You can manually import the blacklist from the "Gallery User Gallery Hider" userscript as it uses the same format).
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/ImageFap_Gallery_Board.md)
 
