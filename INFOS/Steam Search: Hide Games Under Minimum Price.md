@@ -25,7 +25,8 @@ BEFORE: <img width="200" alt="UwGYTDuLDk" src="https://github.com/user-attachmen
 <br>
 <br>
 <br>
-__TIP:__ If you use the steam filters to take out more games that can appear on the search, you will likely avoid the throttling
+
+*TIP:* If you use the steam filters to take out more games that can appear on the search, you will likely avoid the throttling
 since you will not have to remove hundreds of games, but as you know, tags are abused and you could be removing more than
 you want with them.
 
