@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ::Steam Search: Hide Games Under Minimum Price::
 // @namespace    masterofobzene-Hide Games Under Minimum Price
-// @version      1.8
+// @version      1.9
 // @description  Hides games by minimum price set by the user, also can hide no-reviews or mixed/negative reviewed games on Steam search.
 // @author       masterofobzene
 // @homepage     https://github.com/masterofobzene/UserScriptRepo
@@ -146,9 +146,36 @@ function monitorResults() {
 
 /* ---------------- FILTER ---------------- */
 
+let filterCounts = {
+    price: 0,
+    mixedNegative: 0,
+    noRating: 0,
+    simulator: 0
+};
+
+
+function updateFilterCountsUI() {
+
+    const priceCount = document.getElementById('priceCount');
+    if (priceCount) priceCount.textContent = `[${filterCounts.price}]`;
+
+    const mixedCount = document.getElementById('mixedNegativeCount');
+    if (mixedCount) mixedCount.textContent = `[${filterCounts.mixedNegative}]`;
+
+    const noRatingCount = document.getElementById('noRatingCount');
+    if (noRatingCount) noRatingCount.textContent = `[${filterCounts.noRating}]`;
+
+    const simCount = document.getElementById('simulatorCount');
+    if (simCount) simCount.textContent = `[${filterCounts.simulator}]`;
+}
+
+
 function filterRow(row) {
 
-    let shouldHide = false;
+    let hidePrice = false;
+    let hideMixedNeg = false;
+    let hideNoRate = false;
+    let hideSim = false;
 
     const priceElement = row.querySelector('.discount_original_price') || row.querySelector('.discount_final_price');
     if (!priceElement) return;
@@ -157,7 +184,7 @@ function filterRow(row) {
 
     if (/free/i.test(priceText)) {
 
-        shouldHide = enablePriceFilter;
+        if (enablePriceFilter) hidePrice = true;
 
     } else {
 
@@ -168,7 +195,7 @@ function filterRow(row) {
             const price = parseFloat(priceMatch[1]);
 
             if (price < minPrice)
-                shouldHide = true;
+                hidePrice = true;
         }
     }
 
@@ -178,10 +205,10 @@ function filterRow(row) {
     const ratingClass = reviewElement?.classList?.[1];
 
     if (hideNoRating && !hasRating)
-        shouldHide = true;
+        hideNoRate = true;
 
     if (hideMixedNegative && (ratingClass === 'mixed' || ratingClass === 'negative'))
-        shouldHide = true;
+        hideMixedNeg = true;
 
     if (hideSimulator) {
 
@@ -189,18 +216,41 @@ function filterRow(row) {
         const titleText = titleElement ? titleElement.textContent : '';
 
         if (/simulator/i.test(titleText))
-            shouldHide = true;
+            hideSim = true;
     }
 
-    row.style.display = shouldHide ? 'none' : '';
+    /* Count only once per row (unless settings changed and counters were reset) */
+    if (row.dataset.filterCounted !== 'true') {
+
+        if (hidePrice) filterCounts.price++;
+        if (hideMixedNeg) filterCounts.mixedNegative++;
+        if (hideNoRate) filterCounts.noRating++;
+        if (hideSim) filterCounts.simulator++;
+
+        row.dataset.filterCounted = 'true';
+    }
+
+    row.style.display = (hidePrice || hideMixedNeg || hideNoRate || hideSim) ? 'none' : '';
 }
 
 
 function hideLowPriceGames() {
 
+    /* Reset counters and per-row bookkeeping */
+    filterCounts = {
+        price: 0,
+        mixedNegative: 0,
+        noRating: 0,
+        simulator: 0
+    };
+
     const rows = document.querySelectorAll('.search_result_row');
 
+    rows.forEach(row => delete row.dataset.filterCounted);
+
     rows.forEach(filterRow);
+
+    updateFilterCountsUI();
 }
 
 
@@ -214,6 +264,8 @@ function setupObserver() {
 
     const observer = new MutationObserver(mutations => {
 
+        let addedAny = false;
+
         mutations.forEach(mutation => {
 
             mutation.addedNodes.forEach(node => {
@@ -223,9 +275,13 @@ function setupObserver() {
                     node.style.display = 'none';
 
                     filterRow(node);
+
+                    addedAny = true;
                 }
             });
         });
+
+        if (addedAny) updateFilterCountsUI();
     });
 
     observer.observe(resultsContainer, {
@@ -256,12 +312,14 @@ function createToggleUI() {
     container.style.color = '#c6d4df';
     container.style.fontSize = '13px';
 
+    const counterStyle = 'color:#66c0f4;font-weight:bold;';
+
     container.innerHTML = `
         <div style="margin-bottom:6px;"><strong>🧹 Custom Filter</strong></div>
 
         <label style="display:block;margin-bottom:6px;">
             <input type="checkbox" id="enablePriceFilter" ${enablePriceFilter ? 'checked' : ''}>
-            Enable Price Filter
+            Enable Price Filter <span id="priceCount" style="${counterStyle}">[0]</span>
         </label>
 
         <label style="display:block;margin-bottom:4px;">
@@ -274,17 +332,17 @@ function createToggleUI() {
 
         <label style="display:block;margin-bottom:4px;">
             <input type="checkbox" id="hideMixedNegative" ${hideMixedNegative ? 'checked' : ''}>
-            Hide Mixed/Negative
+            Hide Mixed/Negative <span id="mixedNegativeCount" style="${counterStyle}">[0]</span>
         </label>
 
         <label style="display:block;margin-bottom:4px;">
             <input type="checkbox" id="hideNoRating" ${hideNoRating ? 'checked' : ''}>
-            Hide No Rating
+            Hide No Rating <span id="noRatingCount" style="${counterStyle}">[0]</span>
         </label>
 
         <label style="display:block;">
             <input type="checkbox" id="hideSimulator" ${hideSimulator ? 'checked' : ''}>
-            Hide "Simulator" titles
+            Hide "Simulator" titles <span id="simulatorCount" style="${counterStyle}">[0]</span>
         </label>
     `;
 
