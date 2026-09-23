@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ImageFap Gallery Board
 // @namespace    ifap-gallery-board
-// @version      1.3
+// @version      1.4
 // @description  Loads galleries from the current search/category page and presents them as a booru page.
 // @author       masterofobzene
 // @match        https://www.imagefap.com/gallery.php*
@@ -29,6 +29,7 @@
     const SESSION_KEY     = 'ifap_board_session';
 
     let hiddenUsers = new Set(GM_getValue(hiddenUsersKey, []));
+
     const DEFAULT_HIDE_CONFIG = {
         women: false,
         couples: false,
@@ -45,6 +46,7 @@
     function setHideConfig(cfg) {
         GM_setValue(hideConfigKey, cfg);
     }
+
     function blockUser(username) {
         if (!username) return;
         username = username.toLowerCase();
@@ -66,7 +68,6 @@
             (cfg.women && sexIcon?.classList.contains('sexW')) ||
             (cfg.couples && sexIcon?.classList.contains('sexC')) ||
             (cfg.transsexuals && sexIcon?.classList.contains('sexS'));
-
         const flagDiv = detailRow.querySelector('div.country.iconCountry');
         let hideCountry = false;
         if (flagDiv) {
@@ -79,12 +80,14 @@
         }
         return hideGender || hideCountry;
     }
+
     function getPicCount(titleRow) {
         const center = titleRow.querySelector('td > center');
         if (!center) return null;
         const n = parseInt(center.textContent.trim(), 10);
         return Number.isNaN(n) ? null : n;
     }
+
     function getGalleryUsername(detailRow) {
         if (!detailRow) return null;
         const avatar = detailRow.querySelector('div.avatar');
@@ -92,16 +95,15 @@
         if (!avatar || !userLink) return null;
         return userLink.textContent.trim().toLowerCase();
     }
+
     function isGalleryHidden(titleRow, detailRow) {
         if (!titleRow) return true;
         if (titleRow.style && titleRow.style.display === 'none') return true;
         if (!detailRow || detailRow.tagName !== 'TR') return false;
         if (detailRow.style && detailRow.style.display === 'none') return true;
-
         const username = getGalleryUsername(detailRow);
         if (username && hiddenUsers.has(username)) return true;
         if (username && shouldHideByFilter(detailRow)) return true;
-
         const picCount = getPicCount(titleRow);
         if (picCount !== null && picCount < 4) return true;
         return false;
@@ -208,6 +210,7 @@
             });
         };
     }
+
     function applyMenuState() {
         const collapsed = GM_getValue(menuCollapsedKey, false);
         document.querySelectorAll('#menuContentWrapper').forEach(w => {
@@ -219,6 +222,7 @@
             h.innerHTML = `${text} <span style="font-size:17px;">${icon}</span>`;
         });
     }
+
     function setupMenuCollapser() {
         document.querySelectorAll('#main > center > table > tbody > tr > td:nth-of-type(1)').forEach(leftTd => {
             if (leftTd.querySelector('#menuToggleHeader')) return;
@@ -237,12 +241,14 @@
                 user-select:none;
             `;
             leftTd.insertBefore(header, leftTd.firstChild);
+
             const wrapper = document.createElement('div');
             wrapper.id = 'menuContentWrapper';
             Array.from(leftTd.children)
                 .filter(el => el !== header)
                 .forEach(el => wrapper.appendChild(el));
             leftTd.appendChild(wrapper);
+
             header.onclick = () => {
                 GM_setValue(menuCollapsedKey, !GM_getValue(menuCollapsedKey, false));
                 applyMenuState();
@@ -250,10 +256,12 @@
         });
         applyMenuState();
     }
+
     function hideRow(titleRow, detailRow) {
         titleRow.style.display = 'none';
         if (detailRow) detailRow.style.display = 'none';
     }
+
     function hideAllGalleriesForUser(username) {
         document.querySelectorAll('div.avatar').forEach(avatar => {
             const link = avatar.querySelector('a.gal_title');
@@ -266,6 +274,7 @@
             if (titleRow?.tagName === 'TR') hideRow(titleRow, detailRow);
         });
     }
+
     function processGallery(titleRow) {
         const detailRow = titleRow.nextElementSibling;
         if (!detailRow || detailRow.getAttribute('valign') !== 'top') return;
@@ -278,6 +287,7 @@
             hideRow(titleRow, detailRow);
             return;
         }
+
         if (avatar.querySelector('.ifap-hide-btn')) return;
 
         const btn = document.createElement('span');
@@ -307,10 +317,12 @@
             blockUser(userLink.textContent.trim());
         };
     }
+
     function applyAll() {
         try {
             createGenderPanel();
             setupMenuCollapser();
+
             document.querySelectorAll('tr').forEach(tr => {
                 if (
                     tr.querySelector('a[href*="gallery.php?gid="]') ||
@@ -321,6 +333,7 @@
                     tr.style.display = '';
                 }
             });
+
             document.querySelectorAll('a[href*="gallery.php?gid="]').forEach(a => {
                 let titleRow = a;
                 while (titleRow && titleRow.tagName !== 'TR') titleRow = titleRow.parentElement;
@@ -330,26 +343,25 @@
             console.error('[ImageFap Hider] applyAll failed', err);
         }
     }
+
     let applyTimeout = null;
     const debouncedApplyAll = () => {
         if (applyTimeout) clearTimeout(applyTimeout);
         applyTimeout = setTimeout(applyAll, 150);
     };
+
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', debouncedApplyAll);
     } else {
         debouncedApplyAll();
     }
-    new MutationObserver(debouncedApplyAll).observe(document.body, {
-        childList: true,
-        subtree: true
-    });
+    new MutationObserver(debouncedApplyAll).observe(document.body, { childList: true, subtree: true });
 
     /* ====================================================================
        GALLERY BOARD
        ==================================================================== */
-    const DELAY_MS   = 5000;
-    const BATCH_SIZE  = 60;
+    const DELAY_MS  = 5000;
+    const BATCH_SIZE = 60;
 
     let boardImages       = [];
     let renderedCount     = 0;
@@ -364,6 +376,7 @@
     let sentinelIntersecting = false;
     let driveLoopRunning     = false;
     let seenGalleryUrls      = new Set();
+    let lastFinalUrl         = '';
 
     const triggerBtn = document.createElement('button');
     triggerBtn.id = 'ifap-board-trigger';
@@ -388,7 +401,6 @@
             if (!titleRow) return;
             const detailRow = titleRow.nextElementSibling;
             if (isGalleryHidden(titleRow, detailRow)) return;
-
             const href = a.getAttribute('href').split('&')[0];
             if (!map.has(href)) {
                 map.set(href, {
@@ -400,6 +412,7 @@
         });
         return Array.from(map.values());
     }
+
     function getNextSearchPageInfo(baseUrl, currentPageNum) {
         try {
             const u = new URL(baseUrl);
@@ -410,6 +423,7 @@
             return null;
         }
     }
+
     function createOverlay() {
         const existing = document.getElementById('ifap-board-overlay');
         if (existing) existing.remove();
@@ -490,6 +504,7 @@
 
         setupInfiniteScroll();
     }
+
     function destroyOverlay() {
         isRunning = false;
         sentinelIntersecting = false;
@@ -509,6 +524,7 @@
         consecutiveEmptyPages = 0;
         seenGalleryUrls.clear();
     }
+
     function stopLoading() {
         isRunning = false;
         const status = document.getElementById('ifap-board-status');
@@ -518,6 +534,7 @@
         if (stopBtn) stopBtn.style.display = 'none';
         if (resumeBtn) resumeBtn.style.display = '';
     }
+
     function resumeLoading() {
         if (isRunning) return;
         isRunning = true;
@@ -544,12 +561,10 @@
         const status = document.getElementById('ifap-board-status');
         if (status) status.textContent = `Session saved at search page ${currentSearchPage}.`;
     }
+
     function loadSession() {
         const data = GM_getValue(SESSION_KEY, null);
-        if (!data) {
-            alert('No saved session.');
-            return;
-        }
+        if (!data) { alert('No saved session.'); return; }
         isRunning = true;
         boardImages = [];
         renderedCount = 0;
@@ -561,7 +576,6 @@
         lastRequestAt = data.lastRequestAt || 0;
         seenGalleryUrls = new Set(data.seenGalleryUrls || []);
         galleryQueue.forEach(g => seenGalleryUrls.add(g.url));
-
         triggerBtn.style.display = 'none';
         createOverlay();
         const status = document.getElementById('ifap-board-status');
@@ -581,18 +595,22 @@
     }
 
     function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+
     async function waitForPoliteGap() {
         const elapsed = Date.now() - lastRequestAt;
         if (elapsed < DELAY_MS) await sleep(DELAY_MS - elapsed);
     }
+
     function fetchDocument(url) {
         return new Promise((resolve, reject) => {
             if (!isRunning) return reject(new Error('Aborted'));
             GM_xmlhttpRequest({
                 method: 'GET',
                 url: url,
+                headers: { 'Referer': 'https://www.imagefap.com/' },
                 onload: (res) => {
                     if (!isRunning) return reject(new Error('Aborted'));
+                    lastFinalUrl = res.finalUrl || url;
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(res.responseText, 'text/html');
                     resolve(doc);
@@ -601,11 +619,13 @@
             });
         });
     }
+
     async function politeFetch(url) {
         await waitForPoliteGap();
         lastRequestAt = Date.now();
         return fetchDocument(url);
     }
+
     function extractImagesFromGalleryDoc(doc, galleryMeta) {
         const out = [];
         const anchors = doc.querySelectorAll('a[href^="/photo/"]');
@@ -618,7 +638,6 @@
             if (!thumb) return;
             if (thumb.startsWith('//')) thumb = 'https:' + thumb;
             else if (thumb.startsWith('/')) thumb = 'https://www.imagefap.com' + thumb;
-
             const fullPhoto = photoHref.startsWith('http') ? photoHref : 'https://www.imagefap.com' + photoHref;
             out.push({
                 photoUrl: fullPhoto,
@@ -631,28 +650,44 @@
         });
         return out;
     }
-    function findNextGalleryPageUrl(doc, currentUrl, gid) {
-        const curMatch = currentUrl.match(/[?&]page=(\d+)/);
-        const curPage = curMatch ? parseInt(curMatch[1]) : 1;
-        const want = curPage + 1;
 
+    function findNextGalleryPageUrl(doc, currentUrl, basePath) {
+        // Bare gallery URL = page 0; ?page=1 is the SECOND page.
+        const curMatch = currentUrl.match(/[?&]page=(\d+)/);
+        const curPage = curMatch ? parseInt(curMatch[1], 10) : 0;
+
+        // Resolve hrefs relative to the POST-REDIRECT page path,
+        // e.g. "?gid=14339176&page=2&view=0"
+        const abs = (h) => {
+            if (h.startsWith('http')) return h;
+            if (h.startsWith('/'))  return 'https://www.imagefap.com' + h;
+            return basePath + (h.startsWith('?') ? h : '/' + h);
+        };
+
+        // 1) <link rel="next"> if present
         const relNext = doc.querySelector('link[rel="next"]');
         if (relNext) {
             const h = relNext.getAttribute('href');
-            if (h && h.includes('gid=' + gid)) return h;
+            if (h && /[?&]page=\d+/.test(h)) return abs(h);
         }
-        const links = doc.querySelectorAll('a[href*="gid=' + gid + '"]');
-        for (const a of links) {
+
+        // 2) Any anchor with page=N — take the smallest N greater than current
+        let best = null, bestPage = Infinity;
+        doc.querySelectorAll('a[href*="page="]').forEach(a => {
             const h = a.getAttribute('href');
-            if (!h || !h.includes('gallery.php')) continue;
-            const m = h.match(/[?&]page=(\d+)/);
-            if (m && parseInt(m[1]) === want) return h;
-        }
-        return null;
+            const m = h && h.match(/[?&]page=(\d+)/);
+            if (!m) return;
+            const p = parseInt(m[1], 10);
+            if (p > curPage && p < bestPage) { bestPage = p; best = h; }
+        });
+        return best ? abs(best) : null;
     }
+
     async function crawlGallery(gallery, statusEl) {
         if (gallery.username && hiddenUsers.has(gallery.username)) return 'done';
         let pageUrl = 'https://www.imagefap.com' + gallery.url;
+        const seenPhotos = new Set();
+        let emptyStreak = 0;
         let safety = 0;
         while (pageUrl && isRunning && safety < 200) {
             safety++;
@@ -660,15 +695,23 @@
             try {
                 statusEl.textContent = `Search page ${currentSearchPage} — "${gallery.title}"…`;
                 const doc = await politeFetch(pageUrl);
-                const imgs = extractImagesFromGalleryDoc(doc, gallery);
+                // Resolve relative pagination links against the POST-REDIRECT url
+                const basePath = (lastFinalUrl || pageUrl).split('?')[0];
+
+                const imgs = extractImagesFromGalleryDoc(doc, gallery)
+                    .filter(im => !seenPhotos.has(im.photoUrl));
                 if (imgs.length) {
+                    emptyStreak = 0;
+                    imgs.forEach(im => seenPhotos.add(im.photoUrl));
                     boardImages.push(...imgs);
                     if (renderedCount < boardImages.length) renderBatch(BATCH_SIZE);
+                } else {
+                    emptyStreak++;
+                    if (emptyStreak >= 2) break;
                 }
-                const gidMatch = gallery.url.match(/gid=(\d+)/);
-                const gid = gidMatch ? gidMatch[1] : '';
-                const next = findNextGalleryPageUrl(doc, pageUrl, gid);
-                pageUrl = next ? (next.startsWith('http') ? next : 'https://www.imagefap.com' + next) : null;
+
+                const next = findNextGalleryPageUrl(doc, pageUrl, basePath);
+                pageUrl = (next && next !== pageUrl) ? next : null;
             } catch (e) {
                 if (e.message === 'Aborted') return 'aborted';
                 console.warn('[ifap-board] Gallery page failed:', pageUrl, e);
@@ -677,25 +720,22 @@
         }
         return 'done';
     }
+
     async function loadNextSearchPage(statusEl) {
         if (noMoreSearchPages || !isRunning) return;
-
         const info = getNextSearchPageInfo(lastSearchPageUrl, currentSearchPage);
         if (!info) {
             noMoreSearchPages = true;
             statusEl.textContent = `No more results after search page ${currentSearchPage}.`;
             return;
         }
-
         statusEl.textContent = `Loading search results page ${info.pageNum}…`;
         try {
             const doc = await politeFetch(info.url);
             lastSearchPageUrl  = info.url;
             currentSearchPage  = info.pageNum;
-
             const rawLinks = doc.querySelectorAll('a[href^="/gallery.php?gid="]').length;
             const newGalleries = discoverGalleriesFromDoc(doc).filter(g => !seenGalleryUrls.has(g.url));
-
             if (rawLinks === 0) {
                 consecutiveEmptyPages++;
                 if (consecutiveEmptyPages >= 2) {
@@ -722,6 +762,7 @@
             noMoreSearchPages = true;
         }
     }
+
     async function doNextStep() {
         if (!isRunning) return;
         const statusEl = document.getElementById('ifap-board-status');
@@ -732,6 +773,7 @@
             renderBatch(BATCH_SIZE);
             return;
         }
+
         if (galleryQueue.length > 0) {
             const gallery = galleryQueue[0];
             const result = await crawlGallery(gallery, statusEl);
@@ -741,6 +783,7 @@
         }
 
         if (counterEl) counterEl.textContent = `${boardImages.length} images found`;
+
         if (isRunning && galleryQueue.length === 0 && noMoreSearchPages && renderedCount >= boardImages.length) {
             statusEl.textContent = `All done — ${boardImages.length} images across ${currentSearchPage} search page(s).`;
             const sentinel = document.getElementById('ifap-board-sentinel');
@@ -749,6 +792,7 @@
             if (endMarker) endMarker.style.display = 'block';
         }
     }
+
     async function driveLoop() {
         if (driveLoopRunning) return;
         driveLoopRunning = true;
@@ -764,6 +808,7 @@
             driveLoopRunning = false;
         }
     }
+
     async function startBoard() {
         if (isRunning) return;
         lastSearchPageUrl  = location.href;
@@ -780,7 +825,6 @@
 
         seenGalleryUrls.clear();
         initialGalleries.forEach(g => seenGalleryUrls.add(g.url));
-
         galleryQueue = initialGalleries;
         boardImages = [];
         renderedCount = 0;
@@ -790,6 +834,7 @@
         sentinelIntersecting = true;
         driveLoop();
     }
+
     function renderBatch(count) {
         const grid = document.getElementById('ifap-board-grid');
         const counter = document.getElementById('ifap-board-counter');
@@ -861,7 +906,6 @@
 
             bottom.appendChild(cap);
             bottom.appendChild(copyBtn);
-
             a.appendChild(img);
             card.appendChild(a);
             card.appendChild(bottom);
@@ -883,16 +927,18 @@
                 };
                 card.appendChild(blockBtn);
             }
+
             grid.insertBefore(card, sentinel);
         });
+
         renderedCount = end;
         if (counter) counter.textContent = `${renderedCount} / ${boardImages.length} images shown`;
     }
+
     function setupInfiniteScroll() {
         const sentinel = document.getElementById('ifap-board-sentinel');
         const grid = document.getElementById('ifap-board-grid');
         if (!sentinel || !grid || infiniteObserver) return;
-
         infiniteObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 sentinelIntersecting = entry.isIntersecting;
@@ -905,4 +951,5 @@
         });
         infiniteObserver.observe(sentinel);
     }
+
 })();
