@@ -13,7 +13,10 @@ Click on the "⚡ Booru Mode" button.
 
 
 1.2:  Major overhaul, save the last page loaded (save sessions), load them, stop load/resume, fixed duplicate galleries loaded.
-      
+
+1.3: Added a "copy gallery link" button for each gallery for downloading using gallery-dl or any other downloader.
+
+1.4: fixed a major bug that only loaded the first page of each gallery instead of the full gallery.
 
 ### WHY?:
 ---------------
