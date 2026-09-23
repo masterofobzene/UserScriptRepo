@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ImageFap Gallery Board
 // @namespace    ifap-gallery-board
-// @version      1.2
+// @version      1.3
 // @description  Loads galleries from the current search/category page and presents them as a booru page.
 // @author       masterofobzene
 // @match        https://www.imagefap.com/gallery.php*
@@ -609,6 +609,7 @@
     function extractImagesFromGalleryDoc(doc, galleryMeta) {
         const out = [];
         const anchors = doc.querySelectorAll('a[href^="/photo/"]');
+        const galleryUrl = 'https://www.imagefap.com' + galleryMeta.url;
         anchors.forEach(a => {
             const img = a.querySelector('img');
             if (!img) return;
@@ -623,6 +624,7 @@
                 photoUrl: fullPhoto,
                 thumbUrl: thumb,
                 galleryTitle: galleryMeta.title,
+                galleryUrl: galleryUrl,
                 username: galleryMeta.username,
                 alt: (img.alt || '').replace(/Free porn pics of /i, '')
             });
@@ -822,14 +824,47 @@
             img.loading = 'lazy';
             img.style.cssText = 'display:block;width:auto;height:auto;max-width:160px;max-height:260px;';
 
+            const bottom = document.createElement('div');
+            bottom.style.cssText = 'display:flex;align-items:center;padding:5px 7px;gap:4px;max-width:160px;';
+
             const cap = document.createElement('div');
             cap.textContent = item.galleryTitle;
             cap.title = item.galleryTitle;
-            cap.style.cssText = 'padding:5px 7px;font-size:10px;color:#999;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px;';
+            cap.style.cssText = 'flex:1;font-size:10px;color:#999;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;';
+
+            const copyBtn = document.createElement('span');
+            copyBtn.textContent = '📋';
+            copyBtn.title = 'Copy gallery link';
+            copyBtn.style.cssText = `
+                flex:0 0 auto;cursor:pointer;font-size:12px;opacity:.7;
+                line-height:1;user-select:none;
+            `;
+            copyBtn.onmouseenter = () => copyBtn.style.opacity = '1';
+            copyBtn.onmouseleave = () => copyBtn.style.opacity = '.7';
+            copyBtn.onclick = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                navigator.clipboard.writeText(item.galleryUrl).then(() => {
+                    copyBtn.textContent = '✓';
+                    setTimeout(() => { copyBtn.textContent = '📋'; }, 1000);
+                }).catch(() => {
+                    const ta = document.createElement('textarea');
+                    ta.value = item.galleryUrl;
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand('copy');
+                    ta.remove();
+                    copyBtn.textContent = '✓';
+                    setTimeout(() => { copyBtn.textContent = '📋'; }, 1000);
+                });
+            };
+
+            bottom.appendChild(cap);
+            bottom.appendChild(copyBtn);
 
             a.appendChild(img);
             card.appendChild(a);
-            card.appendChild(cap);
+            card.appendChild(bottom);
 
             if (item.username) {
                 const blockBtn = document.createElement('span');
