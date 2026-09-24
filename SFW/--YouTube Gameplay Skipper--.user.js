@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         ::YouTube Gameplay Skipper::
 // @namespace    masterofobzene-gameplay skipper
-// @version      3.2
-// @description  Force skip 2 minutes for videos containing the words "gameplay", "longplay" or "no commentary" in the title.
+// @version      3.3
+// @description  Force skip 2 minutes for videos or playlists containing custom words.
 // @author       masterofobzene
 // @homepage     https://github.com/masterofobzene/UserScriptRepo
 // @match        https://www.youtube.com/*
@@ -18,8 +18,8 @@
     'use strict';
 
     const DEBUG = true;
-    const SKIP_TIME = 120; // 2 minutes in seconds
-    const TARGET_WORDS = ['gameplay', 'longplay', 'no commentary']; // Words to detect in title
+    const SKIP_TIME = 120;
+    const TARGET_WORDS = ['gameplay', 'longplay', 'no commentary', "let's play"];
     let currentVideoId = null;
     let skipPerformed = false;
 
@@ -34,11 +34,28 @@
             '#container > h1',
             '[aria-label="Video title"]'
         ];
-
         for(const selector of selectors) {
             const el = document.querySelector(selector);
             if(el && el.textContent) {
-                log('Found title using selector:', selector);
+                log('Found video title using selector:', selector);
+                return el.textContent.toLowerCase();
+            }
+        }
+        return null;
+    }
+
+    function getPlaylistTitle() {
+        const selectors = [
+            'a.ytAttributedStringLink[href*="/playlist?list="]',
+            '#playlist-title',
+            'yt-formatted-string#playlist-title',
+            '.playlist-title',
+            '#header-description yt-formatted-string'
+        ];
+        for(const selector of selectors) {
+            const el = document.querySelector(selector);
+            if(el && el.textContent) {
+                log('Found playlist title using selector:', selector);
                 return el.textContent.toLowerCase();
             }
         }
@@ -48,7 +65,6 @@
     function checkVideo() {
         const urlParams = new URLSearchParams(window.location.search);
         const newVideoId = urlParams.get('v');
-
         if(newVideoId && newVideoId !== currentVideoId) {
             log('New video detected:', newVideoId);
             currentVideoId = newVideoId;
@@ -66,12 +82,10 @@
             log('Video element not found');
             return false;
         }
-
         if(video.duration < SKIP_TIME) {
             log('Video too short:', video.duration);
             return false;
         }
-
         if(video.currentTime < SKIP_TIME) {
             log(`Skipping from ${video.currentTime} to ${SKIP_TIME}`);
             video.currentTime = SKIP_TIME;
@@ -82,32 +96,34 @@
 
     function mainChecker(attempt = 0) {
         if(skipPerformed) return;
-
         checkVideo();
 
-        const title = getVideoTitle();
-        if(!title) {
+        const videoTitle = getVideoTitle();
+        const playlistTitle = getPlaylistTitle();
+
+        if(!videoTitle && !playlistTitle) {
             if(attempt < 5) {
-                log(`Title not found (attempt ${attempt}), retrying...`);
+                log(`Titles not found (attempt ${attempt}), retrying...`);
                 setTimeout(() => mainChecker(attempt + 1), 500 * (attempt + 1));
             }
             return;
         }
 
-        if(shouldSkip(title)) {
-            log(`"${TARGET_WORDS.join('", "')}" found in title:`, title);
+        const videoMatch = videoTitle && shouldSkip(videoTitle);
+        const playlistMatch = playlistTitle && shouldSkip(playlistTitle);
+
+        if(videoMatch || playlistMatch) {
+            log(`Match found. Video: ${videoTitle}, Playlist: ${playlistTitle}`);
 
             const videoCheck = setInterval(() => {
                 if(performSkip()) {
                     log('Skip successful!');
                     clearInterval(videoCheck);
                     skipPerformed = true;
-                }
-                else if(attempt < 10) {
+                } else if(attempt < 10) {
                     log(`Skip attempt ${attempt}`);
                     attempt++;
-                }
-                else {
+                } else {
                     clearInterval(videoCheck);
                     log('Max attempts reached');
                 }
@@ -115,7 +131,7 @@
         }
     }
 
-    const observer = new MutationObserver(mutations => {
+    const observer = new MutationObserver(() => {
         if(document.querySelector('#movie_player, #player-container')) {
             mainChecker();
         }
