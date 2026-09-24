@@ -18,6 +18,9 @@ Click on the "⚡ Booru Mode" button.
 
 1.4: fixed a major bug that only loaded the first page of each gallery instead of the full gallery.
 
+1.5: workarounds for when the user suddenly gets "End" prematurely because of server side 504 errors. Now it should retry to fetch
+galleries after 10s and keep doing so until "live" again.
+
 ### WHY?:
 ---------------
 With so many random content galleries, you don't know exactly whats inside by just looking at the first 4 preview
