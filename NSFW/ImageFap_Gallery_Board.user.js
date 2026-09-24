@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ImageFap Gallery Board
 // @namespace    ifap-gallery-board
-// @version      1.4
+// @version      1.5
 // @description  Loads galleries from the current search/category page and presents them as a booru page.
 // @author       masterofobzene
 // @match        https://www.imagefap.com/gallery.php*
@@ -377,6 +377,7 @@
     let driveLoopRunning     = false;
     let seenGalleryUrls      = new Set();
     let lastFinalUrl         = '';
+    let retryTimer           = null;
 
     const triggerBtn = document.createElement('button');
     triggerBtn.id = 'ifap-board-trigger';
@@ -508,6 +509,7 @@
     function destroyOverlay() {
         isRunning = false;
         sentinelIntersecting = false;
+        if (retryTimer) { clearTimeout(retryTimer); retryTimer = null; }
         if (infiniteObserver) { infiniteObserver.disconnect(); infiniteObserver = null; }
         const ov = document.getElementById('ifap-board-overlay');
         if (ov) {
@@ -527,6 +529,7 @@
 
     function stopLoading() {
         isRunning = false;
+        if (retryTimer) { clearTimeout(retryTimer); retryTimer = null; }
         const status = document.getElementById('ifap-board-status');
         if (status) status.textContent = 'Stopped. Click Resume to continue.';
         const stopBtn = document.getElementById('ifap-board-stop');
@@ -601,6 +604,12 @@
         if (elapsed < DELAY_MS) await sleep(DELAY_MS - elapsed);
     }
 
+    function is504Response(res) {
+        if (res.status === 504 || res.status === 502 || res.status === 503) return true;
+        const text = (res.responseText || '').toLowerCase();
+        return text.includes('504 gateway') || text.includes('gateway time-out') || text.includes('502 bad gateway');
+    }
+
     function fetchDocument(url) {
         return new Promise((resolve, reject) => {
             if (!isRunning) return reject(new Error('Aborted'));
@@ -610,12 +619,15 @@
                 headers: { 'Referer': 'https://www.imagefap.com/' },
                 onload: (res) => {
                     if (!isRunning) return reject(new Error('Aborted'));
+                    if (is504Response(res)) {
+                        return reject(new Error('504'));
+                    }
                     lastFinalUrl = res.finalUrl || url;
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(res.responseText, 'text/html');
                     resolve(doc);
                 },
-                onerror: reject
+                onerror: () => reject(new Error('network'))
             });
         });
     }
@@ -624,6 +636,28 @@
         await waitForPoliteGap();
         lastRequestAt = Date.now();
         return fetchDocument(url);
+    }
+
+    function showBananasWarning() {
+        const statusEl = document.getElementById('ifap-board-status');
+        const endMarker = document.getElementById('ifap-board-end');
+        const sentinel = document.getElementById('ifap-board-sentinel');
+        if (statusEl) statusEl.textContent = 'ImageFap is having 504 issues… retrying every 10s';
+        if (endMarker) {
+            endMarker.style.display = 'block';
+            endMarker.textContent = '— Uh-Oh 🤦‍♀️... ImageFap went bananas again! 504, wait until it starts working again 🤷‍♀️ —';
+        }
+        if (sentinel) sentinel.style.display = 'none';
+    }
+
+    function clearBananasWarning() {
+        const endMarker = document.getElementById('ifap-board-end');
+        const sentinel = document.getElementById('ifap-board-sentinel');
+        if (endMarker) {
+            endMarker.style.display = 'none';
+            endMarker.textContent = '— End —';
+        }
+        if (sentinel) sentinel.style.display = '';
     }
 
     function extractImagesFromGalleryDoc(doc, galleryMeta) {
@@ -730,17 +764,30 @@
             return;
         }
         statusEl.textContent = `Loading search results page ${info.pageNum}…`;
+
         try {
             const doc = await politeFetch(info.url);
+            // success → clear any previous stall
+            if (retryTimer) { clearTimeout(retryTimer); retryTimer = null; }
+            clearBananasWarning();
+
             lastSearchPageUrl  = info.url;
             currentSearchPage  = info.pageNum;
             const rawLinks = doc.querySelectorAll('a[href^="/gallery.php?gid="]').length;
             const newGalleries = discoverGalleriesFromDoc(doc).filter(g => !seenGalleryUrls.has(g.url));
+
             if (rawLinks === 0) {
                 consecutiveEmptyPages++;
                 if (consecutiveEmptyPages >= 2) {
                     noMoreSearchPages = true;
                     statusEl.textContent = `No more results after search page ${currentSearchPage}.`;
+                    const endMarker = document.getElementById('ifap-board-end');
+                    const sentinel = document.getElementById('ifap-board-sentinel');
+                    if (sentinel) sentinel.style.display = 'none';
+                    if (endMarker) {
+                        endMarker.style.display = 'block';
+                        endMarker.textContent = '— End —';
+                    }
                     return;
                 }
                 statusEl.textContent = `Search page ${currentSearchPage} empty — checking next…`;
@@ -754,12 +801,19 @@
                 }
             }
         } catch (e) {
-            if (e.message === 'Aborted') {
-                console.warn('[ifap-board] Search page load aborted.');
-                return;
-            }
-            console.warn('[ifap-board] Failed to load next search page:', e);
-            noMoreSearchPages = true;
+            if (e.message === 'Aborted') return;
+
+            // 504 / network → show warning and keep retrying every 10 s
+            console.warn('[ifap-board] Search page failed (will retry):', e.message);
+            showBananasWarning();
+
+            if (retryTimer) clearTimeout(retryTimer);
+            retryTimer = setTimeout(() => {
+                retryTimer = null;
+                if (isRunning && !noMoreSearchPages) {
+                    driveLoop();
+                }
+            }, 10000);
         }
     }
 
@@ -789,7 +843,10 @@
             const sentinel = document.getElementById('ifap-board-sentinel');
             const endMarker = document.getElementById('ifap-board-end');
             if (sentinel) sentinel.style.display = 'none';
-            if (endMarker) endMarker.style.display = 'block';
+            if (endMarker) {
+                endMarker.style.display = 'block';
+                endMarker.textContent = '— End —';
+            }
         }
     }
 
