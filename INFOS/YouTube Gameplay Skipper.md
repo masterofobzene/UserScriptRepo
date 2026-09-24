@@ -18,6 +18,8 @@ const TARGET_WORDS = ['gameplay', 'longplay', 'no commentary']; // Words to dete
 ```
 
 
+3.3: Now it also detects the words in the playlist names.
+
 ### WHY?:
 ---------------
 I was tired of wasting my time with the youtuber's showing their own intros plus the intros of the games and then
