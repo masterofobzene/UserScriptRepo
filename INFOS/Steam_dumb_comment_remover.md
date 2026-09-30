@@ -8,6 +8,8 @@ or words that the user inputs. Optionally you can replace the whole comment with
 On each game page you will now get a floating small window with two buttons: "Edit Phrases" and "Edit Replacement".
 The only explanation you need is that you put phrases between double quotes and separate them with commas.
 
+1.2: Small update, now it shows "{n} developer's trolls are attacking this comment" instead of 
+    "{n} persons found this review funny"
 
 ### WHY?:
 ---------------
