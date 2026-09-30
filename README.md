@@ -134,6 +134,8 @@ above if you see prices in other currency.
 [Steam Dumb Comment Remover](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/Steam_dumb_comment_remover.user.js) Shows two buttons on the bottom to match phrases and optionally replace the comment with custom messages. More like a joke but can be useful sometimes. "I REALLY WANTED TO LOVE THIS DESCRIPTION BUT..."
 
 <img width="600" alt="gw581SI6YQ" src="https://github.com/user-attachments/assets/7854bcea-d7eb-4544-9dc7-57c24a94a114" />
+<br>
+<img width="200" alt="J3CvuY7lVd" src="https://github.com/user-attachments/assets/c1e04679-2f3b-441f-a038-c30b71a3b968" />
 
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/Steam_dumb_comment_remover.md)
