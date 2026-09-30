@@ -172,6 +172,16 @@ above if you see prices in other currency.
 
 -----------
 
+
+[Grok QoL](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/grok_qol.user.js) Makes the copy code button appear below the answers instead of at the top and "makes scrollbars great again".
+
+<img width="400" alt="0qs8F4JRUX" src="https://github.com/user-attachments/assets/7874c182-71c4-430b-a233-15352fc3f2b3" />
+
+
+
+
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/deepseek-answer-in-english.md)
+
 <br>
 <br>
 <br>
