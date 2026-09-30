@@ -180,7 +180,7 @@ above if you see prices in other currency.
 
 
 
-[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/deepseek-answer-in-english.md)
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/grok_qol.md)
 
 <br>
 <br>
