@@ -142,35 +142,15 @@ above if you see prices in other currency.
 
 -----------
 
-[DeepSeek auto collapse thinking](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/DeepSeek_Auto_Collapse_Thinking.user.js) Collapses the thinking cluster automatically for every answer.
-
-<img height="200" alt="37YvtBU3LC" src="https://github.com/user-attachments/assets/9381ad1f-3f27-493a-bc12-64ca4e9f0916" />
+[DeepSeek QoL](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/DeepSeek_qol.user.js) Merged the DeepSeek scripts into one. Also added new features. 
 
 
-[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/DeepSeek_Auto_Collapse_Thinking.md)
-
------------
-
-
-[DeepSeek be concise](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/deepseek-concise.user.js) Makes DeepSeek give concise answers instead of walls of text.
-
-<img width="400" height="200" alt="e65aw4NRcw" src="https://github.com/user-attachments/assets/6fa3cfea-2545-432b-bb16-8fc35b299f81" />
-
-
-
-[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/deepseek-concise.md)
-
------------
-
-
-[DeepSeek Never use Chinese](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/deepseek-answer-in-english.user.js) Makes DeepSeek give answers in english instead of randomly using chinese.
-
-<img width="350" height="200" alt="2MepdZsKOX" src="https://github.com/user-attachments/assets/1849dfc3-7a04-4a80-a531-3bf0cdef0515" />
+<img width="600" alt="FMTN55C10y" src="https://github.com/user-attachments/assets/b5b1f24c-d2bd-41a3-832c-3e3c6f331de4" />
 
 
 
 
-[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/deepseek-answer-in-english.md)
+[DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/DeepSeek_qol.md)
 
 -----------
 
