@@ -27,7 +27,7 @@ never-ending walls of text for thinking blocks, walls of text for answers and oc
 
 
 ---------------
-[INSTALL LINK](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/DeepSeek_Auto_Collapse_Thinking.user.js)
+[INSTALL LINK](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/DeepSeek_qol.user.js)
 You must have violentmonkey installed for this to work.
 
 
