@@ -21,8 +21,9 @@ The other features work automatically.
 
 ### WHY?:
 ---------------
-Because without it, you get messy chaotic text selection with the mouse, wrapped code text in code blocks, 
-never-ending walls of text for thinking blocks, walls of text for answers and occasionally answers in chinese. 
+Because having one script per thing-to-fix would make you load like 6 small individual scripts. With this one 
+we make a one-for-all and I will keep it updated if needed instead of updating individual scripts. This means if 
+you still use the individual versions you can use them but __THEY WILL NOT BE UPDATED ANYMORE__
 
 
 
