@@ -3,12 +3,16 @@
 DeepSeek Quality Of Life (QoL) scripts. It merges all the DS scripts to date into one.
 For new users:
 
-- Fixes selection inside code blocks (selection was chaotic selecting things from the whole screen instead)
-- Forces no text wrapping in code blocks.
 - Auto collapses thinking blocks.
 - Forces the model to be concise instead of giving walls of text.
 - Forces the model to answer in english always. 
 
+It also adds new things like:
+
+- Fixes selection inside code blocks (selection was chaotic selecting things from the whole screen instead)
+- Forces no text wrapping in code blocks.
+
+  
 ### USAGE:
 ---------------
 After installation you will see the "be concise" and "always in english" checkmarks to activate those.
