@@ -259,7 +259,7 @@ above if you see prices in other currency.
 <img width="600" alt="screenshot" src="https://github.com/user-attachments/assets/8806699e-b5ed-4d4b-a4ef-abe54cc39614" />
 
 
-[Search This](https://addons.mozilla.org/en-US/firefox/addon/search-this/)
+[Search This](https://addons.mozilla.org/en-US/firefox/addon/searchthis/)
 
 Description: Select text -> right click -> "search this" -> searches those words with a custom engine of your choice. No submenus.
 (now using DDG as default since Startpage is unusable)
