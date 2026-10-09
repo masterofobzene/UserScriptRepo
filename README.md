@@ -256,12 +256,13 @@ above if you see prices in other currency.
 # Browser Extensions
 -----------
 
-<img src="https://github.com/user-attachments/assets/b28831a3-cb9a-4d05-ae8f-4a68f46fadf1" width="400">
+<img width="600" alt="screenshot" src="https://github.com/user-attachments/assets/8806699e-b5ed-4d4b-a4ef-abe54cc39614" />
+
 
 [Search This](https://addons.mozilla.org/en-US/firefox/addon/search-this/)
 
 Description: Select text -> right click -> "search this" -> searches those words with a custom engine of your choice. No submenus.
-
+(now using DDG as default since Startpage is unusable)
 
 
 <br>
