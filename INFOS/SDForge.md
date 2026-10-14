@@ -7,7 +7,8 @@ Fixes small annoyances while using gradio's UI in Forge Neo (and probably works 
 Click'em!. 
 
 2.5: Now there is a button to toggle each option. Added a ctrl+scroll to zoom in any of the image canvas this way we
-avoid getting stuck zooming a canvas image (img2img,controlnet,etc) instead of scrolling through the options.
+avoid getting stuck zooming a canvas image (img2img,controlnet,etc) instead of scrolling through the options. It now 
+also properly works on img2img tab too.
 
 ### WHY?:
 ---------------
