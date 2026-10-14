@@ -107,9 +107,10 @@ above if you see prices in other currency.
 
 -----------
 
-[Stable Diffusion FORGE quick access buttons](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/SDForge.user.js) Shows a copy of the most used buttons: "generate", "Reuse seed", "random seed", "save image" and "hires.fix" toggle. Also it has a box showing the current seed (mostly for knowing if you are on -1 or reusing). Mind that the 📌 instead of ♻ icons are because I modded them, not part of this script.
+[Stable Diffusion FORGE QoL](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/SDForge.user.js) Some quality of life improvements for Forge neo UI. Mind that the 📌 instead of ♻ icons are because I modded them, not part of this script.
 
-<img src="https://github.com/user-attachments/assets/675c1821-aee9-4a7f-afac-209ded7bf097" height="400" width="600">
+<img width="400" alt="lHhU8Q9N2Q" src="https://github.com/user-attachments/assets/8b6be9b4-08f4-4dc8-8f35-9626038ae19f" />
+
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/SDForge.md)
 
