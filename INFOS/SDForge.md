@@ -6,11 +6,12 @@ Easier access to most used buttons.
 ---------------
 Click'em!. 
 
+2.5: Now there is a button to toggle each option. Added a ctrl+scroll to zoom in any of the image canvas this way we
+avoid getting stuck zooming a canvas image (img2img,controlnet,etc) instead of scrolling through the options.
 
 ### WHY?:
 ---------------
-Stop having to scroll up and down because some buttons or toggles are far from image preview and quick access.
-Yeah, lazy. This extension just does that. Simple and dumb.
+Fixes small annoyances while using gradio's UI in Forge Neo (and probably works on Forge too).
 
 
 ---------------
