@@ -1,6 +1,6 @@
 ### USE CASE:
 --------------
-Easier access to most used buttons. 
+Fixes small annoyances while using gradio's UI in Forge Neo (and probably works on Forge too).
 
 ### USAGE:
 ---------------
@@ -11,7 +11,9 @@ avoid getting stuck zooming a canvas image (img2img,controlnet,etc) instead of s
 
 ### WHY?:
 ---------------
-Fixes small annoyances while using gradio's UI in Forge Neo (and probably works on Forge too).
+Because forking, reverse-engineer the code, modifying, waiting for merge would be a lot of head pain. A userscript to 
+modify these small annoyances is way easier and faster, and it makes everybody happy because if they don't like it
+they don't use it.
 
 
 ---------------
