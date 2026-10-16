@@ -21,6 +21,8 @@ Click on the "⚡ Booru Mode" button.
 1.5: workarounds for when the user suddenly gets "End" prematurely because of server side 504 errors. Now it should retry to fetch
 galleries after 10s and keep doing so until "live" again.
 
+1.6: Added a new button: hide temporarily. This new button hides the gallery when you press it but doesn't block the user that uploaded it nor does permanent changes. Useful when you find one of those _huge_ galleries that you are not interested in, but blocking the user is not necessary.
+
 ### WHY?:
 ---------------
 With so many random content galleries, you don't know exactly whats inside by just looking at the first 4 preview
