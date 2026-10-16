@@ -1,11 +1,10 @@
 // ==UserScript==
 // @name         ImageFap Gallery Board
 // @namespace    ifap-gallery-board
-// @version      1.5
+// @version      1.6
 // @description  Loads galleries from the current search/category page and presents them as a booru page.
 // @author       masterofobzene
 // @match        https://www.imagefap.com/gallery.php*
-// @match        https://www.imagefap.com/pictures/*
 // @icon         https://www.imagefap.com/favicon.ico
 // @grant        GM_xmlhttpRequest
 // @grant        GM_getValue
@@ -29,6 +28,7 @@
     const SESSION_KEY     = 'ifap_board_session';
 
     let hiddenUsers = new Set(GM_getValue(hiddenUsersKey, []));
+    let hiddenGalleries = new Set();   // session-only, never persisted
 
     const DEFAULT_HIDE_CONFIG = {
         women: false,
@@ -288,7 +288,14 @@
             return;
         }
 
-        if (avatar.querySelector('.ifap-hide-btn')) return;
+        const galLink = titleRow.querySelector('a[href*="gallery.php?gid="]');
+        const galUrl = galLink ? 'https://www.imagefap.com' + galLink.getAttribute('href').split('&')[0] : null;
+        if (galUrl && hiddenGalleries.has(galUrl)) {
+            hideRow(titleRow, detailRow);
+            return;
+        }
+
+        if (avatar.querySelector('.ifap-hide-btn, .ifap-hide-gal-btn')) return;
 
         const btn = document.createElement('span');
         btn.className = 'ifap-hide-btn';
@@ -315,6 +322,24 @@
             e.preventDefault();
             e.stopPropagation();
             blockUser(userLink.textContent.trim());
+        };
+
+        const galBtn = document.createElement('span');
+        galBtn.className = 'ifap-hide-gal-btn';
+        galBtn.textContent = '−';
+        galBtn.title = 'Hide this gallery only (this session)';
+        galBtn.style.cssText = `
+            position:absolute;top:32px;right:4px;width:24px;height:24px;
+            background:rgba(255,204,0,.9);color:#000;font-weight:bold;
+            text-align:center;line-height:24px;border-radius:50%;
+            cursor:pointer;z-index:9999;
+        `;
+        avatar.appendChild(galBtn);
+        galBtn.onclick = e => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (galUrl) removeGalleryFromBoard(galUrl);
+            hideRow(titleRow, detailRow);
         };
     }
 
@@ -403,6 +428,7 @@
             const detailRow = titleRow.nextElementSibling;
             if (isGalleryHidden(titleRow, detailRow)) return;
             const href = a.getAttribute('href').split('&')[0];
+            if (hiddenGalleries.has('https://www.imagefap.com' + href)) return;
             if (!map.has(href)) {
                 map.set(href, {
                     url: href,
@@ -597,6 +623,19 @@
         if (counterEl) counterEl.textContent = `${boardImages.length} images found`;
     }
 
+    function removeGalleryFromBoard(galleryUrl) {
+        hiddenGalleries.add(galleryUrl);
+        galleryQueue = galleryQueue.filter(g => ('https://www.imagefap.com' + g.url) !== galleryUrl);
+        const grid = document.getElementById('ifap-board-grid');
+        if (!grid) return;
+        grid.querySelectorAll('.ifap-board-card').forEach(c => {
+            if (c.dataset.ifapGallery === galleryUrl) c.remove();
+        });
+        const counterEl = document.getElementById('ifap-board-counter');
+        if (counterEl) counterEl.textContent =
+            `${grid.querySelectorAll('.ifap-board-card').length} / ${boardImages.length} images shown`;
+    }
+
     function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
 
     async function waitForPoliteGap() {
@@ -726,6 +765,7 @@
         while (pageUrl && isRunning && safety < 200) {
             safety++;
             if (gallery.username && hiddenUsers.has(gallery.username)) return 'done';
+            if (hiddenGalleries.has('https://www.imagefap.com' + gallery.url)) return 'done';
             try {
                 statusEl.textContent = `Search page ${currentSearchPage} — "${gallery.title}"…`;
                 const doc = await politeFetch(pageUrl);
@@ -904,8 +944,10 @@
 
         const slice = boardImages.slice(start, end);
         slice.forEach(item => {
+            if (hiddenGalleries.has(item.galleryUrl)) return;
             const card = document.createElement('div');
             card.className = 'ifap-board-card';
+            card.dataset.ifapGallery = item.galleryUrl;
             if (item.username) card.dataset.ifapUsername = item.username;
             card.style.cssText = `
                 position:relative;background:#1e1e1e;border-radius:4px;overflow:hidden;
@@ -984,6 +1026,22 @@
                 };
                 card.appendChild(blockBtn);
             }
+
+            const hideGalBtn = document.createElement('span');
+            hideGalBtn.textContent = '–';
+            hideGalBtn.title = 'Hide this gallery (this session only)';
+            hideGalBtn.style.cssText = `
+                position:absolute;top:${item.username ? '28px' : '4px'};right:4px;
+                width:20px;height:20px;background:rgba(255,255,0,.95);color:#000;
+                font-weight:bold;text-align:center;line-height:20px;border-radius:50%;
+                cursor:pointer;font-size:14px;z-index:5;
+            `;
+            hideGalBtn.onclick = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                removeGalleryFromBoard(item.galleryUrl);
+            };
+            card.appendChild(hideGalBtn);
 
             grid.insertBefore(card, sentinel);
         });
