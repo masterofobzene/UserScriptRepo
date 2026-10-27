@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         DeepSeek QoL
 // @namespace    DeepSeek_qol
-// @version      1.0
+// @version      1.1
 // @author       masterofobzene
-// @description  Selection fix + no-wrap code + auto-collapse thinking + "be concise" + "never use chinese"
+// @description  Selection fix + no-wrap code + auto-collapse thinking + prompt suffixes + copy button at bottom-right of code blocks
 // @match        https://chat.deepseek.com/*
 // @run-at       document-start
 // @grant        GM_getValue
@@ -18,7 +18,7 @@
 (() => {
   'use strict';
 
-  /* ============ 1. SELECTION FIX (v4) ============ */
+  /* ============ 1. SELECTION FIX ============ */
   const CSS = `
     pre, pre *, code, code * {
       -webkit-user-select: text !important;
@@ -34,15 +34,24 @@
       transform: none !important;
       vertical-align: baseline !important;
     }
-    pre, pre > code, code,
-    .md-code-block, .md-code-block pre, .md-code-block code,
-    [class*="code"] pre, [class*="code"] code {
+    pre,
+    pre code,
+    .md-code-block,
+    .md-code-block pre,
+    .md-code-block code {
       display: block !important;
       white-space: pre !important;
       word-break: normal !important;
       overflow-wrap: normal !important;
       overflow-x: auto !important;
       tab-size: 4 !important;
+    }
+    code:not(pre code):not(.md-code-block code) {
+      display: inline !important;
+      white-space: pre-wrap !important;
+      word-break: normal !important;
+      overflow-wrap: anywhere !important;
+      vertical-align: baseline !important;
     }
     pre svg, pre button, pre img, pre [role="button"],
     pre [aria-hidden="true"], pre [contenteditable="true"],
@@ -119,7 +128,7 @@
 
   document.addEventListener('mousedown', (e) => {
     if (e.button !== 0 || e.shiftKey) return;
-    const pre = deepElementFromPoint(e.clientX, e.clientY)?.closest?.('pre, code');
+    const pre = deepElementFromPoint(e.clientX, e.clientY)?.closest?.('pre');
     if (!pre) return;
     const a = caretAt(e.clientX, e.clientY);
     if (!a) return;
@@ -163,7 +172,7 @@
 
   /* ============ 2. AUTO-COLLAPSE THINKING ============ */
   const THINK_CONTENT_SELECTOR = 'div.ds-think-content';
-  const processed = new WeakSet();
+  const processedThink = new WeakSet();
 
   const containsText = (el, text) =>
     el.textContent && el.textContent.toLowerCase().includes(text.toLowerCase());
@@ -194,8 +203,8 @@
       ? [container]
       : container.querySelectorAll(THINK_CONTENT_SELECTOR);
     for (const tc of list) {
-      if (processed.has(tc)) continue;
-      processed.add(tc);
+      if (processedThink.has(tc)) continue;
+      processedThink.add(tc);
       if (tc.offsetParent === null || getComputedStyle(tc).display === 'none') continue;
       const t = findToggleButton(tc);
       if (t) {
@@ -220,7 +229,7 @@
     setInterval(() => document.querySelectorAll('.ds-message').forEach(collapseThinking), 3000);
   };
 
-  /* ============ 3. PROMPT SUFFIXES (concise + no-chinese) ============ */
+  /* ============ 3. PROMPT SUFFIXES ============ */
   const SUFFIXES = [
     { key: 'beConciseEnabled',        suffix: ' be concise',       label: 'Be Concise',         top: '10px' },
     { key: 'answerInEnglishEnabled',  suffix: ' never use chinese', label: 'Never use chinese', top: '60px' },
@@ -289,13 +298,127 @@
     }
   };
 
+  /* ============ 5. COPY BUTTON → BOTTOM-RIGHT OF CODE BLOCK ============ */
+  const DEBUG_COPY = true;
+  const clog = (...a) => DEBUG_COPY && console.log('[DS-QoL copy]', ...a);
+
+  const hintOf = (el) => [
+    el.getAttribute?.('aria-label') || '',
+    el.getAttribute?.('title') || '',
+    el.getAttribute?.('data-testid') || '',
+    typeof el.className === 'string' ? el.className : '',
+    el.textContent || '',
+  ].join(' ').toLowerCase();
+
+  const findCopyButtonFor = (pre) => {
+    const ancestors = [];
+    let anc = pre.parentElement;
+    for (let i = 0; i < 5 && anc && anc !== document.body; i++) {
+      ancestors.push(anc);
+      anc = anc.parentElement;
+    }
+
+    const mdcb = pre.closest('.md-code-block');
+    const searchOrder = mdcb
+      ? [mdcb, ...ancestors.filter(a => a !== mdcb)]
+      : ancestors;
+
+    for (const c of searchOrder) {
+      const btns = [...c.querySelectorAll('button, [role="button"], [class*="copy" i], [class*="Copy" i]')]
+        .filter(b => !pre.contains(b) && b !== pre);
+      if (!btns.length) continue;
+
+      const hinted = btns.filter(b => hintOf(b).includes('copy'));
+      if (hinted.length) return { container: c, button: hinted[hinted.length - 1] };
+
+      const before = btns.filter(b =>
+        pre.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_PRECEDING
+      );
+      if (before.length) return { container: c, button: before[before.length - 1] };
+    }
+
+    return null;
+  };
+
+  const repositionOne = (pre) => {
+    if (pre.__dsCopyDone) return;
+    const found = findCopyButtonFor(pre);
+    if (!found) { clog('no copy button found for pre', pre); return; }
+    const { container, button } = found;
+    pre.__dsCopyDone = true;
+
+    clog('found button', button, 'in container', container);
+
+    if (getComputedStyle(container).position === 'static') {
+      container.style.setProperty('position', 'relative', 'important');
+    }
+
+    const set = (k, v) => button.style.setProperty(k, v, 'important');
+    set('position', 'absolute');
+    set('right', '12px');
+    set('bottom', '12px');
+    set('top', 'auto');
+    set('left', 'auto');
+    set('margin', '0');
+    set('transform', 'none');
+    set('z-index', '9999');
+    set('pointer-events', 'auto');
+    set('opacity', '0.75');
+    button.addEventListener('mouseenter', () => set('opacity', '1'));
+    button.addEventListener('mouseleave', () => set('opacity', '0.75'));
+
+    pre.style.setProperty('padding-bottom', '40px', 'important');
+
+    requestAnimationFrame(() => {
+      const br = button.getBoundingClientRect();
+      const cr = container.getBoundingClientRect();
+      const isAtBottom = br.top > cr.top + cr.height * 0.5;
+      if (!isAtBottom) {
+        clog('WARN: button not at bottom. Parent position:',
+             getComputedStyle(button.parentElement).position,
+             'Button:', button, 'Parent:', button.parentElement);
+        if (button.parentElement !== container) {
+          try {
+            container.appendChild(button);
+            clog('reparented button to container');
+          } catch (_) {}
+        }
+      } else {
+        clog('OK: button moved to bottom-right');
+      }
+    });
+  };
+
+  const repositionCopyButtons = () => {
+    document.querySelectorAll('pre').forEach(pre => {
+      if (pre.parentElement?.closest('pre')) return;
+      repositionOne(pre);
+    });
+  };
+
+  /* ============ 6. BOOT ============ */
   const boot = () => {
     initThinking();
     createToggles();
-    new MutationObserver(() => {
+    repositionCopyButtons();
+
+    new MutationObserver((muts) => {
+      let sawPre = false;
+      for (const m of muts) for (const n of m.addedNodes) {
+        if (n.nodeType !== 1) continue;
+        if (n.tagName === 'PRE' || n.querySelector?.('pre')) sawPre = true;
+      }
+      if (sawPre) repositionCopyButtons();
+
       for (const s of SUFFIXES)
         if (!document.getElementById('ds-toolkit-' + s.key)) { createToggles(); break; }
     }).observe(document.documentElement, { childList: true, subtree: true });
+
+    setInterval(() => {
+      repositionCopyButtons();
+      for (const s of SUFFIXES)
+        if (!document.getElementById('ds-toolkit-' + s.key)) { createToggles(); break; }
+    }, 3000);
   };
 
   if (document.readyState === 'loading') {
