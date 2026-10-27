@@ -12,6 +12,7 @@ It also adds new things like:
 - Fixes selection inside code blocks (selection was chaotic selecting things from the whole screen instead)
 - Forces no text wrapping in code blocks.
 
+1.1: Improved selection fix and added a copy button to the bottom-right of code blocks.
   
 ### USAGE:
 ---------------
