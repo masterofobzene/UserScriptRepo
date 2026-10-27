@@ -7,6 +7,8 @@ tiny microscopic scroll bars replaced with normal scroll bars.
 ---------------
 Load the page with this extension and it just works.
 
+1.1: fixed the copy button at the end for codeblocks.
+
 ### WHY?:
 ---------------
 I don't know what was the person behind the design of the page thinking when he/she thought that
