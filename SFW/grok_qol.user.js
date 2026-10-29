@@ -13,7 +13,6 @@
 // @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/grok_qol.user.js.user.js
 // ==/UserScript==
 
-
 (function () {
   'use strict';
 
@@ -108,6 +107,4 @@
 
   scan();
   obs.observe(document.body, { childList: true, subtree: true });
-})();
-  observer.observe(document.body, { childList: true, subtree: true });
 })();
