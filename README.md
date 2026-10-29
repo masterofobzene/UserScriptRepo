@@ -24,9 +24,10 @@ Click on the script name to install it. All scripts here were made for Firefox/L
 
 -----------
 
-[GOG Store Game Hider](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/GOG_Store_Game_Hider.user.js) Hide games on GOG store
+[GOG Store Game Hider](https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/GOG_Store_Game_Hider.user.js) Hide games on GOG store, load the filtered list into one page, use the "convenient" buttons on each card.
 
-<img width="200" alt="EkX6ubEddj" src="https://github.com/user-attachments/assets/77473d10-b577-495f-9c64-e7082a352ea4" />
+<img width="400" alt="3VfDGJhsBN" src="https://github.com/user-attachments/assets/33465d3d-0b26-4875-85b1-a06af51e3f25" />
+
 
 
 [DESCRIPTION](https://github.com/masterofobzene/UserScriptRepo/blob/main/INFOS/GOG_Store_Game_Hider.md)
