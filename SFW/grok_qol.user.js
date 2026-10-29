@@ -9,8 +9,8 @@
 // @icon         https://grok.com/images/favicon.svg
 // @run-at       document-idle
 // @license      GNU GPLv3
-// @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/grok_qol.user.js.user
-// @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/grok_qol.user.js.user
+// @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/grok_qol.user.js
+// @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/grok_qol.user.js
 // ==/UserScript==
 
 (function () {
