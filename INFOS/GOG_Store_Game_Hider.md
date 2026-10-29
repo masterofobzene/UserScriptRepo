@@ -8,7 +8,7 @@ On each game card a transparent black "X" button appears so you can hide it if y
 shitty games that use tags you like. It has persistent storage so you do this
 one time per game. If you like to unblock a game, search for it in the "Values" tab of the script and delete the entry.
 
-1.2: New code refactor. Added a button to load all the pages into one long page to avoid empty page numbers in the normal
+1.2: New code refactor. Added a button to load all the pages into one long page to avoid empty pages in the normal
     pagination after filtering. It also now loads the screenshots of the games above each gamecard since the original code 
     was not being triggered when listing the games. We also add the search on pir*te sites buttons on each card as well as
     the gameplay video button too because the gamecards where big enough with a lot of empty space in them.
