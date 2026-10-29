@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Grok QoL
 // @namespace    Grok_QOL
-// @version      1.6
+// @version      1.7
 // @description  Move code copy button to end of block; use standard scrollbars on grok.com
 // @author       masterofobzene
 // @match        https://grok.com/*
@@ -9,8 +9,8 @@
 // @icon         https://grok.com/images/favicon.svg
 // @run-at       document-idle
 // @license      GNU GPLv3
-// @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/grok_qol.user.js.user.js
-// @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/grok_qol.user.js.user.js
+// @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/grok_qol.user.js.user
+// @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/grok_qol.user.js.user
 // ==/UserScript==
 
 (function () {
