@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Grok QoL
 // @namespace    Grok_QOL
-// @version      1.4
+// @version      1.5
 // @description  Move code copy button to end of block; use standard scrollbars on grok.com
 // @author       masterofobzene
 // @match        https://grok.com/*
