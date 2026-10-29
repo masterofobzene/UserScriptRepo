@@ -11,6 +11,8 @@
 // @license      GNU GPLv3
 // @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/grok_qol.user.js.user.js
 // @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/grok_qol.user.js.user.js
+// ==/UserScript==
+
 
 (function () {
   'use strict';
