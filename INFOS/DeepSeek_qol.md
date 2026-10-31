@@ -13,6 +13,8 @@ It also adds new things like:
 - Forces no text wrapping in code blocks.
 
 1.1: Improved selection fix and added a copy button to the bottom-right of code blocks.
+
+1.2: Made a settings button on top right for enabling/disabling options
   
 ### USAGE:
 ---------------
