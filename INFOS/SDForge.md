@@ -10,6 +10,9 @@ Click'em!.
 avoid getting stuck zooming a canvas image (img2img,controlnet,etc) instead of scrolling through the options. It now 
 also properly works on img2img tab too.
 
+2.6: Added navigation with keyboard on the image viewer and two SAVE buttons above each left/right arrows for easier
+    mouse navigation too. 
+
 ### WHY?:
 ---------------
 Because forking, reverse-engineer the code, modifying, waiting for merge would be a lot of head pain. A userscript to 
