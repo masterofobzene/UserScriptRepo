@@ -15,7 +15,9 @@ It also adds new things like:
 1.1: Improved selection fix and added a copy button to the bottom-right of code blocks.
 
 1.2: Made a settings button on top right for enabling/disabling options
-  
+
+1.3: A new button to show the full script/code instead of snippets.
+
 ### USAGE:
 ---------------
 After installation you will see the "be concise" and "always in english" checkmarks to activate those.
