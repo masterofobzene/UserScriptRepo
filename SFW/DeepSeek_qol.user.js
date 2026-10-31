@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         DeepSeek QoL
 // @namespace    DeepSeek_qol
-// @version      1.1
+// @version      1.2
 // @author       masterofobzene
 // @description  Selection fix + no-wrap code + auto-collapse thinking + prompt suffixes + copy button at bottom-right of code blocks
 // @match        https://chat.deepseek.com/*
@@ -231,8 +231,8 @@
 
   /* ============ 3. PROMPT SUFFIXES ============ */
   const SUFFIXES = [
-    { key: 'beConciseEnabled',        suffix: ' be concise',       label: 'Be Concise',         top: '10px' },
-    { key: 'answerInEnglishEnabled',  suffix: ' never use chinese', label: 'Never use chinese', top: '60px' },
+    { key: 'beConciseEnabled',       suffix: ' be concise',        label: 'Be Concise' },
+    { key: 'answerInEnglishEnabled', suffix: ' never use chinese', label: 'Never use Chinese' },
   ];
   for (const s of SUFFIXES) s.enabled = GM_getValue(s.key, true);
 
@@ -271,31 +271,81 @@
     appendSuffixes();
   }, true);
 
-  /* ============ 4. TOGGLES UI ============ */
-  const createToggles = () => {
-    if (!document.body) { setTimeout(createToggles, 500); return; }
+  /* ============ 4. SETTINGS GEAR UI ============ */
+  const GEAR_ID = 'ds-toolkit-gear';
+  const PANEL_ID = 'ds-toolkit-panel';
+
+  const createGear = () => {
+    if (!document.body) { setTimeout(createGear, 500); return; }
+    if (document.getElementById(GEAR_ID)) return;
+
+    // Gear button (small "⚙")
+    const gear = document.createElement('button');
+    gear.id = GEAR_ID;
+    gear.type = 'button';
+    gear.textContent = '⚙';
+    gear.title = 'DeepSeek QoL settings';
+    Object.assign(gear.style, {
+      position: 'fixed', top: '10px', right: '10px', zIndex: '2147483647',
+      width: '32px', height: '32px', padding: '0',
+      background: 'rgba(255,255,255,0.95)', border: '1px solid #ccc',
+      borderRadius: '50%', boxShadow: '0 2px 10px rgba(0,0,0,0.15)',
+      fontFamily: 'system-ui, sans-serif', fontSize: '16px', color: '#000',
+      cursor: 'pointer', display: 'flex', alignItems: 'center',
+      justifyContent: 'center', lineHeight: '1',
+      transition: 'transform 0.15s ease',
+    });
+    gear.addEventListener('mouseenter', () => gear.style.transform = 'rotate(30deg)');
+    gear.addEventListener('mouseleave', () => gear.style.transform = 'rotate(0deg)');
+
+    // Panel with options
+    const panel = document.createElement('div');
+    panel.id = PANEL_ID;
+    Object.assign(panel.style, {
+      position: 'fixed', top: '48px', right: '10px', zIndex: '2147483647',
+      background: 'rgba(255,255,255,0.97)', border: '1px solid #ccc',
+      borderRadius: '8px', padding: '6px 12px',
+      boxShadow: '0 2px 10px rgba(0,0,0,0.15)',
+      fontFamily: 'system-ui, sans-serif', fontSize: '13px', color: '#000',
+      display: 'none', minWidth: '170px',
+    });
+
     for (const s of SUFFIXES) {
-      if (document.getElementById('ds-toolkit-' + s.key)) continue;
-      const c = document.createElement('div');
-      c.id = 'ds-toolkit-' + s.key;
-      Object.assign(c.style, {
-        position: 'fixed', top: s.top, right: '10px', zIndex: '2147483647',
-        background: 'rgba(255,255,255,0.95)', border: '1px solid #ccc',
-        borderRadius: '8px', padding: '8px 12px',
-        boxShadow: '0 2px 10px rgba(0,0,0,0.15)',
-        fontFamily: 'system-ui, sans-serif', fontSize: '13px', color: '#000',
+      const label = document.createElement('label');
+      Object.assign(label.style, {
+        display: 'flex', alignItems: 'center', gap: '8px',
+        cursor: 'pointer', padding: '5px 0',
       });
-      c.innerHTML = `
-        <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
-          <input type="checkbox" ${s.enabled ? 'checked' : ''}>
-          <span>${s.label}</span>
-        </label>`;
-      document.body.appendChild(c);
-      c.querySelector('input').addEventListener('change', (e) => {
-        s.enabled = e.target.checked;
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.checked = !!s.enabled;
+      cb.style.cursor = 'pointer';
+      cb.addEventListener('change', () => {
+        s.enabled = cb.checked;
         GM_setValue(s.key, s.enabled);
       });
+      const span = document.createElement('span');
+      span.textContent = s.label;
+      label.appendChild(cb);
+      label.appendChild(span);
+      panel.appendChild(label);
     }
+
+    // Open / close toggle
+    gear.addEventListener('click', (e) => {
+      e.stopPropagation();
+      panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+    });
+
+    // Close when clicking outside
+    document.addEventListener('mousedown', (e) => {
+      if (panel.style.display === 'none') return;
+      if (panel.contains(e.target) || gear.contains(e.target)) return;
+      panel.style.display = 'none';
+    }, true);
+
+    document.body.appendChild(gear);
+    document.body.appendChild(panel);
   };
 
   /* ============ 5. COPY BUTTON → BOTTOM-RIGHT OF CODE BLOCK ============ */
@@ -399,7 +449,7 @@
   /* ============ 6. BOOT ============ */
   const boot = () => {
     initThinking();
-    createToggles();
+    createGear();
     repositionCopyButtons();
 
     new MutationObserver((muts) => {
@@ -410,14 +460,12 @@
       }
       if (sawPre) repositionCopyButtons();
 
-      for (const s of SUFFIXES)
-        if (!document.getElementById('ds-toolkit-' + s.key)) { createToggles(); break; }
+      if (!document.getElementById(GEAR_ID)) createGear();
     }).observe(document.documentElement, { childList: true, subtree: true });
 
     setInterval(() => {
       repositionCopyButtons();
-      for (const s of SUFFIXES)
-        if (!document.getElementById('ds-toolkit-' + s.key)) { createToggles(); break; }
+      if (!document.getElementById(GEAR_ID)) createGear();
     }, 3000);
   };
 
