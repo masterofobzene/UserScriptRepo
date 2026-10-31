@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         DeepSeek QoL
 // @namespace    DeepSeek_qol
-// @version      1.2
+// @version      1.3
 // @author       masterofobzene
-// @description  Selection fix + no-wrap code + auto-collapse thinking + prompt suffixes + copy button at bottom-right of code blocks
+// @description  Selection fix + no-wrap code + auto-collapse thinking + prompt suffixes + copy button at bottom-right of code blocks + "Show full code" quick-send button
 // @match        https://chat.deepseek.com/*
 // @run-at       document-start
 // @grant        GM_getValue
@@ -146,7 +146,6 @@
     if (cur && pre.contains(cur.node)) {
       focus = cur;
     } else {
-      const rect = pre.getBoundingClientRect();
       focus = edgePos(pre, e.clientX, e.clientY,
         cur && cur.node && pre.compareDocumentPosition(cur.node) & Node.DOCUMENT_POSITION_PRECEDING
           ? 'end' : 'start');
@@ -232,7 +231,7 @@
   /* ============ 3. PROMPT SUFFIXES ============ */
   const SUFFIXES = [
     { key: 'beConciseEnabled',       suffix: ' be concise',        label: 'Be Concise' },
-    { key: 'answerInEnglishEnabled', suffix: ' never use chinese', label: 'Never use Chinese' },
+    { key: 'answerInEnglishEnabled', suffix: ' never use chinese', label: 'Never use chinese' },
   ];
   for (const s of SUFFIXES) s.enabled = GM_getValue(s.key, true);
 
@@ -250,7 +249,10 @@
     input.dispatchEvent(new Event('change', { bubbles: true }));
   };
 
+  let suppressSuffixes = false;
+
   const appendSuffixes = () => {
+    if (suppressSuffixes) { suppressSuffixes = false; return; }
     const input = getInput();
     if (!input) return;
     let text = input instanceof HTMLTextAreaElement ? input.value : (input.textContent || '');
@@ -271,94 +273,269 @@
     appendSuffixes();
   }, true);
 
-  /* ============ 4. SETTINGS GEAR UI ============ */
-  const GEAR_ID = 'ds-toolkit-gear';
-  const PANEL_ID = 'ds-toolkit-panel';
+  /* ============ 4. GEAR MENU ============ */
+  const GEAR_ID = 'ds-qol-gear';
+  const MENU_ID = 'ds-qol-menu';
 
-  const createGear = () => {
-    if (!document.body) { setTimeout(createGear, 500); return; }
+  const buildGearMenu = () => {
     if (document.getElementById(GEAR_ID)) return;
+    if (!document.body) return;
 
-    // Gear button (small "⚙")
     const gear = document.createElement('button');
     gear.id = GEAR_ID;
     gear.type = 'button';
     gear.textContent = '⚙';
-    gear.title = 'DeepSeek QoL settings';
+    gear.title = 'DeepSeek QoL options';
     Object.assign(gear.style, {
       position: 'fixed', top: '10px', right: '10px', zIndex: '2147483647',
-      width: '32px', height: '32px', padding: '0',
-      background: 'rgba(255,255,255,0.95)', border: '1px solid #ccc',
-      borderRadius: '50%', boxShadow: '0 2px 10px rgba(0,0,0,0.15)',
-      fontFamily: 'system-ui, sans-serif', fontSize: '16px', color: '#000',
-      cursor: 'pointer', display: 'flex', alignItems: 'center',
-      justifyContent: 'center', lineHeight: '1',
-      transition: 'transform 0.15s ease',
+      width: '32px', height: '32px', padding: '0', margin: '0',
+      borderRadius: '50%', border: '1px solid #ccc',
+      background: 'rgba(255,255,255,0.95)', color: '#000',
+      cursor: 'pointer', fontSize: '18px',
+      boxShadow: '0 2px 10px rgba(0,0,0,0.15)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      fontFamily: 'system-ui, sans-serif', lineHeight: '1',
     });
-    gear.addEventListener('mouseenter', () => gear.style.transform = 'rotate(30deg)');
-    gear.addEventListener('mouseleave', () => gear.style.transform = 'rotate(0deg)');
 
-    // Panel with options
-    const panel = document.createElement('div');
-    panel.id = PANEL_ID;
-    Object.assign(panel.style, {
+    const menu = document.createElement('div');
+    menu.id = MENU_ID;
+    Object.assign(menu.style, {
       position: 'fixed', top: '48px', right: '10px', zIndex: '2147483647',
-      background: 'rgba(255,255,255,0.97)', border: '1px solid #ccc',
-      borderRadius: '8px', padding: '6px 12px',
+      background: 'rgba(255,255,255,0.98)', border: '1px solid #ccc',
+      borderRadius: '8px', padding: '6px', display: 'none',
       boxShadow: '0 2px 10px rgba(0,0,0,0.15)',
       fontFamily: 'system-ui, sans-serif', fontSize: '13px', color: '#000',
-      display: 'none', minWidth: '170px',
+      minWidth: '180px',
     });
+
+    const items = [];
+    const render = () => {
+      for (const { check, s } of items) check.textContent = s.enabled ? '✓' : ' ';
+    };
 
     for (const s of SUFFIXES) {
-      const label = document.createElement('label');
-      Object.assign(label.style, {
-        display: 'flex', alignItems: 'center', gap: '8px',
-        cursor: 'pointer', padding: '5px 0',
+      const item = document.createElement('div');
+      Object.assign(item.style, {
+        padding: '6px 10px', borderRadius: '6px', cursor: 'pointer',
+        display: 'flex', alignItems: 'center', gap: '8px', userSelect: 'none',
       });
-      const cb = document.createElement('input');
-      cb.type = 'checkbox';
-      cb.checked = !!s.enabled;
-      cb.style.cursor = 'pointer';
-      cb.addEventListener('change', () => {
-        s.enabled = cb.checked;
+      const check = document.createElement('span');
+      check.textContent = s.enabled ? '✓' : ' ';
+      Object.assign(check.style, {
+        display: 'inline-block', width: '14px', textAlign: 'center',
+        fontWeight: 'bold',
+      });
+      const label = document.createElement('span');
+      label.textContent = s.label;
+      item.appendChild(check);
+      item.appendChild(label);
+      item.addEventListener('mouseenter', () => { item.style.background = '#eef'; });
+      item.addEventListener('mouseleave', () => { item.style.background = ''; });
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        s.enabled = !s.enabled;
         GM_setValue(s.key, s.enabled);
+        render();
       });
-      const span = document.createElement('span');
-      span.textContent = s.label;
-      label.appendChild(cb);
-      label.appendChild(span);
-      panel.appendChild(label);
+      menu.appendChild(item);
+      items.push({ el: item, check, s });
     }
 
-    // Open / close toggle
-    gear.addEventListener('click', (e) => {
-      e.stopPropagation();
-      panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
-    });
+    let open = false;
+    const setOpen = (v) => {
+      open = v;
+      menu.style.display = v ? 'block' : 'none';
+      gear.style.background = v ? '#eef' : 'rgba(255,255,255,0.95)';
+      if (v) render();
+    };
 
-    // Close when clicking outside
+    gear.addEventListener('click', (e) => { e.stopPropagation(); setOpen(!open); });
     document.addEventListener('mousedown', (e) => {
-      if (panel.style.display === 'none') return;
-      if (panel.contains(e.target) || gear.contains(e.target)) return;
-      panel.style.display = 'none';
+      if (!open) return;
+      if (gear.contains(e.target) || menu.contains(e.target)) return;
+      setOpen(false);
     }, true);
 
     document.body.appendChild(gear);
-    document.body.appendChild(panel);
+    document.body.appendChild(menu);
+    render();
   };
 
-  /* ============ 5. COPY BUTTON → BOTTOM-RIGHT OF CODE BLOCK ============ */
-  const DEBUG_COPY = true;
-  const clog = (...a) => DEBUG_COPY && console.log('[DS-QoL copy]', ...a);
+  const createToggles = () => buildGearMenu();
 
-  const hintOf = (el) => [
+  /* ============ 4b. "SHOW FULL CODE" QUICK-SEND BUTTON ============ */
+  const PHRASE = 'Show the full code with the fixes';
+  const SHOW_CODE_BTN_ID = 'ds-qol-show-code';
+
+  const hintOfEl = (el) => [
     el.getAttribute?.('aria-label') || '',
     el.getAttribute?.('title') || '',
     el.getAttribute?.('data-testid') || '',
     typeof el.className === 'string' ? el.className : '',
     el.textContent || '',
   ].join(' ').toLowerCase();
+
+  // DeepSeek renders DeepThink/Search as <div tabindex="0" aria-pressed>
+  // inside a shared wrapper — NOT as <button>. Match those shapes too.
+  const TOGGLE_SEL =
+    'button, [role="button"], [tabindex="0"], [aria-pressed], [class*="toggle-button" i]';
+
+  const findDeepThinkSearchButtons = () => {
+    const candidates = [...document.querySelectorAll(TOGGLE_SEL)];
+    let deepthink = null, search = null;
+
+    for (const b of candidates) {
+      if (b.closest('pre') || b.id === SHOW_CODE_BTN_ID) continue;
+      if (b.offsetParent === null) continue;
+      if (b.querySelector('textarea, [contenteditable="true"]')) continue;
+
+      // Exact trimmed-text match prevents the wrapper that holds both
+      // labels (textContent "DeepThinkSearch") from being selected.
+      const raw = (b.textContent || '').replace(/\s+/g, ' ').trim();
+      if (!raw || raw.length > 25) continue;
+      const lower = raw.toLowerCase();
+
+      if (!deepthink && (lower === 'deepthink' || lower === 'deep think' || lower === '深度思考')) {
+        deepthink = b;
+      } else if (!search && (lower === 'search' || lower === '联网搜索' || lower === '搜索' || lower === '网搜')) {
+        search = b;
+      }
+      if (deepthink && search) break;
+    }
+    return { deepthink, search };
+  };
+
+  const commonAncestor = (a, b) => {
+    const set = new Set();
+    let cur = a;
+    while (cur && cur !== document.body) { set.add(cur); cur = cur.parentElement; }
+    cur = b;
+    while (cur && cur !== document.body) {
+      if (set.has(cur)) return cur;
+      cur = cur.parentElement;
+    }
+    return null;
+  };
+
+  const findSendButton = (input) => {
+    let scope = input.parentElement;
+    for (let i = 0; i < 6 && scope; i++) {
+      for (const b of scope.querySelectorAll('button, [role="button"], [aria-label], [title]')) {
+        if (b.closest('pre') || b.id === SHOW_CODE_BTN_ID) continue;
+        const hint = hintOfEl(b);
+        if (/(?:^|\s|")(send|发送|submit)/.test(hint)) return b;
+      }
+      scope = scope.parentElement;
+    }
+    return null;
+  };
+
+  const sendPhrase = () => {
+    const input = getInput();
+    if (!input) return;
+    suppressSuffixes = true;
+    setInputText(input, PHRASE);
+
+    setTimeout(() => {
+      try {
+        const enter = new KeyboardEvent('keydown', {
+          key: 'Enter', code: 'Enter', keyCode: 13, which: 13,
+          bubbles: true, cancelable: true,
+        });
+        input.dispatchEvent(enter);
+      } catch (_) {}
+
+      setTimeout(() => {
+        suppressSuffixes = false;
+        const still = input instanceof HTMLTextAreaElement
+          ? input.value : (input.textContent || '');
+        if (still.trim()) {
+          const sb = findSendButton(input);
+          if (sb) sb.click();
+        }
+      }, 200);
+    }, 50);
+  };
+
+  const createShowCodeButton = () => {
+    const btn = document.createElement('button');
+    btn.id = SHOW_CODE_BTN_ID;
+    btn.type = 'button';
+    btn.textContent = 'Show full code';
+    btn.title = 'Insert and send: ' + PHRASE;
+    Object.assign(btn.style, {
+      padding: '6px 12px',
+      margin: '0 0 0 6px',
+      borderRadius: '999px',
+      border: '1px solid currentColor',
+      background: 'transparent',
+      color: 'inherit',
+      font: 'inherit',
+      fontSize: '13px',
+      cursor: 'pointer',
+      height: '32px',
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '4px',
+      whiteSpace: 'nowrap',
+      lineHeight: '1',
+      opacity: '0.85',
+      flex: '0 0 auto',
+      alignSelf: 'center',
+      transition: 'opacity 0.15s, background 0.15s',
+    });
+    btn.addEventListener('mouseenter', () => {
+      btn.style.opacity = '1';
+      btn.style.background = 'rgba(128,128,128,0.12)';
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.opacity = '0.85';
+      btn.style.background = 'transparent';
+    });
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      sendPhrase();
+    });
+    return btn;
+  };
+
+  const ensureShowCodeButton = () => {
+    if (!document.body) return;
+    const existing = document.getElementById(SHOW_CODE_BTN_ID);
+    if (existing && existing.isConnected) return;
+
+    const { deepthink, search } = findDeepThinkSearchButtons();
+    if (!deepthink && !search) return;
+
+    let parent = null;
+    if (deepthink && search) {
+      const dp = deepthink.parentElement;
+      const sp = search.parentElement;
+      if (dp && dp === sp) parent = dp;
+      else parent = commonAncestor(deepthink, search);
+    } else {
+      parent = (deepthink || search).parentElement;
+    }
+    if (!parent) return;
+
+    parent.appendChild(createShowCodeButton());
+  };
+
+  let pendingShowCode = null;
+  const scheduleShowCode = () => {
+    if (pendingShowCode) return;
+    pendingShowCode = setTimeout(() => {
+      pendingShowCode = null;
+      ensureShowCodeButton();
+    }, 100);
+  };
+
+  /* ============ 5. COPY BUTTON → BOTTOM-RIGHT OF CODE BLOCK ============ */
+  const DEBUG_COPY = false;
+  const clog = (...a) => DEBUG_COPY && console.log('[DS-QoL copy]', ...a);
+
+  const hintOf = hintOfEl;
 
   const findCopyButtonFor = (pre) => {
     const ancestors = [];
@@ -391,16 +568,29 @@
   };
 
   const repositionOne = (pre) => {
-    if (pre.__dsCopyDone) return;
-    const found = findCopyButtonFor(pre);
-    if (!found) { clog('no copy button found for pre', pre); return; }
-    const { container, button } = found;
-    pre.__dsCopyDone = true;
+    if (!pre.isConnected) return;
 
-    clog('found button', button, 'in container', container);
+    let ref = pre.__dsCopyRef;
+    if (!ref || !ref.button.isConnected) {
+      ref = findCopyButtonFor(pre);
+      if (!ref) { clog('no copy button found for pre', pre); return; }
+      pre.__dsCopyRef = ref;
+      clog('found button', ref.button, 'in container', ref.container);
+    }
+    const { container, button } = ref;
 
     if (getComputedStyle(container).position === 'static') {
       container.style.setProperty('position', 'relative', 'important');
+    }
+
+    if (button.parentElement !== container) {
+      try {
+        container.appendChild(button);
+        clog('reparented button to container');
+      } catch (_) {
+        pre.__dsCopyRef = null;
+        return;
+      }
     }
 
     const set = (k, v) => button.style.setProperty(k, v, 'important');
@@ -413,30 +603,15 @@
     set('transform', 'none');
     set('z-index', '9999');
     set('pointer-events', 'auto');
-    set('opacity', '0.75');
-    button.addEventListener('mouseenter', () => set('opacity', '1'));
-    button.addEventListener('mouseleave', () => set('opacity', '0.75'));
+
+    if (!button.__dsHoverBound) {
+      button.__dsHoverBound = true;
+      set('opacity', '0.75');
+      button.addEventListener('mouseenter', () => set('opacity', '1'));
+      button.addEventListener('mouseleave', () => set('opacity', '0.75'));
+    }
 
     pre.style.setProperty('padding-bottom', '40px', 'important');
-
-    requestAnimationFrame(() => {
-      const br = button.getBoundingClientRect();
-      const cr = container.getBoundingClientRect();
-      const isAtBottom = br.top > cr.top + cr.height * 0.5;
-      if (!isAtBottom) {
-        clog('WARN: button not at bottom. Parent position:',
-             getComputedStyle(button.parentElement).position,
-             'Button:', button, 'Parent:', button.parentElement);
-        if (button.parentElement !== container) {
-          try {
-            container.appendChild(button);
-            clog('reparented button to container');
-          } catch (_) {}
-        }
-      } else {
-        clog('OK: button moved to bottom-right');
-      }
-    });
   };
 
   const repositionCopyButtons = () => {
@@ -447,25 +622,31 @@
   };
 
   /* ============ 6. BOOT ============ */
+  let pendingReposition = null;
+  const scheduleReposition = () => {
+    if (pendingReposition) return;
+    pendingReposition = setTimeout(() => {
+      pendingReposition = null;
+      repositionCopyButtons();
+    }, 100);
+  };
+
   const boot = () => {
     initThinking();
-    createGear();
+    createToggles();
+    ensureShowCodeButton();
     repositionCopyButtons();
 
-    new MutationObserver((muts) => {
-      let sawPre = false;
-      for (const m of muts) for (const n of m.addedNodes) {
-        if (n.nodeType !== 1) continue;
-        if (n.tagName === 'PRE' || n.querySelector?.('pre')) sawPre = true;
-      }
-      if (sawPre) repositionCopyButtons();
-
-      if (!document.getElementById(GEAR_ID)) createGear();
+    new MutationObserver(() => {
+      scheduleReposition();
+      scheduleShowCode();
+      createToggles();
     }).observe(document.documentElement, { childList: true, subtree: true });
 
     setInterval(() => {
       repositionCopyButtons();
-      if (!document.getElementById(GEAR_ID)) createGear();
+      createToggles();
+      ensureShowCodeButton();
     }, 3000);
   };
 
