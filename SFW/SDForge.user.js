@@ -5,7 +5,7 @@
 // @grant         none
 // @downloadURL   https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/SDForge.user.js
 // @updateURL     https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/SDForge.user.js
-// @version       2.5
+// @version       2.6
 // @description   Has many small patches for QoL while using Forge Neo.
 // @run-at        document-start
 // @author        masterofobzene
@@ -18,7 +18,18 @@
 
     /* ---------- Persistent settings ---------- */
     const SETTINGS_KEY = 'sdforge_qa_settings';
-    const defaults = { showSeed: true, showRandom: true, showReuse: true, showSave: true, showHires: true, ctrlScrollZoom: true };
+    const defaults = {
+        showSeed: true,
+        showRandom: true,
+        showReuse: true,
+        showSave: true,
+        showHires: true,
+        ctrlScrollZoom: true,
+        showViewerSaveBtns: true,
+        enableViewerShortcuts: true,
+        enableViewerCloseKey: true,
+        showViewerLegend: true
+    };
     let settings = Object.assign({}, defaults);
     try { Object.assign(settings, JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}')); } catch (e) {}
     const saveSettings = () => { try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings)); } catch (e) {} };
@@ -43,7 +54,246 @@
         if (!t.closest(CANVAS_SELECTOR)) return;
         e.stopPropagation();
     }, true);
-    /* -------------------------------------------------------------- */
+
+    /* ---------- Image viewer: extra save buttons + A/D/S/Q shortcuts + legend ---------- */
+    const $ = (sel) => document.querySelector(sel);
+    const BTN_SIZE = 44;
+    const BTN_GAP  = 10;
+    const POLL_MS  = 150;
+    const NAV_LOCK_MS  = 120;  // throttle prev/next to avoid spamming Gradio
+    const SAVE_LOCK_MS = 250;  // throttle save
+
+    const getPrev = () =>
+        $('.modalPrev') || $('#modal_prev') ||
+        $('[title="Previous Image"]') || $('[title="Previous image"]');
+    const getNext = () =>
+        $('.modalNext') || $('#modal_next') ||
+        $('[title="Next Image"]') || $('[title="Next image"]');
+    const getOrigSave = () =>
+        document.getElementById('modal_save') || $('.modalSave');
+    const getClose = () =>
+        $('.modalClose') || $('#modal_close') ||
+        $('[title="Close"]') || $('[title="close"]') ||
+        $('.modalControls [aria-label="Close"]');
+    const modalIsOpen = () => {
+        const p = getPrev();
+        return !!p && p.getClientRects().length > 0;
+    };
+
+    // element.click() fires exactly one 'click' event, identical to a real
+    // mouse click reaching the handler. Dispatching mousedown+mouseup+click
+    // made Forge's viewer fire its navigation endpoint twice per press
+    // (it listens on both mousedown and click).
+    function clickOnce(el) {
+        if (!el) return;
+        el.click();
+    }
+
+    let navLocked  = false;
+    let saveLocked = false;
+    let closeLocked = false;
+    function navPrev() {
+        if (navLocked) return;
+        navLocked = true;
+        clickOnce(getPrev());
+        setTimeout(() => { navLocked = false; }, NAV_LOCK_MS);
+    }
+    function navNext() {
+        if (navLocked) return;
+        navLocked = true;
+        clickOnce(getNext());
+        setTimeout(() => { navLocked = false; }, NAV_LOCK_MS);
+    }
+    function navSave() {
+        if (saveLocked) return;
+        saveLocked = true;
+        clickOnce(getOrigSave());
+        setTimeout(() => { saveLocked = false; }, SAVE_LOCK_MS);
+    }
+    function navClose() {
+        if (closeLocked) return;
+        closeLocked = true;
+        clickOnce(getClose());
+        setTimeout(() => { closeLocked = false; }, NAV_LOCK_MS);
+    }
+
+    function makeSaveButton(id) {
+        const btn = document.createElement('span');
+        btn.id = id;
+        btn.title = 'Save Image(s)';
+        btn.textContent = '🖫';
+        btn.style.cssText = [
+            'position: fixed',
+            'z-index: 10001',
+            'display: none',
+            `width: ${BTN_SIZE}px`,
+            `height: ${BTN_SIZE}px`,
+            `line-height: ${BTN_SIZE}px`,
+            'text-align: center',
+            'font-size: 26px',
+            'color: #fff',
+            'background: rgba(0,0,0,0.45)',
+            'border: 1px solid rgba(255,255,255,0.35)',
+            'border-radius: 8px',
+            'box-shadow: 0 2px 8px rgba(0,0,0,0.4)',
+            'cursor: pointer',
+            'user-select: none',
+            'transition: background 0.15s',
+        ].join(';') + ';';
+        btn.addEventListener('mouseenter', () => { btn.style.background = 'rgba(0,0,0,0.75)'; });
+        btn.addEventListener('mouseleave', () => { btn.style.background = 'rgba(0,0,0,0.45)'; });
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            navSave();
+        });
+        return btn;
+    }
+
+    const saveLeft  = makeSaveButton('modal_save_extra_left');
+    const saveRight = makeSaveButton('modal_save_extra_right');
+
+    // Small non-interactive shortcut legend, floats over the viewer.
+    const legend = document.createElement('div');
+    legend.id = 'modal_shortcut_legend';
+    legend.style.cssText = [
+        'position: fixed',
+        'z-index: 10001',
+        'display: none',
+        'top: 8px',
+        'left: 50%',
+        'transform: translateX(-50%)',
+        'padding: 4px 12px',
+        'background: rgba(0,0,0,0.55)',
+        'color: #eee',
+        'font: 12px/1.4 monospace',
+        'border: 1px solid rgba(255,255,255,0.25)',
+        'border-radius: 6px',
+        'user-select: none',
+        'pointer-events: none',
+        'white-space: nowrap',
+    ].join(';') + ';';
+
+    function legendText() {
+        const parts = [];
+        if (settings.enableViewerShortcuts) {
+            parts.push('A prev', 'D next', 'S save');
+        }
+        if (settings.enableViewerCloseKey) {
+            parts.push('Q close');
+        }
+        return parts.join('  \u00b7  ');
+    }
+
+    let lastViewerState = '';
+
+    function updateViewerButtons() {
+        if (!document.body) return;
+        if (!document.body.contains(saveLeft))  document.body.appendChild(saveLeft);
+        if (!document.body.contains(saveRight)) document.body.appendChild(saveRight);
+        if (!document.body.contains(legend))    document.body.appendChild(legend);
+
+        // Legend visibility (independent of the save button setting).
+        if (settings.showViewerLegend && modalIsOpen() && legendText().length) {
+            legend.textContent = legendText();
+            legend.style.display = 'block';
+        } else if (legend.style.display !== 'none') {
+            legend.style.display = 'none';
+        }
+
+        if (!settings.showViewerSaveBtns) {
+            if (lastViewerState !== 'hidden') {
+                saveLeft.style.display  = 'none';
+                saveRight.style.display = 'none';
+                lastViewerState = 'hidden';
+            }
+            return;
+        }
+
+        const prev = getPrev();
+        const next = getNext();
+
+        if (!prev || !next || !modalIsOpen()) {
+            if (lastViewerState !== 'hidden') {
+                saveLeft.style.display  = 'none';
+                saveRight.style.display = 'none';
+                lastViewerState = 'hidden';
+            }
+            return;
+        }
+
+        const p = prev.getBoundingClientRect();
+        const n = next.getBoundingClientRect();
+
+        const state = [
+            Math.round(p.left), Math.round(p.top), Math.round(p.width), Math.round(p.height),
+            Math.round(n.left), Math.round(n.top), Math.round(n.width), Math.round(n.height),
+            window.innerWidth, window.innerHeight,
+        ].join('|');
+
+        if (state === lastViewerState) return;
+        lastViewerState = state;
+
+        saveLeft.style.display  = 'block';
+        saveRight.style.display = 'block';
+
+        const leftX  = p.left + p.width  / 2 - BTN_SIZE / 2;
+        const rightX = n.left + n.width  / 2 - BTN_SIZE / 2;
+        const topY   = Math.max(6, Math.min(p.top, n.top) - BTN_SIZE - BTN_GAP);
+
+        saveLeft.style.left  = Math.max(6, leftX) + 'px';
+        saveLeft.style.top   = topY + 'px';
+        saveRight.style.left = Math.min(window.innerWidth - BTN_SIZE - 6, rightX) + 'px';
+        saveRight.style.top  = topY + 'px';
+    }
+
+    setInterval(updateViewerButtons, POLL_MS);
+    window.addEventListener('resize', () => { lastViewerState = ''; updateViewerButtons(); });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey || e.metaKey || e.altKey) return;
+        if (!modalIsOpen()) return;
+        // Ignore held-key auto-repeat so the endpoint isn't hammered at the
+        // OS key-repeat rate.
+        if (e.repeat) return;
+
+        const t = e.target;
+        if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) {
+            const p = getPrev();
+            const modal = p && p.parentElement;
+            if (!modal || !modal.contains(t)) return;
+        }
+
+        const k = (e.key || '').toLowerCase();
+
+        // Navigation / save shortcuts (A / D / S)
+        if (settings.enableViewerShortcuts) {
+            if (k === 'a') {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                navPrev();
+                return;
+            } else if (k === 'd') {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                navNext();
+                return;
+            } else if (k === 's') {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                navSave();
+                return;
+            }
+        }
+
+        // Close shortcut (Q)
+        if (settings.enableViewerCloseKey && k === 'q') {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            navClose();
+        }
+    }, true);
+    /* ---------------------------------------------------------------- */
 
     function boot() {
         const app = document.querySelector('gradio-app');
@@ -85,12 +335,16 @@
         menu.style.cssText = POPUP_STYLE;
 
         const items = [
-            ['showSeed',       'Show seed box'],
-            ['showRandom',     'Show Random'],
-            ['showReuse',      'Show Reuse'],
-            ['showSave',       'Show Save'],
-            ['showHires',      'Show Hires toggle'],
-            ['ctrlScrollZoom', 'Ctrl+Scroll to zoom canvas'],
+            ['showSeed',              'Show seed box'],
+            ['showRandom',            'Show Random'],
+            ['showReuse',             'Show Reuse'],
+            ['showSave',              'Show Save'],
+            ['showHires',             'Show Hires toggle'],
+            ['ctrlScrollZoom',        'Ctrl+Scroll to zoom canvas'],
+            ['showViewerSaveBtns',    'Viewer: extra save buttons'],
+            ['enableViewerShortcuts', 'Viewer: A / D / S shortcuts'],
+            ['enableViewerCloseKey',  'Viewer: Q closes viewer'],
+            ['showViewerLegend',      'Viewer: show shortcut legend'],
         ];
 
         items.forEach(([key, label]) => {
@@ -103,6 +357,7 @@
                 settings[key] = cb.checked;
                 saveSettings();
                 applyVisibility();
+                updateViewerButtons();
             });
             row.appendChild(cb);
             row.appendChild(document.createTextNode(label));
@@ -133,28 +388,35 @@
     }
 
     function buildOptionsButton(anchor, refBtn) {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = (refBtn ? refBtn.className : '') + ' sdforge_options_btn';
+        // <span role="button"> (not <button>) + no copied Gradio class, so
+        // Gradio's queue dispatcher ignores it. Capture-phase stopImmediate-
+        // Propagation ensures Gradio never sees the click at all.
+        const btn = document.createElement('span');
+        btn.setAttribute('role', 'button');
+        btn.tabIndex = 0;
+        btn.className = 'sdforge_options_btn';
         btn.textContent = 'Options \u2699';
         btn.title = 'Options';
-        // Auto width: no fixed width, no flex-grow, shrink allowed only down to content.
         btn.style.cssText = `
-            width: auto !important;
-            min-width: 0 !important;
-            max-width: none !important;
-            flex: 0 0 auto !important;
-            padding: 4px 10px !important;
-            font-size: 13px !important;
-            line-height: 1.3 !important;
-            white-space: nowrap !important;
-            cursor: pointer;
+            display:inline-flex; align-items:center; justify-content:center;
+            width:auto; min-width:0; flex:0 0 auto;
+            padding:6px 12px; font-size:13px; line-height:1.3;
+            white-space:nowrap; cursor:pointer; user-select:none;
+            background:#ddd; color:#111; border:1px solid #999; border-radius:4px;
         `;
-        btn.addEventListener('click', (e) => {
+
+        const handler = (e) => {
             e.stopPropagation();
+            e.stopImmediatePropagation();
             e.preventDefault();
             toggleMenu(btn);
-        });
+        };
+        btn.addEventListener('mousedown', (e) => { e.stopPropagation(); }, true);
+        btn.addEventListener('click', handler, true);
+        btn.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handler(e); }
+        }, true);
+
         anchor.appendChild(btn);
         return btn;
     }
