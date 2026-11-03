@@ -16,6 +16,10 @@ minute before continuing.
 
 1.8: New option added: "hide "Simulator" titles". This new option will hide all games that have the "simulator" word in their title. We all know those games are slop, here is the tool to get rid of them without filtering the simulation tag.
 
+2.0: New configurable delay added with a new slider, so steam doesn't throttle us too much. Seems slower, but in the end its
+    ways faster than having to wait 1 minute of ban repeatedly. Now it feels more "friendly" instead of getting insta-temporal-       bans when scrolling. I don't advice going below 2 seconds of delay.
+
+
 BEFORE: <img width="200" alt="UwGYTDuLDk" src="https://github.com/user-attachments/assets/19932950-94f4-46e0-b32d-258cb17d2e2a" /> AFTER: <img width="200" alt="nqi1lBR8tJ" src="https://github.com/user-attachments/assets/108c6e45-315a-412d-a9af-edea5e754462" />
 <br>
 <br>
