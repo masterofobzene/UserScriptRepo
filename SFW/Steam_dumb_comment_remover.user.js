@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Steam Dumb Comment Remover
 // @namespace    steam-comment-remover
-// @version      1.2
+// @version      1.3
 // @author       masterofobzene
 // @description  Removes comments that have the strings that the user inputs and optionally replaces them with a generic commment.
 // @match        https://store.steampowered.com/app/*
@@ -24,24 +24,18 @@ const MESSAGE_KEY = "steam_filter_message";
 const FUNNY_TEXT_REPLACEMENT = "developer's trolls are attacking this comment";
 const FUNNY_REGEX = /^\s*(\d+)\s+(?:people|persons?)\s+found\s+this\s+review\s+funny\s*$/i;
 
-const COMMENT_SEL = "._7-m3PA_FStk99zsZUPYX-";
-const COMMENT_TEXT_SEL = "._1zbKizfCRpoX2D_zOLQes0";
-const FUNNY_SEL = "div._37ICOYBDy-RisYkzNGWFDX";
-
-function getPhrases(){
-    const p = GM_getValue(PHRASE_KEY, []);
-    return Array.isArray(p) ? p : [];
-}
+function getPhrases(){ const p = GM_getValue(PHRASE_KEY, []); return Array.isArray(p) ? p : []; }
 function savePhrases(p){ GM_setValue(PHRASE_KEY, p); }
 function getMessage(){ return GM_getValue(MESSAGE_KEY, "Filtered comment"); }
 function saveMessage(m){ GM_setValue(MESSAGE_KEY, m); }
 
-function parseInput(input){
-    return [...input.matchAll(/"([^"]+)"/g)].map(m => m[1].toLowerCase());
-}
-function matchesPhrase(text, phrases){
-    const lower = text.toLowerCase();
-    return phrases.some(p => lower.includes(p));
+function parseInput(input){ return [...input.matchAll(/"([^"]+)"/g)].map(m => m[1].toLowerCase()); }
+function matchesPhrase(text, phrases){ const lower = text.toLowerCase(); return phrases.some(p => lower.includes(p)); }
+
+function getDirectText(el){
+    let s = "";
+    for(const n of el.childNodes){ if(n.nodeType === 3) s += n.nodeValue; }
+    return s;
 }
 
 function replaceFunny(node){
@@ -51,16 +45,10 @@ function replaceFunny(node){
     if(trimmed.endsWith(FUNNY_TEXT_REPLACEMENT)) return;
     if(trimmed.length > 120) return;
     const m = trimmed.match(FUNNY_REGEX);
-    if(m){
-        node.textContent = m[1] + " " + FUNNY_TEXT_REPLACEMENT;
-    }
+    if(m) node.textContent = m[1] + " " + FUNNY_TEXT_REPLACEMENT;
 }
 
 function processFunnyCounters(){
-    document.querySelectorAll(FUNNY_SEL).forEach(node => {
-        try { replaceFunny(node); } catch(e){}
-    });
-
     try {
         const xp = "//*[contains(text(), 'found this review funny')]";
         const res = document.evaluate(xp, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
@@ -70,30 +58,33 @@ function processFunnyCounters(){
     } catch(e){}
 }
 
-function processComment(comment){
-    try {
-        const textNode = comment.querySelector(COMMENT_TEXT_SEL);
-        if(!textNode) return;
-
-        const text = (textNode.textContent || "").trim();
-        if(!text) return;
-
-        const replacement = getMessage();
-        if(text === replacement) return;
-        if(comment.dataset.lastText === text) return;
-
-        const phrases = getPhrases();
-        if(phrases.length && matchesPhrase(text, phrases)){
-            textNode.textContent = replacement;
-            textNode.style.fontStyle = "italic";
-            textNode.style.opacity = "0.8";
-        }
-        comment.dataset.lastText = text;
-    } catch(e){}
+function applyToDiv(el, repl){
+    if(el.dataset.sfApplied === "1") return;
+    el.dataset.sfOrig = el.innerHTML;
+    el.dataset.sfApplied = "1";
+    el.textContent = repl;
+    el.style.fontStyle = "italic";
+    el.style.opacity = "0.8";
 }
 
 function filterComments(){
-    try { document.querySelectorAll(COMMENT_SEL).forEach(processComment); } catch(e){}
+    const phrases = getPhrases();
+    if(phrases.length){
+        const repl = getMessage();
+        const matchesArr = [];
+        document.querySelectorAll("div").forEach(el => {
+            if(el.dataset.sfApplied === "1") return;
+            if(el.id === "steamFilterPanel" || el.closest("#steamFilterPanel")) return;
+            if(el.closest("header, nav")) return;
+            const t = getDirectText(el);
+            if(!t || t.length > 20000) return;
+            if(matchesPhrase(t, phrases)) matchesArr.push(el);
+        });
+        matchesArr.forEach(el => {
+            if(matchesArr.some(other => other !== el && el.contains(other))) return;
+            applyToDiv(el, repl);
+        });
+    }
     try { processFunnyCounters(); } catch(e){}
 }
 
@@ -121,12 +112,12 @@ function editMessage(){
 }
 
 function resetFiltering(){
-    document.querySelectorAll(COMMENT_SEL).forEach(c => {
-        try {
-            delete c.dataset.lastText;
-            const t = c.querySelector(COMMENT_TEXT_SEL);
-            if(t) t.style.opacity = "";
-        } catch(e){}
+    document.querySelectorAll("div[data-sf-applied]").forEach(el => {
+        if(el.dataset.sfOrig !== undefined) el.innerHTML = el.dataset.sfOrig;
+        delete el.dataset.sfApplied;
+        delete el.dataset.sfOrig;
+        el.style.fontStyle = "";
+        el.style.opacity = "";
     });
     filterComments();
 }
@@ -154,22 +145,13 @@ function observe(){
         if(timer) clearTimeout(timer);
         timer = setTimeout(() => { timer = null; filterComments(); }, 120);
     };
-
-    new MutationObserver(schedule).observe(document, {
-        childList: true, subtree: true, characterData: true
-    });
-
+    new MutationObserver(schedule).observe(document, { childList: true, subtree: true, characterData: true });
     document.addEventListener("click", schedule, true);
     window.addEventListener("scroll", schedule, true);
-
     setInterval(filterComments, 800);
 }
 
-function init(){
-    addUI();
-    filterComments();
-    observe();
-}
+function init(){ addUI(); filterComments(); observe(); }
 
 init();
 
