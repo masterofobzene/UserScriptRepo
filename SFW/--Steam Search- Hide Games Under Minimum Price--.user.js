@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ::Steam Search: Hide Games Under Minimum Price::
 // @namespace    masterofobzene-Hide Games Under Minimum Price
-// @version      2.0
+// @version      2.1
 // @description  Hides games by minimum price set by the user, also can hide no-reviews or mixed/negative reviewed games on Steam search.
 // @author       masterofobzene
 // @homepage     https://github.com/masterofobzene/UserScriptRepo
@@ -192,6 +192,12 @@ function updateFilterCountsUI() {
     set('mixedNegativeCount', filterCounts.mixedNegative);
     set('noRatingCount',      filterCounts.noRating);
     set('simulatorCount',     filterCounts.simulator);
+
+    const total = filterCounts.price + filterCounts.mixedNegative
+                + filterCounts.noRating + filterCounts.simulator;
+
+    const hiddenEl = document.getElementById('sfFilteredCount');
+    if (hiddenEl) hiddenEl.textContent = `${total} hidden`;
 }
 
 function filterRow(row) {
@@ -357,7 +363,9 @@ function addLoadingNote() {
 
     const note = document.createElement('div');
     note.id = 'sfLoadingNote';
-    note.textContent = 'Slow? we are filtering thousands of crappy games in real time, that\u2019s why. \uD83D\uDE04\uD83E\uDDF9';
+    note.innerHTML =
+        'Slow? we are filtering thousands of crappy games in real time, that\u2019s why. \uD83D\uDE04\uD83E\uDDF9 ' +
+        '<span id="sfFilteredCount" style="color:#66c0f4;font-weight:bold;">0 hidden</span>';
     note.style.cssText = 'margin-top:6px;font-size:12px;color:#c6d4df;text-align:center;';
     loading.appendChild(note);
 }
@@ -379,4 +387,3 @@ function waitForSidebarAndInit() {
 waitForSidebarAndInit();
 
 })();
-
