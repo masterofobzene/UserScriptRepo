@@ -28,6 +28,11 @@ BEFORE: <img width="200" alt="UwGYTDuLDk" src="https://github.com/user-attachmen
 
 2.0: New configurable delay added with a new slider, so steam doesn't throttle us too much. Seems slower, but in the end its
     ways faster than having to wait 1 minute of ban repeatedly. Now it feels more "friendly" instead of getting insta-temporal-       bans when scrolling. I don't advice going below 2 seconds of delay.
+<br>
+<br>
+<br>
+
+2.1: Added a counter on the loading message so you can see how much trash you are filtering in the Steam-sewers.
 
 <br>
 <br>
