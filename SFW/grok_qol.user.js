@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Grok QoL
 // @namespace    Grok_QOL
-// @version      1.7
+// @version      1.8
 // @description  Move code copy button to end of block; use standard scrollbars on grok.com
 // @author       masterofobzene
 // @match        https://grok.com/*
@@ -17,44 +17,92 @@
   'use strict';
 
   GM_addStyle(`
-    *,*::before,*::after{scrollbar-width:auto!important;scrollbar-color:auto!important}
-    *::-webkit-scrollbar{width:12px!important;height:12px!important}
-    *::-webkit-scrollbar-track{background:transparent!important}
-    *::-webkit-scrollbar-thumb{background-color:rgba(128,128,128,.5)!important;border-radius:6px!important;border:2px solid transparent!important;background-clip:content-box!important}
-    *::-webkit-scrollbar-thumb:hover{background-color:rgba(128,128,128,.8)!important}
-
-    .chat-code-block .gm-top-header{display:none!important}
-
-    .gm-bottom-bar{
-      display:flex;
-      align-items:center;
-      justify-content:flex-end;
-      height:2.5rem;
-      padding:0 12px;
-      border-top:1px solid var(--border-l1, rgba(128,128,128,.25));
-      border-radius:0 0 12px 12px;
-      background:inherit;
-      font-size:13px;
+    /* Force classic non-rounded system scrollbars */
+    html, body, * {
+      scrollbar-width: auto !important;
+      scrollbar-color: #888 #e0e0e0 !important;
     }
-    .gm-bottom-bar button{
-      display:inline-flex;
-      align-items:center;
-      gap:4px;
-      padding:4px 10px;
-      border-radius:6px;
-      border:none;
-      background:transparent;
-      cursor:pointer;
-      color:inherit;
-      opacity:.7;
-    }
-    .gm-bottom-bar button:hover{opacity:1;background:rgba(128,128,128,.15)}
 
-    .chat-code-block .shiki{border-radius:12px 12px 0 0!important}
-    .chat-code-block pre,.chat-code-block code{
-      user-select:text!important;
-      -webkit-user-select:text!important;
-      cursor:text!important;
+    *::-webkit-scrollbar {
+      width: 16px !important;
+      height: 16px !important;
+      background: #e0e0e0 !important;
+    }
+    *::-webkit-scrollbar-track {
+      background: #e0e0e0 !important;
+      border-radius: 0 !important;
+    }
+    *::-webkit-scrollbar-thumb {
+      background: #888 !important;
+      border-radius: 0 !important;          /* ← no rounded */
+      border: 2px solid #e0e0e0 !important;
+      background-clip: padding-box !important;
+    }
+    *::-webkit-scrollbar-thumb:hover {
+      background: #666 !important;
+    }
+    *::-webkit-scrollbar-corner {
+      background: #e0e0e0 !important;
+    }
+
+    /* Completely hide Grok's custom / modern / rounded scrollbar elements */
+    [data-radix-scroll-area-scrollbar],
+    [data-radix-scroll-area-thumb],
+    [class*="ScrollBar"],
+    [class*="scroll-bar"],
+    [class*="scrollbar-thumb"],
+    [class*="scrollbar-track"],
+    [class*="scroll-feather"],
+    .scrollbar-gutter-stable::-webkit-scrollbar-thumb,
+    div[style*="border-radius"][style*="overflow"] {
+      display: none !important;
+      opacity: 0 !important;
+      width: 0 !important;
+      height: 0 !important;
+      pointer-events: none !important;
+      border-radius: 0 !important;
+    }
+
+    /* hide native top copy buttons */
+    button:has(use[href*="-copy"]) {
+      display: none !important;
+    }
+
+    .gm-bottom-bar {
+      display: flex !important;
+      align-items: center;
+      justify-content: flex-end;
+      height: 2.5rem;
+      padding: 0 12px;
+      border-top: 1px solid var(--border-l1, rgba(128,128,128,.25));
+      border-radius: 0 0 12px 12px;
+      background: inherit;
+      font-size: 13px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .gm-bottom-bar button {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      color: inherit;
+      opacity: .7;
+    }
+    .gm-bottom-bar button:hover {
+      opacity: 1;
+      background: rgba(128,128,128,.15);
+    }
+
+    pre.shiki { border-radius: 0 !important; }
+    pre.shiki, pre.shiki code {
+      user-select: text !important;
+      -webkit-user-select: text !important;
+      cursor: text !important;
     }
   `);
 
@@ -66,43 +114,47 @@
     return t;
   }
 
-  function addBottomBar(block) {
-    if (block.querySelector('.gm-bottom-bar')) return;
-
-    const border = block.querySelector('.border');
-    if (!border) return;
-
-    const header = border.querySelector('.flex.flex-row');
-    const pre = border.querySelector('pre');
-    if (!header || !pre) return;
-
-    header.classList.add('gm-top-header');
+  function addBottomBar(pre) {
+    let container = pre.parentElement;
+    while (container && container !== document.body) {
+      if (container.querySelector('button:has(use[href*="-copy"])') ||
+          container.querySelector('div.flex.flex-row, div[class*="rounded-t"]')) {
+        break;
+      }
+      container = container.parentElement;
+    }
+    if (!container || container.querySelector('.gm-bottom-bar')) return;
 
     const bar = document.createElement('div');
     bar.className = 'gm-bottom-bar';
 
     const btn = document.createElement('button');
     btn.textContent = 'Copy';
-    btn.addEventListener('click', () => {
-      const text = getFullCode(pre);
-      navigator.clipboard.writeText(text).then(() => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      navigator.clipboard.writeText(getFullCode(pre)).then(() => {
         btn.textContent = 'Copied';
         setTimeout(() => btn.textContent = 'Copy', 1000);
       });
     });
 
     bar.appendChild(btn);
-    border.appendChild(bar);
+    container.appendChild(bar);
   }
 
   function scan() {
-    document.querySelectorAll('.chat-code-block').forEach(addBottomBar);
+    document.querySelectorAll('pre.shiki, pre').forEach(pre => {
+      const hasCopyNearby = pre.closest('div')?.querySelector('button:has(use[href*="-copy"]), use[href*="-copy"]');
+      if (hasCopyNearby || pre.classList.contains('shiki')) {
+        addBottomBar(pre);
+      }
+    });
   }
 
   let t = null;
   const obs = new MutationObserver(() => {
     clearTimeout(t);
-    t = setTimeout(scan, 250);
+    t = setTimeout(scan, 150);
   });
 
   scan();
