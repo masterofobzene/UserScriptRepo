@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         DeepSeek QoL
 // @namespace    DeepSeek_qol
-// @version      1.3
+// @version      1.4
 // @author       masterofobzene
-// @description  Selection fix + no-wrap code + auto-collapse thinking + prompt suffixes + copy button at bottom-right of code blocks + "Show full code" quick-send button
+// @description  Selection fix + no-wrap code + auto-collapse thinking + prompt suffixes (incl. copy-paste instructions w/ references) + copy button at bottom-right of code blocks + "Show full code" quick-send button
 // @match        https://chat.deepseek.com/*
 // @run-at       document-start
 // @grant        GM_getValue
@@ -230,8 +230,10 @@
 
   /* ============ 3. PROMPT SUFFIXES ============ */
   const SUFFIXES = [
-    { key: 'beConciseEnabled',       suffix: ' be concise',        label: 'Be Concise' },
-    { key: 'answerInEnglishEnabled', suffix: ' never use chinese', label: 'Never use chinese' },
+    { key: 'copyPasteInstructionsEnabled', suffix: ' give easy copy paste instructions with references', label: 'Give easy copy-paste instructions with references' },
+    { key: 'beConciseEnabled',       suffix: ' be concise',                label: 'Be Concise' },
+    { key: 'answerInEnglishEnabled', suffix: ' never use chinese',         label: 'Never use chinese' },
+    { key: 'noCommentsEnabled',      suffix: ' do not add comments to code', label: 'Do not add comments to code' },
   ];
   for (const s of SUFFIXES) s.enabled = GM_getValue(s.key, true);
 
@@ -305,7 +307,7 @@
       borderRadius: '8px', padding: '6px', display: 'none',
       boxShadow: '0 2px 10px rgba(0,0,0,0.15)',
       fontFamily: 'system-ui, sans-serif', fontSize: '13px', color: '#000',
-      minWidth: '180px',
+      minWidth: '260px', lineHeight: '1.35',
     });
 
     const items = [];
@@ -317,13 +319,13 @@
       const item = document.createElement('div');
       Object.assign(item.style, {
         padding: '6px 10px', borderRadius: '6px', cursor: 'pointer',
-        display: 'flex', alignItems: 'center', gap: '8px', userSelect: 'none',
+        display: 'flex', alignItems: 'flex-start', gap: '8px', userSelect: 'none',
       });
       const check = document.createElement('span');
       check.textContent = s.enabled ? '✓' : ' ';
       Object.assign(check.style, {
         display: 'inline-block', width: '14px', textAlign: 'center',
-        fontWeight: 'bold',
+        fontWeight: 'bold', flex: '0 0 auto',
       });
       const label = document.createElement('span');
       label.textContent = s.label;
