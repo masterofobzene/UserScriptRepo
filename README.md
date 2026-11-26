@@ -169,7 +169,7 @@ above if you see prices in other currency.
 -----------
 
 
-[Qwen QoL](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/Qwen_qol.user.js) Almost the same than deepseek QoL above. Fixes manual selection inside code blocks.
+[Qwen QoL](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/Qwen_qol.user.js) Almost the same than deepseek QoL above. Fixes manual selection inside code blocks. What it cannot fix, is Qwen being actually more stupid than Deepseek.
 
 <img width="400" alt="A0X3rRY6ph" src="https://github.com/user-attachments/assets/cb39e9be-7ba0-499e-9951-b595dd2aa928" />
 
