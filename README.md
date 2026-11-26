@@ -147,7 +147,7 @@ above if you see prices in other currency.
 [DeepSeek QoL](https://github.com/masterofobzene/UserScriptRepo/raw/refs/heads/main/SFW/DeepSeek_qol.user.js) Merged the DeepSeek scripts into one. Also added new features. We could start calling it "deadseek" since it is now limiting in harsh ways the users.
 
 
-<img width="500" alt="deadseek" src="https://github.com/user-attachments/assets/408ec568-bf21-4475-96ac-540a8fd29556" />
+<img width="400" alt="deadseek" src="https://github.com/user-attachments/assets/408ec568-bf21-4475-96ac-540a8fd29556" />
 
 
 
