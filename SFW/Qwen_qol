@@ -1,0 +1,484 @@
+
+// ==UserScript==
+// @name         Qwen Chat QoL
+// @namespace    Qwen_qol
+// @version      1.1
+// @author       masterofobzene
+// @description  Native code selection + no-wrap code + prompt suffixes + Show Full Code button
+// @match        https://chat.qwen.ai/*
+// @run-at       document-start
+// @grant        GM_getValue
+// @grant        GM_setValue
+// @license      GNU GPLv3
+// @icon         https://qwen.ai/favicon.ico
+// @homepage     https://github.com/masterofobzene/UserScriptRepo
+// @downloadURL  https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/Qwen_qol.user.js
+// @updateURL    https://github.com/masterofobzene/UserScriptRepo/raw/main/SFW/Qwen_qol.user.js
+// ==/UserScript==
+
+(() => {
+  'use strict';
+
+  /* ============ 1. CODE SELECTION + CSS ============ */
+
+  const CSS = `
+    pre,
+    pre *,
+    code,
+    code * {
+      -webkit-user-select: text !important;
+      user-select: text !important;
+      -webkit-user-drag: none !important;
+    }
+
+    pre,
+    pre code,
+    .md-code-block pre,
+    .md-code-block code,
+    [class*="code-block" i] pre,
+    [class*="codeblock" i] pre {
+      white-space: pre !important;
+      word-break: normal !important;
+      overflow-wrap: normal !important;
+      tab-size: 4 !important;
+    }
+
+    pre {
+      overflow-x: auto !important;
+      cursor: text !important;
+    }
+
+    code:not(pre code):not(.md-code-block code) {
+      white-space: pre-wrap !important;
+      word-break: normal !important;
+      overflow-wrap: anywhere !important;
+    }
+
+    pre span,
+    pre a,
+    pre b,
+    pre i,
+    pre em,
+    pre strong {
+      user-select: text !important;
+    }
+
+    /* Preserve copy button interaction */
+    pre button,
+    pre [role="button"],
+    pre [class*="copy" i],
+    pre [aria-label*="copy" i] {
+      pointer-events: auto !important;
+    }
+  `;
+
+  const injectCSS = (root) => {
+    if (!root || root.__qwenInjected) return;
+
+    const style = document.createElement('style');
+    style.textContent = CSS;
+
+    (root.head || root).appendChild(style);
+    root.__qwenInjected = true;
+  };
+
+  injectCSS(document);
+
+  const walkRoots = (node) => {
+    if (!node || node.nodeType !== 1) return;
+
+    if (node.shadowRoot) {
+      injectCSS(node.shadowRoot);
+      walkRoots(node.shadowRoot);
+    }
+
+    for (const child of node.children) {
+      walkRoots(child);
+    }
+  };
+
+  new MutationObserver((mutations) => {
+    for (const mutation of mutations) {
+      for (const node of mutation.addedNodes) {
+        if (node.nodeType === 1) walkRoots(node);
+      }
+    }
+  }).observe(document.documentElement, {
+    childList: true,
+    subtree: true
+  });
+
+  /* ============ 2. PROMPT SUFFIXES ============ */
+
+  const SUFFIXES = [
+    {
+      key: 'copyPasteInstructionsEnabled',
+      suffix: ' give easy copy paste instructions with references',
+      label: 'Give easy copy-paste instructions with references'
+    },
+    {
+      key: 'beConciseEnabled',
+      suffix: ' be concise',
+      label: 'Be Concise'
+    },
+    {
+      key: 'answerInEnglishEnabled',
+      suffix: ' never use chinese',
+      label: 'Never use chinese'
+    },
+    {
+      key: 'noCommentsEnabled',
+      suffix: ' do not add comments to code',
+      label: 'Do not add comments to code'
+    }
+  ];
+
+  SUFFIXES.forEach(s => {
+    s.enabled = GM_getValue(s.key, true);
+  });
+
+  const getInput = () =>
+    document.querySelector(
+      '.message-input-textarea'
+    ) ||
+    document.querySelector('textarea') ||
+    document.querySelector('[contenteditable="true"]');
+
+  const setInputText = (input, value) => {
+    if (input instanceof HTMLTextAreaElement) {
+      const setter = Object.getOwnPropertyDescriptor(
+        HTMLTextAreaElement.prototype,
+        'value'
+      )?.set;
+
+      if (setter) {
+        setter.call(input, value);
+      } else {
+        input.value = value;
+      }
+    } else {
+      input.textContent = value;
+    }
+
+    input.dispatchEvent(new InputEvent('input', {
+      bubbles: true,
+      cancelable: true,
+      inputType: 'insertText',
+      data: value
+    }));
+  };
+
+  let suppressSuffixes = false;
+
+  const appendSuffixes = () => {
+    if (suppressSuffixes) {
+      suppressSuffixes = false;
+      return;
+    }
+
+    const input = getInput();
+    if (!input) return;
+
+    let text = input instanceof HTMLTextAreaElement
+      ? input.value
+      : input.textContent || '';
+
+    if (!text.trim()) return;
+
+    let changed = false;
+
+    for (const suffix of SUFFIXES) {
+      if (!suffix.enabled) continue;
+
+      if (text.endsWith(suffix.suffix)) continue;
+
+      text += suffix.suffix;
+      changed = true;
+    }
+
+    if (changed) setInputText(input, text);
+  };
+
+  document.addEventListener('keydown', (event) => {
+    if (
+      event.key !== 'Enter' ||
+      event.shiftKey ||
+      event.ctrlKey ||
+      event.altKey ||
+      event.metaKey ||
+      event.isComposing
+    ) return;
+
+    appendSuffixes();
+  }, true);
+
+  /* ============ 3. GEAR MENU ============ */
+
+  const GEAR_ID = 'qwen-qol-gear';
+  const MENU_ID = 'qwen-qol-menu';
+
+  const buildGearMenu = () => {
+    if (!document.body) return;
+    if (document.getElementById(GEAR_ID)) return;
+
+    const gear = document.createElement('button');
+
+    gear.id = GEAR_ID;
+    gear.type = 'button';
+    gear.textContent = '⚙';
+    gear.title = 'Qwen Chat QoL options';
+
+    Object.assign(gear.style, {
+      position: 'fixed',
+      top: '10px',
+      right: '10px',
+      zIndex: '2147483647',
+      width: '32px',
+      height: '32px',
+      padding: '0',
+      borderRadius: '50%',
+      border: '1px solid #ccc',
+      background: 'rgba(255,255,255,0.95)',
+      color: '#000',
+      cursor: 'pointer',
+      fontSize: '18px',
+      boxShadow: '0 2px 10px rgba(0,0,0,0.15)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    });
+
+    const menu = document.createElement('div');
+    menu.id = MENU_ID;
+
+    Object.assign(menu.style, {
+      position: 'fixed',
+      top: '48px',
+      right: '10px',
+      zIndex: '2147483647',
+      background: 'rgba(255,255,255,0.98)',
+      border: '1px solid #ccc',
+      borderRadius: '8px',
+      padding: '6px',
+      display: 'none',
+      boxShadow: '0 2px 10px rgba(0,0,0,0.15)',
+      fontFamily: 'system-ui, sans-serif',
+      fontSize: '13px',
+      color: '#000',
+      minWidth: '260px'
+    });
+
+    const items = [];
+
+    const render = () => {
+      items.forEach(({ check, suffix }) => {
+        check.textContent = suffix.enabled ? '✓' : ' ';
+      });
+    };
+
+    SUFFIXES.forEach(suffix => {
+      const item = document.createElement('div');
+
+      Object.assign(item.style, {
+        padding: '6px 10px',
+        borderRadius: '6px',
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'flex-start',
+        gap: '8px',
+        userSelect: 'none'
+      });
+
+      const check = document.createElement('span');
+
+      Object.assign(check.style, {
+        width: '14px',
+        textAlign: 'center',
+        fontWeight: 'bold'
+      });
+
+      const label = document.createElement('span');
+      label.textContent = suffix.label;
+
+      item.append(check, label);
+
+      item.addEventListener('mouseenter', () => {
+        item.style.background = '#eef';
+      });
+
+      item.addEventListener('mouseleave', () => {
+        item.style.background = '';
+      });
+
+      item.addEventListener('click', (event) => {
+        event.stopPropagation();
+
+        suffix.enabled = !suffix.enabled;
+        GM_setValue(suffix.key, suffix.enabled);
+
+        render();
+      });
+
+      menu.appendChild(item);
+      items.push({ check, suffix });
+    });
+
+    let open = false;
+
+    gear.addEventListener('click', (event) => {
+      event.stopPropagation();
+
+      open = !open;
+      menu.style.display = open ? 'block' : 'none';
+      render();
+    });
+
+    document.addEventListener('mousedown', (event) => {
+      if (!open) return;
+
+      if (
+        gear.contains(event.target) ||
+        menu.contains(event.target)
+      ) return;
+
+      open = false;
+      menu.style.display = 'none';
+    }, true);
+
+    document.body.append(gear, menu);
+    render();
+  };
+
+  /* ============ 4. SHOW FULL CODE BUTTON ============ */
+
+  const SHOW_CODE_ID = 'qwen-qol-show-full-code';
+  const PHRASE = 'Show the full code with the fixes';
+
+  const createShowCodeButton = () => {
+    const button = document.createElement('button');
+
+    button.id = SHOW_CODE_ID;
+    button.type = 'button';
+    button.textContent = 'Show full code';
+    button.title = PHRASE;
+
+    Object.assign(button.style, {
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '6px 12px',
+      margin: '0 8px',
+      height: '32px',
+      borderRadius: '999px',
+      border: '1px solid currentColor',
+      background: 'transparent',
+      color: 'inherit',
+      font: 'inherit',
+      fontSize: '13px',
+      cursor: 'pointer',
+      whiteSpace: 'nowrap',
+      flexShrink: '0',
+      opacity: '0.85',
+      lineHeight: '1'
+    });
+
+    button.addEventListener('mouseenter', () => {
+      button.style.opacity = '1';
+      button.style.background = 'rgba(128,128,128,0.12)';
+    });
+
+    button.addEventListener('mouseleave', () => {
+      button.style.opacity = '0.85';
+      button.style.background = 'transparent';
+    });
+
+    button.addEventListener('click', () => {
+      sendFullCodeRequest();
+    });
+
+    return button;
+  };
+
+  const sendFullCodeRequest = () => {
+    const input = getInput();
+    if (!input) return;
+
+    suppressSuffixes = true;
+
+    setInputText(input, PHRASE);
+
+    // Use Qwen's actual Send button after React updates.
+    setTimeout(() => {
+      const sendButton = document.querySelector(
+        '.message-input-right-button-send button.send-button'
+      ) || document.querySelector(
+        'button[aria-label="Send"]'
+      );
+
+      if (!sendButton || sendButton.disabled) {
+        suppressSuffixes = false;
+        return;
+      }
+
+      sendButton.click();
+
+      setTimeout(() => {
+        suppressSuffixes = false;
+      }, 500);
+    }, 150);
+  };
+
+  /* ============ 5. BUTTON INJECTION ============ */
+
+  const ensureShowCodeButton = () => {
+    const area = document.querySelector(
+      '.message-input-container-area'
+    );
+
+    if (!area) return;
+
+    if (area.querySelector('#' + SHOW_CODE_ID)) return;
+
+    const modeSelect = area.querySelector(
+      '.mode-select'
+    );
+
+    if (!modeSelect) return;
+
+    const button = createShowCodeButton();
+
+    // Insert immediately after the mode selector.
+    modeSelect.insertAdjacentElement('afterend', button);
+  };
+
+  /* ============ 6. BOOT ============ */
+
+  const boot = () => {
+    buildGearMenu();
+    ensureShowCodeButton();
+
+    new MutationObserver(() => {
+      buildGearMenu();
+      ensureShowCodeButton();
+    }).observe(document.documentElement, {
+      childList: true,
+      subtree: true
+    });
+
+    setInterval(() => {
+      buildGearMenu();
+      ensureShowCodeButton();
+    }, 2000);
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener(
+      'DOMContentLoaded',
+      boot,
+      { once: true }
+    );
+  } else {
+    boot();
+  }
+
+})();
