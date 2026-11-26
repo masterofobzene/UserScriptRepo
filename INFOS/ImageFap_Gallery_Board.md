@@ -23,6 +23,8 @@ galleries after 10s and keep doing so until "live" again.
 
 1.6: Added a new button: hide temporarily. This new button hides the gallery when you press it but doesn't block the user that uploaded it nor does permanent changes. Useful when you find one of those _huge_ galleries that you are not interested in, but blocking the user is not necessary.
 
+1.7: New status messages to know what is happening and some fixes in the way the script loads the images.
+
 ### WHY?:
 ---------------
 With so many random content galleries, you don't know exactly whats inside by just looking at the first 4 preview
