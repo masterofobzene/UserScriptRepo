@@ -276,14 +276,21 @@ above if you see prices in other currency.
 Description: Select text -> right click -> "search this" -> searches those words with a custom engine of your choice. No submenus.
 (now using DDG as default since Startpage is unusable)
 
-
-<br>
-<br>
-<br>
-<br>
-
 --------------------------
 
+
+<img width="600" alt="DudiUPTCLc" src="https://github.com/user-attachments/assets/f8a384b9-c30d-4043-aa9f-405939bb37c8" />
+
+
+[FingerprintResist: Convert Time](https://addons.mozilla.org/en-US/firefox/addon/fingerprintresist-convert-time/)
+
+Description: If you use Librewolf or set "resistfingerprinting" in Firefox, your time is set to a neutral UTC time so websites cannot track from where are you by simply reading what timezone you have setup. This creates a problem: all times in your browser will be shown in that neutral UTC, so mails, limits in LLM chat pages and such, are always shown using this mocking timezone. This extension will let you configure your timezone inside it so no webpages can get access to it and display a hovering triggered pop up with the translated time for your chosen timezone. Now you can read a real time and not a mocking one while still using resistfingerprinting. NOTE: why making this an extension instead of a userscript? - because userscripts will still leak your timezone to the webpages since they can read the element you insert on them defeating the resistfingerprinting option purpose.
+
+--------------------------
+<br>
+<br>
+<br>
+<br>
 
 > [!TIP]
 > - <img width="100" height="30" alt="azRggiVKee" src="https://github.com/user-attachments/assets/667665b1-1c0d-47fe-837e-1d2035f9ed7f" /> – This button is **not** for installing anything.
