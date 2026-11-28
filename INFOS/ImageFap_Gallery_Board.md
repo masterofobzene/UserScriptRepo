@@ -25,6 +25,9 @@ galleries after 10s and keep doing so until "live" again.
 
 1.7: New status messages to know what is happening and some fixes in the way the script loads the images.
 
+1.8: Now displays the image/gif dimensions with color codes too (big green, yellow medium, red small)
+
+
 ### WHY?:
 ---------------
 With so many random content galleries, you don't know exactly whats inside by just looking at the first 4 preview
